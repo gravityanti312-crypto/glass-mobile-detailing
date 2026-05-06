@@ -214,20 +214,20 @@
       display: flex;
       align-items: center;
       overflow: hidden;
-      background: var(--dark);
+      background: #f0f9ff;
     }
     .hero-bg {
       position: absolute;
       inset: 0;
-      background-image: url('https://images.pexels.com/photos/3806249/pexels-photo-3806249.jpeg?auto=compress&cs=tinysrgb&w=1400');
+      background-image: url('https://images.pexels.com/photos/6873119/pexels-photo-6873119.jpeg?auto=compress&cs=tinysrgb&w=1400');
       background-size: cover;
       background-position: center;
-      opacity: 0.25;
+      opacity: 0.75;
     }
     .hero-overlay {
       position: absolute;
       inset: 0;
-      background: linear-gradient(135deg, rgba(9,9,11,0.92) 0%, rgba(9,9,11,0.6) 50%, rgba(9,9,11,0.8) 100%);
+      background: linear-gradient(to right, rgba(255,255,255,0.96) 0%, rgba(255,255,255,0.85) 45%, rgba(255,255,255,0.2) 100%);
     }
     .hero-content {
       position: relative;
@@ -253,14 +253,14 @@
       font-size: clamp(36px, 6vw, 72px);
       font-weight: 900;
       line-height: 1.05;
-      color: var(--white);
+      color: var(--dark);
       margin-bottom: 24px;
       letter-spacing: -0.02em;
     }
     .hero-h1 .accent { color: var(--teal); }
     .hero-sub {
       font-size: clamp(15px, 1.8vw, 18px);
-      color: var(--silver);
+      color: var(--text-muted);
       line-height: 1.75;
       margin-bottom: 40px;
       max-width: 560px;
@@ -275,7 +275,7 @@
     .hero-stat-num {
       font-size: 26px;
       font-weight: 800;
-      color: var(--white);
+      color: var(--dark);
       line-height: 1;
     }
     .hero-stat-label {
