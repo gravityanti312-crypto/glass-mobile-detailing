@@ -1182,6 +1182,69 @@
       .hero-buttons { flex-direction: column; }
       .hero-buttons .btn-ghost { width: fit-content; }
     }
+
+/* ── SERVICE MODAL ── */
+.svc-modal {
+  position: fixed; inset: 0; z-index: 9999;
+  background: #09090b; display: flex; flex-direction: column;
+  transform: translateX(100%); transition: transform 0.38s cubic-bezier(0.4,0,0.2,1);
+  visibility: hidden; overflow-y: auto;
+}
+.svc-modal.open { transform: translateX(0); visibility: visible; }
+.svc-close {
+  position: fixed; top: 1.1rem; right: 1.25rem; z-index: 10001;
+  background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.12);
+  color: #fff; width: 40px; height: 40px; border-radius: 50%;
+  font-size: 1.1rem; cursor: pointer; display: flex; align-items: center; justify-content: center;
+  transition: background 0.2s;
+}
+.svc-close:hover { background: rgba(255,255,255,0.15); }
+.svc-hero-wrap { position: relative; height: 480px; overflow: hidden; flex-shrink: 0; }
+.svc-hero-wrap img { width: 100%; height: 100%; object-fit: cover; opacity: 0.55; }
+.svc-hero-overlay {
+  position: absolute; inset: 0;
+  background: linear-gradient(to top, rgba(9,9,11,1) 0%, rgba(9,9,11,0.5) 60%, transparent 100%);
+}
+.svc-hero-content {
+  position: absolute; bottom: 0; left: 0; right: 0;
+  padding: 2.5rem; max-width: 900px; margin: 0 auto;
+}
+.svc-hero-tag {
+  display: inline-block; background: rgba(0,196,255,0.15); border: 1px solid rgba(0,196,255,0.3);
+  color: #00c4ff; font-size: 0.72rem; font-weight: 800; letter-spacing: 0.12em;
+  text-transform: uppercase; border-radius: 50px; padding: 0.3rem 0.9rem; margin-bottom: 0.75rem;
+}
+.svc-hero-content h1 { font-size: clamp(2rem, 5vw, 3rem); font-weight: 900; color: #fff; margin-bottom: 0.75rem; line-height: 1.1; }
+.svc-hero-content p { font-size: 1rem; color: rgba(255,255,255,0.7); max-width: 600px; line-height: 1.7; margin-bottom: 1.5rem; }
+.svc-cta {
+  display: inline-flex; align-items: center; gap: 8px;
+  background: linear-gradient(135deg, #009acc, #00c4ff);
+  color: #09090b; padding: 0.85rem 2rem; border-radius: 50px;
+  font-weight: 800; font-size: 0.9rem;
+  box-shadow: 0 4px 16px rgba(0,196,255,0.35);
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+.svc-cta:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(0,196,255,0.45); }
+.svc-body { max-width: 900px; margin: 0 auto; padding: 3rem 2rem 5rem; }
+.svc-section { margin-bottom: 3rem; }
+.svc-section h2 { font-size: 1.4rem; font-weight: 900; color: #fff; margin-bottom: 1.25rem; padding-bottom: 0.75rem; border-bottom: 1px solid rgba(255,255,255,0.07); }
+.svc-section p { color: #9ba3ae; font-size: 0.95rem; line-height: 1.8; margin-bottom: 1rem; }
+.svc-includes { list-style: none; display: grid; grid-template-columns: 1fr 1fr; gap: 0.65rem; }
+.svc-includes li { display: flex; align-items: flex-start; gap: 10px; background: #1c1c21; border: 1px solid rgba(255,255,255,0.07); border-radius: 10px; padding: 0.85rem 1rem; font-size: 0.88rem; color: #dde1e7; }
+.svc-includes li::before { content: '✓'; color: #00c4ff; font-weight: 900; flex-shrink: 0; }
+.svc-steps { display: flex; flex-direction: column; gap: 1rem; }
+.svc-step { display: flex; gap: 1.25rem; align-items: flex-start; }
+.svc-step-num { width: 36px; height: 36px; border-radius: 50%; background: rgba(0,196,255,0.12); border: 1px solid rgba(0,196,255,0.3); display: flex; align-items: center; justify-content: center; color: #00c4ff; font-weight: 900; font-size: 0.85rem; flex-shrink: 0; }
+.svc-step-body h4 { color: #fff; font-size: 0.95rem; font-weight: 700; margin-bottom: 0.25rem; }
+.svc-step-body p { color: #737b87; font-size: 0.88rem; margin: 0; line-height: 1.6; }
+@media (max-width: 600px) {
+  .svc-hero-wrap { height: 320px; }
+  .svc-includes { grid-template-columns: 1fr; }
+  .svc-body { padding: 2rem 1rem 5rem; }
+}
+@media (max-width: 768px) {
+  #membership > .container > div:nth-child(2) { grid-template-columns: 1fr !important; }
+}
   </style>
 </head>
 <body>
@@ -1278,7 +1341,7 @@
     </div>
     <div class="services-grid">
 
-      <div class="service-card">
+      <div class="service-card" onclick="openService('exterior')" style="cursor:pointer;">
         <div class="service-img-wrap">
           <img src="https://images.pexels.com/photos/3757226/pexels-photo-3757226.jpeg?auto=compress&cs=tinysrgb&w=600&h=450&fit=crop" alt="Exterior Detail" loading="lazy" />
           <div class="service-img-overlay"></div>
@@ -1291,7 +1354,7 @@
         </div>
       </div>
 
-      <div class="service-card">
+      <div class="service-card" onclick="openService('interior')" style="cursor:pointer;">
         <div class="service-img-wrap">
           <img src="https://images.pexels.com/photos/2244746/pexels-photo-2244746.jpeg?auto=compress&cs=tinysrgb&w=600&h=450&fit=crop" alt="Interior Detail" loading="lazy" />
           <div class="service-img-overlay"></div>
@@ -1304,7 +1367,7 @@
         </div>
       </div>
 
-      <div class="service-card">
+      <div class="service-card" onclick="openService('full')" style="cursor:pointer;">
         <div class="service-img-wrap">
           <img src="https://images.pexels.com/photos/1592384/pexels-photo-1592384.jpeg?auto=compress&cs=tinysrgb&w=600&h=450&fit=crop" alt="Full Detail Package" loading="lazy" />
           <div class="service-img-overlay"></div>
@@ -1317,7 +1380,7 @@
         </div>
       </div>
 
-      <div class="service-card">
+      <div class="service-card" onclick="openService('ceramic')" style="cursor:pointer;">
         <div class="service-img-wrap">
           <img src="https://images.pexels.com/photos/1545743/pexels-photo-1545743.jpeg?auto=compress&cs=tinysrgb&w=600&h=450&fit=crop" alt="Ceramic Coating" loading="lazy" />
           <div class="service-img-overlay"></div>
@@ -1330,7 +1393,7 @@
         </div>
       </div>
 
-      <div class="service-card">
+      <div class="service-card" onclick="openService('paint')" style="cursor:pointer;">
         <div class="service-img-wrap">
           <img src="https://images.pexels.com/photos/1687093/pexels-photo-1687093.jpeg?auto=compress&cs=tinysrgb&w=600&h=450&fit=crop" alt="Paint Correction" loading="lazy" />
           <div class="service-img-overlay"></div>
@@ -1343,7 +1406,7 @@
         </div>
       </div>
 
-      <div class="service-card">
+      <div class="service-card" onclick="openService('engine')" style="cursor:pointer;">
         <div class="service-img-wrap">
           <img src="https://images.pexels.com/photos/1998479/pexels-photo-1998479.jpeg?auto=compress&cs=tinysrgb&w=600&h=450&fit=crop" alt="Engine Bay" loading="lazy" />
           <div class="service-img-overlay"></div>
@@ -1548,6 +1611,68 @@
   </div>
 </section>
 
+<!-- ─── MEMBERSHIP ─────────────────────────────────────────────────────────── -->
+<section id="membership" style="background:#111114;">
+  <div class="container">
+    <div style="text-align:center;margin-bottom:3rem;">
+      <div class="section-label" style="color:#00c4ff;">Save Big</div>
+      <h2 class="section-title">With Our Glass Membership Plans</h2>
+      <p class="section-sub" style="margin:0 auto;">Regular detailing keeps your car's value up and your paint protected. Pick a plan and save every time.</p>
+    </div>
+    <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:1.5rem;">
+
+      <div style="background:#1c1c21;border-radius:20px;padding:2.25rem 2rem;border:1px solid rgba(255,255,255,0.07);display:flex;flex-direction:column;gap:0;">
+        <div style="font-size:0.78rem;font-weight:800;letter-spacing:0.1em;text-transform:uppercase;color:#737b87;margin-bottom:0.5rem;">Monthly</div>
+        <div style="font-size:2.5rem;font-weight:900;color:#00c4ff;line-height:1;">$30 OFF</div>
+        <div style="font-size:0.82rem;color:#737b87;margin-bottom:1.5rem;">Every detail</div>
+        <hr style="border:none;border-top:1px solid rgba(255,255,255,0.07);margin-bottom:1.5rem;" />
+        <ul style="list-style:none;display:flex;flex-direction:column;gap:0.65rem;margin-bottom:2rem;flex:1;">
+          <li style="display:flex;align-items:center;gap:8px;font-size:0.88rem;color:#dde1e7;"><span style="color:#00c4ff;font-weight:900;">✓</span>Priority scheduling</li>
+          <li style="display:flex;align-items:center;gap:8px;font-size:0.88rem;color:#dde1e7;"><span style="color:#00c4ff;font-weight:900;">✓</span>FREE tire shine every visit</li>
+          <li style="display:flex;align-items:center;gap:8px;font-size:0.88rem;color:#dde1e7;"><span style="color:#00c4ff;font-weight:900;">✓</span>FREE interior vacuum</li>
+          <li style="display:flex;align-items:center;gap:8px;font-size:0.88rem;color:#737b87;"><span style="color:#737b87;">✕</span>Glass Shield Pro Coat</li>
+          <li style="display:flex;align-items:center;gap:8px;font-size:0.88rem;color:#737b87;"><span style="color:#737b87;">✕</span>Paint protection spray</li>
+        </ul>
+        <a href="#" onclick="openQuoteModal(); return false;" style="display:block;text-align:center;padding:0.9rem;background:rgba(0,196,255,0.1);border:1px solid rgba(0,196,255,0.25);color:#00c4ff;border-radius:12px;font-weight:800;font-size:0.9rem;transition:background 0.2s;" onmouseover="this.style.background='rgba(0,196,255,0.18)'" onmouseout="this.style.background='rgba(0,196,255,0.1)'">GET YOUR INSTANT QUOTE</a>
+      </div>
+
+      <div style="background:linear-gradient(160deg,#1a2a32,#1c1c21);border-radius:20px;padding:2.25rem 2rem;border:1px solid rgba(0,196,255,0.3);display:flex;flex-direction:column;position:relative;overflow:hidden;">
+        <div style="position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,#009acc,#00c4ff);"></div>
+        <div style="position:absolute;top:1rem;right:1rem;background:linear-gradient(135deg,#009acc,#00c4ff);color:#09090b;font-size:0.65rem;font-weight:900;letter-spacing:0.08em;padding:0.25rem 0.65rem;border-radius:50px;text-transform:uppercase;">Most Popular</div>
+        <div style="font-size:0.78rem;font-weight:800;letter-spacing:0.1em;text-transform:uppercase;color:#00c4ff;margin-bottom:0.5rem;">Weekly</div>
+        <div style="font-size:2.5rem;font-weight:900;color:#00c4ff;line-height:1;">$50 OFF</div>
+        <div style="font-size:0.82rem;color:#737b87;margin-bottom:1.5rem;">Every detail</div>
+        <hr style="border:none;border-top:1px solid rgba(0,196,255,0.15);margin-bottom:1.5rem;" />
+        <ul style="list-style:none;display:flex;flex-direction:column;gap:0.65rem;margin-bottom:2rem;flex:1;">
+          <li style="display:flex;align-items:center;gap:8px;font-size:0.88rem;color:#dde1e7;"><span style="color:#00c4ff;font-weight:900;">✓</span>Priority scheduling</li>
+          <li style="display:flex;align-items:center;gap:8px;font-size:0.88rem;color:#dde1e7;"><span style="color:#00c4ff;font-weight:900;">✓</span>FREE tire shine every visit</li>
+          <li style="display:flex;align-items:center;gap:8px;font-size:0.88rem;color:#dde1e7;"><span style="color:#00c4ff;font-weight:900;">✓</span>FREE interior vacuum</li>
+          <li style="display:flex;align-items:center;gap:8px;font-size:0.88rem;color:#dde1e7;"><span style="color:#00c4ff;font-weight:900;">✓</span>FREE Glass Shield Pro Coat</li>
+          <li style="display:flex;align-items:center;gap:8px;font-size:0.88rem;color:#dde1e7;"><span style="color:#00c4ff;font-weight:900;">✓</span>FREE paint protection spray</li>
+        </ul>
+        <a href="#" onclick="openQuoteModal(); return false;" style="display:block;text-align:center;padding:0.9rem;background:linear-gradient(135deg,#009acc,#00c4ff);color:#09090b;border-radius:12px;font-weight:900;font-size:0.9rem;box-shadow:0 4px 16px rgba(0,196,255,0.35);transition:opacity 0.2s;" onmouseover="this.style.opacity='0.9'" onmouseout="this.style.opacity='1'">GET YOUR INSTANT QUOTE</a>
+      </div>
+
+      <div style="background:#1c1c21;border-radius:20px;padding:2.25rem 2rem;border:1px solid rgba(255,255,255,0.07);display:flex;flex-direction:column;gap:0;">
+        <div style="font-size:0.78rem;font-weight:800;letter-spacing:0.1em;text-transform:uppercase;color:#737b87;margin-bottom:0.5rem;">Bi-Weekly</div>
+        <div style="font-size:2.5rem;font-weight:900;color:#00c4ff;line-height:1;">$40 OFF</div>
+        <div style="font-size:0.82rem;color:#737b87;margin-bottom:1.5rem;">Every detail</div>
+        <hr style="border:none;border-top:1px solid rgba(255,255,255,0.07);margin-bottom:1.5rem;" />
+        <ul style="list-style:none;display:flex;flex-direction:column;gap:0.65rem;margin-bottom:2rem;flex:1;">
+          <li style="display:flex;align-items:center;gap:8px;font-size:0.88rem;color:#dde1e7;"><span style="color:#00c4ff;font-weight:900;">✓</span>Priority scheduling</li>
+          <li style="display:flex;align-items:center;gap:8px;font-size:0.88rem;color:#dde1e7;"><span style="color:#00c4ff;font-weight:900;">✓</span>FREE tire shine every visit</li>
+          <li style="display:flex;align-items:center;gap:8px;font-size:0.88rem;color:#dde1e7;"><span style="color:#00c4ff;font-weight:900;">✓</span>FREE interior vacuum</li>
+          <li style="display:flex;align-items:center;gap:8px;font-size:0.88rem;color:#dde1e7;"><span style="color:#00c4ff;font-weight:900;">✓</span>FREE Glass Shield Pro Coat</li>
+          <li style="display:flex;align-items:center;gap:8px;font-size:0.88rem;color:#737b87;"><span style="color:#737b87;">✕</span>Paint protection spray</li>
+        </ul>
+        <a href="#" onclick="openQuoteModal(); return false;" style="display:block;text-align:center;padding:0.9rem;background:rgba(0,196,255,0.1);border:1px solid rgba(0,196,255,0.25);color:#00c4ff;border-radius:12px;font-weight:800;font-size:0.9rem;transition:background 0.2s;" onmouseover="this.style.background='rgba(0,196,255,0.18)'" onmouseout="this.style.background='rgba(0,196,255,0.1)'">GET YOUR INSTANT QUOTE</a>
+      </div>
+
+    </div>
+    <p style="text-align:center;margin-top:1.5rem;font-size:0.8rem;color:#737b87;">All plans are flexible — no contracts, cancel anytime. Call us to get started.</p>
+  </div>
+</section>
+
 <!-- ─── CTA BANNER ─────────────────────────────────────────────────── -->
 <section id="cta-banner">
   <div class="cta-bg"></div>
@@ -1714,6 +1839,22 @@
 <div id="mobile-sticky">
   <a href="tel:4805550100" class="sticky-call">📞 Call Us</a>
   <a href="javascript:void(0)" class="sticky-book" onclick="openQuoteModal()">📅 BOOK NOW</a>
+</div>
+
+<!-- ─── SERVICE MODAL ───────────────────────────────────────────────── -->
+<div id="svc-modal" class="svc-modal" aria-hidden="true">
+  <button class="svc-close" onclick="closeService()" aria-label="Close">✕</button>
+  <div class="svc-hero-wrap">
+    <img id="svc-img" src="" alt="" />
+    <div class="svc-hero-overlay"></div>
+    <div class="svc-hero-content">
+      <div class="svc-hero-tag" id="svc-tag"></div>
+      <h1 id="svc-title"></h1>
+      <p id="svc-desc"></p>
+      <a href="#" onclick="closeService(); openQuoteModal(); return false;" class="svc-cta">📅 Book This Service →</a>
+    </div>
+  </div>
+  <div class="svc-body" id="svc-body"></div>
 </div>
 
 <!-- ─── QUOTE MODAL ────────────────────────────────────────────────── -->
@@ -2062,9 +2203,130 @@
   document.addEventListener('keydown', function(e) {
     if (e.key === 'Escape') {
       closeQuoteModal();
+      closeService();
       closeMobile();
     }
   });
+
+/* ── Service Modal ───────────────────────────────────────────── */
+var svcData = {
+  exterior: {
+    tag: 'Exterior Detail',
+    title: 'Exterior Detail',
+    desc: 'A thorough hand-wash, decontamination, and protective seal that leaves every inch of your paint gleaming.',
+    img: 'https://images.pexels.com/photos/3757226/pexels-photo-3757226.jpeg?auto=compress&cs=tinysrgb&w=1400',
+    includes: ['Hand wash & rinse', 'Clay bar decontamination', 'Wheel & tire scrub', 'Tire dressing & shine', 'Window cleaning (exterior)', 'Door jamb wipe-down', 'Paint sealant application', 'Final inspection & wipe'],
+    steps: [
+      { title: 'Pre-Rinse & Soak', body: 'We soak the entire vehicle to loosen road grime, brake dust, and contaminants before touching the paint.' },
+      { title: 'Two-Bucket Hand Wash', body: 'Using a pH-balanced soap and microfiber mitt, we wash panel by panel in straight lines to prevent swirls.' },
+      { title: 'Clay Bar Treatment', body: 'A detailing clay bar removes bonded contaminants that washing can\'t — leaving paint silky smooth to the touch.' },
+      { title: 'Polish & Seal', body: 'We apply a paint sealant or carnauba wax to protect the surface and give it a deep, reflective shine.' },
+      { title: 'Wheels, Tires & Glass', body: 'Every wheel is scrubbed, tires are dressed, and all glass is cleaned streak-free inside and out.' }
+    ]
+  },
+  interior: {
+    tag: 'Interior Detail',
+    title: 'Interior Detail',
+    desc: 'A deep-clean of every surface inside your vehicle — from the headliner to the floor mats.',
+    img: 'https://images.pexels.com/photos/2244746/pexels-photo-2244746.jpeg?auto=compress&cs=tinysrgb&w=1400',
+    includes: ['Deep vacuum (seats, carpet, trunk)', 'Steam cleaning & sanitizing', 'Leather cleaning & conditioning', 'Carpet & mat shampoo', 'Dashboard & console wipe-down', 'Door panel & pocket cleaning', 'Window cleaning (interior)', 'Odor elimination treatment'],
+    steps: [
+      { title: 'Full Vacuum', body: 'We vacuum every crevice — under seats, between cushions, in the trunk — removing all loose dirt and debris.' },
+      { title: 'Steam Cleaning', body: 'High-temperature steam kills bacteria, breaks down stains, and sanitizes hard-to-reach areas without chemicals.' },
+      { title: 'Surface Wipe-Down', body: 'Every hard surface — dashboard, console, door panels — is cleaned and dressed with a UV-protective product.' },
+      { title: 'Leather Care', body: 'Leather seats are cleaned with a pH-balanced cleaner, then conditioned to prevent cracking and fading.' },
+      { title: 'Carpet & Mat Shampoo', body: 'We shampoo and extract carpets and floor mats, removing ground-in dirt and stains.' }
+    ]
+  },
+  full: {
+    tag: 'Full Detail Package',
+    title: 'Full Detail Package',
+    desc: 'The complete Glass experience — exterior and interior done together for a bumper-to-bumper showroom transformation.',
+    img: 'https://images.pexels.com/photos/1592384/pexels-photo-1592384.jpeg?auto=compress&cs=tinysrgb&w=1400',
+    includes: ['Everything in Exterior Detail', 'Everything in Interior Detail', 'Engine bay wipe-down', 'Glass Shield spray sealant', 'Plastic trim restoration', 'Final detail inspection', 'Interior air freshener', 'Complimentary tire shine'],
+    steps: [
+      { title: 'Exterior First', body: 'We start outside — hand wash, clay bar, polish, and seal so paint is protected before we move in.' },
+      { title: 'Interior Deep Clean', body: 'Full vacuum, steam clean, leather condition, carpet shampoo, and surface wipe-down.' },
+      { title: 'Glass & Trim', body: 'All glass cleaned streak-free, plastic trim restored, door jambs wiped down.' },
+      { title: 'Final Inspection', body: 'We walk around every panel and surface to make sure it meets our standard before you see it.' },
+      { title: 'Drive Away Ready', body: 'Your car is left smelling fresh, looking showroom-new, and fully protected inside and out.' }
+    ]
+  },
+  ceramic: {
+    tag: 'Ceramic Coating',
+    title: 'Ceramic Coating',
+    desc: 'Nano-ceramic paint protection that bonds to your clear coat and shields it for 2–5 years.',
+    img: 'https://images.pexels.com/photos/1545743/pexels-photo-1545743.jpeg?auto=compress&cs=tinysrgb&w=1400',
+    includes: ['Paint decontamination wash', 'Clay bar treatment', 'Paint correction (light polish)', 'Panel wipe-down (IPA flush)', 'Ceramic coating application', 'Curing & inspection', '2–5 year protection', 'Hydrophobic water-beading effect'],
+    steps: [
+      { title: 'Decontamination', body: 'The paint is thoroughly washed and clay-barred to remove all surface contaminants before coating.' },
+      { title: 'Paint Correction', body: 'Light machine polish removes any surface imperfections — the coating locks in the finish, so the paint must be perfect first.' },
+      { title: 'IPA Wipe-Down', body: 'We wipe every panel with isopropyl alcohol to strip away all oils and residue so the coating bonds properly.' },
+      { title: 'Ceramic Application', body: 'The ceramic coating is applied panel by panel in a controlled environment and leveled with a microfiber cloth.' },
+      { title: 'Cure & Inspect', body: 'The coating cures and we inspect every inch under lighting to ensure full, even coverage before delivery.' }
+    ]
+  },
+  paint: {
+    tag: 'Paint Correction',
+    title: 'Paint Correction',
+    desc: 'Multi-stage machine polishing to eliminate swirl marks, scratches, and oxidation — restoring factory gloss.',
+    img: 'https://images.pexels.com/photos/1687093/pexels-photo-1687093.jpeg?auto=compress&cs=tinysrgb&w=1400',
+    includes: ['Paint thickness measurement', 'Decontamination wash', 'Clay bar treatment', 'Stage 1 compound cut', 'Stage 2 refining polish', 'Final finishing polish', 'Paint sealant protection', 'Defect-free inspection'],
+    steps: [
+      { title: 'Assessment', body: 'We inspect the paint under lighting and measure paint thickness to determine which correction stages are needed.' },
+      { title: 'Decontamination', body: 'Full wash and clay bar to remove surface contaminants that would interfere with the polishing process.' },
+      { title: 'Compound Stage', body: 'A cutting compound removes heavy scratches, swirl marks, and oxidation using a dual-action machine polisher.' },
+      { title: 'Refining Stage', body: 'A finer polish removes the micro-marring left by the compound, revealing deep gloss and clarity.' },
+      { title: 'Finishing & Protect', body: 'A finishing polish perfects the surface, then a paint sealant locks in the correction and adds protection.' }
+    ]
+  },
+  engine: {
+    tag: 'Engine Bay Detail',
+    title: 'Engine Bay Detail',
+    desc: 'Professional degreasing, rinse, and dressing of your engine compartment — as clean under the hood as inside.',
+    img: 'https://images.pexels.com/photos/1998479/pexels-photo-1998479.jpeg?auto=compress&cs=tinysrgb&w=1400',
+    includes: ['Plastic cover protection', 'Degreaser application', 'Agitation & rinse', 'Plastic & rubber dressing', 'Hose & wire wipe-down', 'Dry & inspect', 'Engine bay shine', 'Before & after photos'],
+    steps: [
+      { title: 'Cover & Protect', body: 'We cover sensitive electronics and sensors before applying any product to prevent damage.' },
+      { title: 'Degrease', body: 'A professional-grade degreaser is applied to break down oil, grease, and carbon buildup throughout the bay.' },
+      { title: 'Agitate & Rinse', body: 'We agitate with brushes to loosen stuck-on grime, then carefully rinse with low-pressure water.' },
+      { title: 'Dress & Protect', body: 'All plastic and rubber components are dressed with a UV-protectant that prevents cracking and fading.' },
+      { title: 'Final Wipe & Inspect', body: 'Every surface is wiped dry and inspected under lighting — we\'re done when it looks showroom-quality.' }
+    ]
+  }
+};
+
+function openService(key) {
+  var d = svcData[key];
+  if (!d) return;
+  document.getElementById('svc-img').src = d.img;
+  document.getElementById('svc-img').alt = d.title;
+  document.getElementById('svc-tag').textContent = d.tag;
+  document.getElementById('svc-title').textContent = d.title;
+  document.getElementById('svc-desc').textContent = d.desc;
+
+  var includesHTML = d.includes.map(function(i) { return '<li>' + i + '</li>'; }).join('');
+  var stepsHTML = d.steps.map(function(s, idx) {
+    return '<div class="svc-step"><div class="svc-step-num">' + (idx + 1) + '</div><div class="svc-step-body"><h4>' + s.title + '</h4><p>' + s.body + '</p></div></div>';
+  }).join('');
+
+  document.getElementById('svc-body').innerHTML =
+    '<div class="svc-section"><h2>What\'s Included</h2><ul class="svc-includes">' + includesHTML + '</ul></div>' +
+    '<div class="svc-section"><h2>How It Works</h2><div class="svc-steps">' + stepsHTML + '</div></div>';
+
+  var modal = document.getElementById('svc-modal');
+  modal.classList.add('open');
+  modal.setAttribute('aria-hidden', 'false');
+  modal.scrollTop = 0;
+  document.body.style.overflow = 'hidden';
+}
+
+function closeService() {
+  var modal = document.getElementById('svc-modal');
+  modal.classList.remove('open');
+  modal.setAttribute('aria-hidden', 'true');
+  document.body.style.overflow = '';
+}
 </script>
 </body>
 </html>
