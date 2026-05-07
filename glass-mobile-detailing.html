@@ -215,6 +215,7 @@
       align-items: center;
       overflow: hidden;
       background: #f0f9ff;
+      justify-content: flex-start;
     }
     .hero-bg {
       position: absolute;
@@ -227,12 +228,13 @@
     .hero-overlay {
       position: absolute;
       inset: 0;
-      background: none;
+      background: linear-gradient(to right, rgba(255,255,255,0.88) 0%, rgba(255,255,255,0.7) 35%, rgba(255,255,255,0.0) 60%);
     }
     .hero-content {
       position: relative;
       z-index: 2;
-      max-width: 720px;
+      max-width: 520px;
+      padding-left: 2rem;
     }
     .hero-eyebrow {
       display: inline-flex;
