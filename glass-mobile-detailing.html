@@ -537,114 +537,56 @@
       margin-top: 4px;
     }
 
-    /* ─── REVIEWS ────────────────────────────────────────────── */
-    #reviews {
-      padding: 100px 0;
-      background: var(--off-white);
-      overflow: hidden;
+    /* ─── REVIEWS ─────────────────────────────────────────── */
+    #reviews { background: var(--off-white); padding: 4rem 0; }
+    .reviews-google-wrap {
+      display: grid; grid-template-columns: 220px 1fr; gap: 2.5rem; align-items: start;
     }
-    .reviews-header {
-      display: flex;
-      align-items: flex-end;
-      justify-content: space-between;
-      margin-bottom: 48px;
-      flex-wrap: wrap;
-      gap: 20px;
+    .reviews-excellent {
+      background: white; border-radius: 16px; padding: 1.75rem;
+      border: 1px solid var(--border); text-align: center;
     }
-    .reviews-nav {
-      display: flex;
-      gap: 10px;
+    .reviews-excellent-label {
+      font-size: 1rem; font-weight: 900; color: #0f172a; text-transform: uppercase;
+      letter-spacing: 0.08em; margin-bottom: 0.4rem;
     }
-    .review-arrow {
-      width: 44px;
-      height: 44px;
-      border-radius: 8px;
-      border: 1px solid #e2e8f0;
-      background: #ffffff;
-      color: var(--dark);
-      font-size: 18px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      cursor: pointer;
-      transition: border-color 0.2s, background 0.2s;
+    .reviews-stars-row { color: #f59e0b; font-size: 1.5rem; letter-spacing: 2px; margin-bottom: 0.4rem; }
+    .reviews-count { font-size: 0.8rem; color: #64748b; margin-bottom: 0.75rem; }
+    .reviews-count strong { color: #0f172a; }
+    .reviews-google-logo { font-size: 1.4rem; font-weight: 900; letter-spacing: -1px; }
+    .reviews-google-logo span:nth-child(1) { color: #4285F4; }
+    .reviews-google-logo span:nth-child(2) { color: #EA4335; }
+    .reviews-google-logo span:nth-child(3) { color: #FBBC05; }
+    .reviews-google-logo span:nth-child(4) { color: #4285F4; }
+    .reviews-google-logo span:nth-child(5) { color: #34A853; }
+    .reviews-google-logo span:nth-child(6) { color: #EA4335; }
+    .reviews-cards-grid {
+      display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem;
     }
-    .review-arrow:hover {
-      border-color: var(--teal);
-      background: var(--teal-dim);
+    .grev-card {
+      background: white; border-radius: 14px; padding: 1.25rem;
+      border: 1px solid var(--border); display: flex; flex-direction: column; gap: 0.6rem;
     }
-    .reviews-track-wrap {
-      overflow-x: auto;
-      scroll-behavior: smooth;
-      scroll-snap-type: x mandatory;
-      scrollbar-width: none;
-      -ms-overflow-style: none;
-    }
-    .reviews-track-wrap::-webkit-scrollbar { display: none; }
-    .reviews-track {
-      display: grid;
-      grid-auto-flow: column;
-      grid-auto-columns: calc((100% - 40px) / 3);
-      gap: 20px;
-    }
-    .review-card {
-      scroll-snap-align: start;
-      background: var(--card);
-      border: 1px solid var(--border);
-      border-radius: 14px;
-      padding: 28px;
-      transition: transform 0.2s, box-shadow 0.2s, border-color 0.2s;
-    }
-    .review-card:hover { transform: translateY(-4px); box-shadow: 0 12px 32px rgba(14,165,233,0.12); border-color: rgba(14,165,233,0.2); }
-    @media (max-width: 768px) { .reviews-track { grid-auto-columns: 82vw; } }
-    .review-stars { color: #f59e0b; font-size: 16px; letter-spacing: 2px; margin-bottom: 14px; }
-    .review-text {
-      font-size: 15px;
-      color: var(--text);
-      line-height: 1.7;
-      margin-bottom: 20px;
-      font-style: italic;
-    }
-    .review-author {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-    }
-    .review-avatar {
-      width: 40px;
-      height: 40px;
-      border-radius: 50%;
+    .grev-top { display: flex; align-items: center; justify-content: space-between; }
+    .grev-author { display: flex; align-items: center; gap: 10px; }
+    .grev-avatar {
+      width: 40px; height: 40px; border-radius: 50%; flex-shrink: 0;
       background: linear-gradient(135deg, var(--teal-dark), var(--teal));
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 15px;
-      font-weight: 700;
-      color: var(--black);
-      flex-shrink: 0;
+      display: flex; align-items: center; justify-content: center;
+      color: white; font-size: 0.8rem; font-weight: 800;
     }
-    .review-name {
-      font-size: 15px;
-      font-weight: 700;
-      color: var(--dark);
-      line-height: 1.2;
+    .grev-name { font-size: 0.88rem; font-weight: 700; color: #0f172a; }
+    .grev-date { font-size: 0.72rem; color: #94a3b8; }
+    .grev-g { font-size: 1rem; font-weight: 900; }
+    .grev-stars { color: #f59e0b; font-size: 0.9rem; display: flex; align-items: center; gap: 4px; }
+    .grev-check { color: #4285F4; font-size: 0.7rem; }
+    .grev-text { font-size: 0.83rem; color: #334155; line-height: 1.6; flex: 1; }
+    .grev-more { font-size: 0.78rem; color: #64748b; cursor: pointer; }
+    @media (max-width: 900px) {
+      .reviews-google-wrap { grid-template-columns: 1fr; }
+      .reviews-cards-grid { grid-template-columns: 1fr 1fr; }
     }
-    .review-location {
-      font-size: 13px;
-      color: var(--text-muted);
-      margin-top: 2px;
-    }
-    .review-service-tag {
-      display: inline-block;
-      font-size: 11px;
-      font-weight: 600;
-      color: var(--teal);
-      background: var(--teal-dim);
-      border: 1px solid rgba(14,165,233,0.2);
-      padding: 3px 10px;
-      border-radius: 100px;
-      margin-bottom: 12px;
-    }
+    @media (max-width: 560px) { .reviews-cards-grid { grid-template-columns: 1fr; } }
 
     /* ─── CTA BANNER ─────────────────────────────────────────── */
     #cta-banner {
@@ -1375,6 +1317,60 @@
   </div>
 </section>
 
+<!-- ─── REVIEWS ────────────────────────────────────────────────────── -->
+<section id="reviews">
+  <div class="container">
+    <div class="reviews-google-wrap">
+      <div class="reviews-excellent">
+        <div class="reviews-excellent-label">Excellent</div>
+        <div class="reviews-stars-row">★★★★★</div>
+        <div class="reviews-count">Based on <strong>500+ reviews</strong></div>
+        <div class="reviews-google-logo">
+          <span>G</span><span>o</span><span>o</span><span>g</span><span>l</span><span>e</span>
+        </div>
+      </div>
+      <div class="reviews-cards-grid">
+        <div class="grev-card">
+          <div class="grev-top">
+            <div class="grev-author">
+              <div class="grev-avatar">JM</div>
+              <div><div class="grev-name">Jake M.</div><div class="grev-date">April 2026</div></div>
+            </div>
+            <div class="grev-g" style="color:#4285F4;">G</div>
+          </div>
+          <div class="grev-stars">★★★★★ <span class="grev-check">✔</span></div>
+          <p class="grev-text">Glass Mobile showed up to my house and completely transformed my Range Rover. It looked better than the day I drove it off the lot. Worth every penny.</p>
+          <div class="grev-more">Read more</div>
+        </div>
+        <div class="grev-card">
+          <div class="grev-top">
+            <div class="grev-author">
+              <div class="grev-avatar">ST</div>
+              <div><div class="grev-name">Sarah T.</div><div class="grev-date">March 2026</div></div>
+            </div>
+            <div class="grev-g" style="color:#4285F4;">G</div>
+          </div>
+          <div class="grev-stars">★★★★★ <span class="grev-check">✔</span></div>
+          <p class="grev-text">Had my Tesla ceramic coated and I can't believe the results. Water just sheets off like magic. Professional, on time, and clearly knows his craft.</p>
+          <div class="grev-more">Read more</div>
+        </div>
+        <div class="grev-card">
+          <div class="grev-top">
+            <div class="grev-author">
+              <div class="grev-avatar">MR</div>
+              <div><div class="grev-name">Marcus R.</div><div class="grev-date">March 2026</div></div>
+            </div>
+            <div class="grev-g" style="color:#4285F4;">G</div>
+          </div>
+          <div class="grev-stars">★★★★★ <span class="grev-check">✔</span></div>
+          <p class="grev-text">My Porsche 911 had swirl marks from years of bad washes. After a full paint correction — it looks absolutely stunning. These guys are the real deal.</p>
+          <div class="grev-more">Read more</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
 <!-- ─── MEMBERSHIP ─────────────────────────────────────────────────────────── -->
 <section id="membership" style="background:var(--off-white);padding:100px 0;">
   <div class="container">
@@ -1434,105 +1430,6 @@
 
     </div>
     <p style="text-align:center;margin-top:1.5rem;font-size:0.8rem;color:#64748b;">All plans are flexible — no contracts, cancel anytime. Call us to get started.</p>
-  </div>
-</section>
-
-<!-- ─── REVIEWS ────────────────────────────────────────────────────── -->
-<section id="reviews">
-  <div class="container">
-    <div class="reviews-header">
-      <div>
-        <div class="section-label">Customer Reviews</div>
-        <h2 class="section-title" style="margin-bottom: 0;">What Scottsdale Is Saying</h2>
-      </div>
-      <div class="reviews-nav">
-        <button class="review-arrow" onclick="scrollReviews(-1)" aria-label="Previous">&#8592;</button>
-        <button class="review-arrow" onclick="scrollReviews(1)" aria-label="Next">&#8594;</button>
-      </div>
-    </div>
-    <div class="reviews-track-wrap" id="reviews-track-wrap">
-      <div class="reviews-track">
-
-        <div class="review-card">
-          <div class="review-stars">★★★★★</div>
-          <div class="review-service-tag">Full Detail Package</div>
-          <p class="review-text">"Glass Mobile showed up to my house in North Scottsdale and completely transformed my Range Rover. It looked better than the day I drove it off the lot. Worth every penny."</p>
-          <div class="review-author">
-            <div class="review-avatar">JM</div>
-            <div>
-              <div class="review-name">Jake M.</div>
-              <div class="review-location">North Scottsdale</div>
-            </div>
-          </div>
-        </div>
-
-        <div class="review-card">
-          <div class="review-stars">★★★★★</div>
-          <div class="review-service-tag">Ceramic Coating</div>
-          <p class="review-text">"Had my Tesla Model S ceramic coated and I can't believe the results. Water just sheets off like magic. The owner was professional, on time, and clearly knows his craft."</p>
-          <div class="review-author">
-            <div class="review-avatar">ST</div>
-            <div>
-              <div class="review-name">Sarah T.</div>
-              <div class="review-location">Paradise Valley</div>
-            </div>
-          </div>
-        </div>
-
-        <div class="review-card">
-          <div class="review-stars">★★★★★</div>
-          <div class="review-service-tag">Paint Correction</div>
-          <p class="review-text">"My Porsche 911 had swirl marks from years of bad washes. After a full paint correction with Glass Mobile — it looks absolutely stunning. These guys are the real deal."</p>
-          <div class="review-author">
-            <div class="review-avatar">MR</div>
-            <div>
-              <div class="review-name">Marcus R.</div>
-              <div class="review-location">Old Town Scottsdale</div>
-            </div>
-          </div>
-        </div>
-
-        <div class="review-card">
-          <div class="review-stars">★★★★★</div>
-          <div class="review-service-tag">Interior Detail</div>
-          <p class="review-text">"I have two dogs and my SUV was a disaster inside. Glass Mobile pulled out dog hair I didn't know existed and made it smell brand new. Genuinely shocked at how clean it got."</p>
-          <div class="review-author">
-            <div class="review-avatar">AK</div>
-            <div>
-              <div class="review-name">Amanda K.</div>
-              <div class="review-location">Scottsdale</div>
-            </div>
-          </div>
-        </div>
-
-        <div class="review-card">
-          <div class="review-stars">★★★★★</div>
-          <div class="review-service-tag">Ceramic Coating</div>
-          <p class="review-text">"Booked a ceramic coating for my daily driver — best decision I've made for the car. The convenience of them coming to my Arcadia home is unbeatable. Already booked them for my wife's car."</p>
-          <div class="review-author">
-            <div class="review-avatar">DL</div>
-            <div>
-              <div class="review-name">Derek L.</div>
-              <div class="review-location">Arcadia</div>
-            </div>
-          </div>
-        </div>
-
-        <div class="review-card">
-          <div class="review-stars">★★★★★</div>
-          <div class="review-service-tag">Fleet Detailing</div>
-          <p class="review-text">"Got all 4 of our fleet vehicles done in a single day. Glass Mobile coordinated everything, showed up with the right crew, and knocked it out flawlessly. Our clients definitely noticed."</p>
-          <div class="review-author">
-            <div class="review-avatar">RB</div>
-            <div>
-              <div class="review-name">Ryan B.</div>
-              <div class="review-location">Scottsdale Business Owner</div>
-            </div>
-          </div>
-        </div>
-
-      </div>
-    </div>
   </div>
 </section>
 
