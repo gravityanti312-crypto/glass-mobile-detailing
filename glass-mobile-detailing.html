@@ -331,82 +331,57 @@
       flex-shrink: 0;
     }
 
-    /* ─── SERVICES ───────────────────────────────────────────── */
-    #services {
-      padding: 100px 0;
-      background: var(--white);
-    }
-    .services-header {
-      text-align: center;
-      margin-bottom: 56px;
-    }
+    /* ─── SERVICES ─────────────────────────────────────────── */
+    #services { background: var(--off-white); }
+    .services-header { text-align: center; margin-bottom: 3rem; }
     .services-header .section-sub { margin: 0 auto; }
     .services-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-      gap: 20px;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.5rem;
     }
     .service-card {
-      position: relative;
-      border-radius: 12px;
-      overflow: hidden;
-      border: 1px solid var(--border);
+      background: white; border-radius: 20px;
+      padding: 2rem 1.75rem; text-align: center;
+      border: 2px solid #e2e8f0;
+      display: flex; flex-direction: column; align-items: center;
       cursor: pointer;
-      background: var(--card);
       transition: transform 0.25s, box-shadow 0.25s, border-color 0.25s;
     }
-    .service-card:hover {
-      transform: translateY(-6px);
-      border-color: rgba(14,165,233,0.3);
-      box-shadow: 0 16px 40px rgba(14,165,233,0.15);
+    .service-card.featured { border-color: var(--teal); border-width: 2.5px; }
+    .service-card:hover { transform: translateY(-6px); box-shadow: 0 16px 40px rgba(14,165,233,0.15); border-color: var(--teal); }
+    .svc-card-tag {
+      font-size: 0.68rem; font-weight: 800; letter-spacing: 0.14em;
+      text-transform: uppercase; color: #64748b; margin-bottom: 0.4rem;
     }
-    .service-img-wrap {
-      position: relative;
-      height: 200px;
-      overflow: hidden;
+    .svc-card-title {
+      font-size: 1.3rem; font-weight: 900; color: #0f172a;
+      text-transform: uppercase; margin-bottom: 1.5rem; letter-spacing: 0.02em;
     }
-    .service-img-wrap img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      transition: transform 0.4s;
+    .svc-card-img {
+      width: 130px; height: 130px; border-radius: 50%;
+      object-fit: cover; margin-bottom: 1.5rem;
+      border: 3px solid #e2e8f0;
     }
-    .service-card:hover .service-img-wrap img { transform: scale(1.05); }
-    .service-img-overlay {
-      position: absolute;
-      inset: 0;
-      background: linear-gradient(to bottom, rgba(9,9,11,0.2) 0%, rgba(9,9,11,0.75) 100%);
+    .svc-card-features {
+      list-style: none; text-align: left; margin-bottom: 1.75rem; width: 100%;
     }
-    .service-body {
-      padding: 22px 22px 24px;
+    .svc-card-features li {
+      display: flex; align-items: center; gap: 8px;
+      font-size: 0.88rem; color: #334155; margin-bottom: 0.5rem;
     }
-    .service-icon {
-      font-size: 26px;
-      margin-bottom: 10px;
-      display: block;
+    .svc-card-features li::before {
+      content: '✓'; color: var(--teal); font-weight: 900; flex-shrink: 0;
     }
-    .service-title {
-      font-size: 18px;
-      font-weight: 700;
-      color: var(--dark);
-      margin-bottom: 8px;
+    .svc-card-btn {
+      background: var(--teal); color: white; font-weight: 800;
+      font-size: 0.8rem; letter-spacing: 0.08em; text-transform: uppercase;
+      padding: 0.85rem 2.25rem; border-radius: 50px; margin-top: auto;
+      transition: background 0.2s, box-shadow 0.2s;
     }
-    .service-desc {
-      font-size: 14px;
-      color: var(--text-muted);
-      line-height: 1.6;
-      margin-bottom: 16px;
-    }
-    .service-link {
-      font-size: 14px;
-      font-weight: 600;
-      color: var(--teal);
-      display: flex;
-      align-items: center;
-      gap: 6px;
-      transition: gap 0.2s;
-    }
-    .service-card:hover .service-link { gap: 10px; }
+    .svc-card-btn:hover { background: var(--teal-dark); box-shadow: 0 4px 16px rgba(14,165,233,0.35); }
+    @media (max-width: 900px) { .services-grid { grid-template-columns: 1fr 1fr; } }
+    @media (max-width: 560px) { .services-grid { grid-template-columns: 1fr; } }
 
     /* ─── PROCESS ────────────────────────────────────────────── */
     #process {
@@ -1333,82 +1308,76 @@
     </div>
     <div class="services-grid">
 
-      <div class="service-card" onclick="openService('exterior')" style="cursor:pointer;">
-        <div class="service-img-wrap">
-          <img src="https://images.pexels.com/photos/3757226/pexels-photo-3757226.jpeg?auto=compress&cs=tinysrgb&w=600&h=450&fit=crop" alt="Exterior Detail" loading="lazy" />
-          <div class="service-img-overlay"></div>
-        </div>
-        <div class="service-body">
-          <span class="service-icon">💧</span>
-          <div class="service-title">Exterior Detail</div>
-          <p class="service-desc">Hand wash, clay bar treatment, tire shine, window cleaning, and a full exterior polish for a head-turning finish.</p>
-          <div class="service-link">Learn More <span>→</span></div>
-        </div>
+      <div class="service-card featured" onclick="openService('full')">
+        <div class="svc-card-tag">Most Popular</div>
+        <div class="svc-card-title">Full Detail</div>
+        <img class="svc-card-img" src="https://images.pexels.com/photos/1592384/pexels-photo-1592384.jpeg?auto=compress&cs=tinysrgb&w=300&h=300&fit=crop" alt="Full Detail" loading="lazy" />
+        <ul class="svc-card-features">
+          <li>Inside &amp; Out</li>
+          <li>Deep Cleaning</li>
+          <li>Vehicle Reset</li>
+        </ul>
+        <a href="#" onclick="event.stopPropagation(); openQuoteModal(); return false;" class="svc-card-btn">Book Now</a>
       </div>
 
-      <div class="service-card" onclick="openService('interior')" style="cursor:pointer;">
-        <div class="service-img-wrap">
-          <img src="https://images.pexels.com/photos/2244746/pexels-photo-2244746.jpeg?auto=compress&cs=tinysrgb&w=600&h=450&fit=crop" alt="Interior Detail" loading="lazy" />
-          <div class="service-img-overlay"></div>
-        </div>
-        <div class="service-body">
-          <span class="service-icon">🪑</span>
-          <div class="service-title">Interior Detail</div>
-          <p class="service-desc">Deep vacuum, steam cleaning, leather conditioning, carpet shampoo, and odor elimination — spotless inside out.</p>
-          <div class="service-link">Learn More <span>→</span></div>
-        </div>
+      <div class="service-card" onclick="openService('exterior')">
+        <div class="svc-card-tag">Full Exterior</div>
+        <div class="svc-card-title">Exterior Detail</div>
+        <img class="svc-card-img" src="https://images.pexels.com/photos/3757226/pexels-photo-3757226.jpeg?auto=compress&cs=tinysrgb&w=300&h=300&fit=crop" alt="Exterior Detail" loading="lazy" />
+        <ul class="svc-card-features">
+          <li>Hand Wash &amp; Clay Bar</li>
+          <li>Polish &amp; Seal</li>
+          <li>Tire Shine</li>
+        </ul>
+        <a href="#" onclick="event.stopPropagation(); openQuoteModal(); return false;" class="svc-card-btn">Book Now</a>
       </div>
 
-      <div class="service-card" onclick="openService('full')" style="cursor:pointer;">
-        <div class="service-img-wrap">
-          <img src="https://images.pexels.com/photos/1592384/pexels-photo-1592384.jpeg?auto=compress&cs=tinysrgb&w=600&h=450&fit=crop" alt="Full Detail Package" loading="lazy" />
-          <div class="service-img-overlay"></div>
-        </div>
-        <div class="service-body">
-          <span class="service-icon">🏆</span>
-          <div class="service-title">Full Detail Package</div>
-          <p class="service-desc">Our most popular service — complete interior and exterior detailing for the ultimate clean from bumper to bumper.</p>
-          <div class="service-link">Learn More <span>→</span></div>
-        </div>
+      <div class="service-card" onclick="openService('interior')">
+        <div class="svc-card-tag">Deep Clean</div>
+        <div class="svc-card-title">Interior Detail</div>
+        <img class="svc-card-img" src="https://images.pexels.com/photos/2244746/pexels-photo-2244746.jpeg?auto=compress&cs=tinysrgb&w=300&h=300&fit=crop" alt="Interior Detail" loading="lazy" />
+        <ul class="svc-card-features">
+          <li>Deep Vacuum</li>
+          <li>Steam Clean &amp; Sanitize</li>
+          <li>Odor Elimination</li>
+        </ul>
+        <a href="#" onclick="event.stopPropagation(); openQuoteModal(); return false;" class="svc-card-btn">Book Now</a>
       </div>
 
-      <div class="service-card" onclick="openService('ceramic')" style="cursor:pointer;">
-        <div class="service-img-wrap">
-          <img src="https://images.pexels.com/photos/1545743/pexels-photo-1545743.jpeg?auto=compress&cs=tinysrgb&w=600&h=450&fit=crop" alt="Ceramic Coating" loading="lazy" />
-          <div class="service-img-overlay"></div>
-        </div>
-        <div class="service-body">
-          <span class="service-icon">🔬</span>
-          <div class="service-title">Ceramic Coating</div>
-          <p class="service-desc">Long-lasting nano-ceramic protection that repels water, resists UV, and keeps your paint looking new for years.</p>
-          <div class="service-link">Learn More <span>→</span></div>
-        </div>
+      <div class="service-card" onclick="openService('ceramic')">
+        <div class="svc-card-tag">Permanent Protection</div>
+        <div class="svc-card-title">Ceramic Coating</div>
+        <img class="svc-card-img" src="https://images.pexels.com/photos/1545743/pexels-photo-1545743.jpeg?auto=compress&cs=tinysrgb&w=300&h=300&fit=crop" alt="Ceramic Coating" loading="lazy" />
+        <ul class="svc-card-features">
+          <li>2–5 Year Protection</li>
+          <li>Water Repellent</li>
+          <li>Never Wax Again</li>
+        </ul>
+        <a href="#" onclick="event.stopPropagation(); openQuoteModal(); return false;" class="svc-card-btn">Learn More</a>
       </div>
 
-      <div class="service-card" onclick="openService('paint')" style="cursor:pointer;">
-        <div class="service-img-wrap">
-          <img src="https://images.pexels.com/photos/1687093/pexels-photo-1687093.jpeg?auto=compress&cs=tinysrgb&w=600&h=450&fit=crop" alt="Paint Correction" loading="lazy" />
-          <div class="service-img-overlay"></div>
-        </div>
-        <div class="service-body">
-          <span class="service-icon">✨</span>
-          <div class="service-title">Paint Correction</div>
-          <p class="service-desc">Multi-stage machine polishing to eliminate swirl marks, light scratches, and oxidation — restoring factory gloss.</p>
-          <div class="service-link">Learn More <span>→</span></div>
-        </div>
+      <div class="service-card" onclick="openService('paint')">
+        <div class="svc-card-tag">Scratch Removal</div>
+        <div class="svc-card-title">Paint Correction</div>
+        <img class="svc-card-img" src="https://images.pexels.com/photos/1687093/pexels-photo-1687093.jpeg?auto=compress&cs=tinysrgb&w=300&h=300&fit=crop" alt="Paint Correction" loading="lazy" />
+        <ul class="svc-card-features">
+          <li>Swirl Removal</li>
+          <li>Scratch Repair</li>
+          <li>Gloss Increase</li>
+        </ul>
+        <a href="#" onclick="event.stopPropagation(); openQuoteModal(); return false;" class="svc-card-btn">Book Now</a>
       </div>
 
-      <div class="service-card" onclick="openService('engine')" style="cursor:pointer;">
-        <div class="service-img-wrap">
-          <img src="https://images.pexels.com/photos/1998479/pexels-photo-1998479.jpeg?auto=compress&cs=tinysrgb&w=600&h=450&fit=crop" alt="Engine Bay" loading="lazy" />
-          <div class="service-img-overlay"></div>
-        </div>
-        <div class="service-body">
-          <span class="service-icon">⚙️</span>
-          <div class="service-title">Engine Bay Detail</div>
-          <p class="service-desc">Professional degreasing, rinse, and dressing of your engine compartment — so under the hood is as clean as the cabin.</p>
-          <div class="service-link">Learn More <span>→</span></div>
-        </div>
+      <div class="service-card" onclick="openService('engine')">
+        <div class="svc-card-tag">Under The Hood</div>
+        <div class="svc-card-title">Engine Bay</div>
+        <img class="svc-card-img" src="https://images.pexels.com/photos/1998479/pexels-photo-1998479.jpeg?auto=compress&cs=tinysrgb&w=300&h=300&fit=crop" alt="Engine Bay" loading="lazy" />
+        <ul class="svc-card-features">
+          <li>Degreased &amp; Rinsed</li>
+          <li>Dressed &amp; Protected</li>
+          <li>Before &amp; After Photos</li>
+        </ul>
+        <a href="#" onclick="event.stopPropagation(); openQuoteModal(); return false;" class="svc-card-btn">Book Now</a>
       </div>
 
     </div>
