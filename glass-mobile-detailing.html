@@ -581,21 +581,18 @@
     .reviews-track-wrap {
       overflow-x: auto;
       scroll-behavior: smooth;
+      scroll-snap-type: x mandatory;
       scrollbar-width: none;
       -ms-overflow-style: none;
-      cursor: grab;
     }
     .reviews-track-wrap::-webkit-scrollbar { display: none; }
     .reviews-track {
-      display: flex;
+      display: grid;
+      grid-auto-flow: column;
+      grid-auto-columns: calc((100% - 40px) / 3);
       gap: 20px;
-      width: max-content;
-      scroll-snap-type: x mandatory;
-      padding-bottom: 4px;
     }
     .review-card {
-      width: 320px;
-      flex-shrink: 0;
       scroll-snap-align: start;
       background: var(--card);
       border: 1px solid var(--border);
@@ -604,6 +601,7 @@
       transition: transform 0.2s, box-shadow 0.2s, border-color 0.2s;
     }
     .review-card:hover { transform: translateY(-4px); box-shadow: 0 12px 32px rgba(14,165,233,0.12); border-color: rgba(14,165,233,0.2); }
+    @media (max-width: 768px) { .reviews-track { grid-auto-columns: 82vw; } }
     .review-stars { color: #f59e0b; font-size: 16px; letter-spacing: 2px; margin-bottom: 14px; }
     .review-text {
       font-size: 15px;
@@ -1479,95 +1477,6 @@
   </div>
 </section>
 
-<!-- ─── PROCESS ────────────────────────────────────────────────────── -->
-<section id="process">
-  <div class="container">
-    <div class="process-header">
-      <div class="section-label">How It Works</div>
-      <h2 class="section-title">Three Steps to a Showroom Finish</h2>
-      <p class="section-sub" style="margin: 0 auto;">Simple, fast, and completely hassle-free — we built the process around your schedule, not ours.</p>
-    </div>
-    <div class="process-grid">
-      <div class="process-card">
-        <div class="process-step-num">01</div>
-        <span class="process-icon">📅</span>
-        <div class="process-title">Book Online</div>
-        <p class="process-desc">Pick your service, tell us your location, and lock in a time — takes 60 seconds. No phone tag, no waiting on hold.</p>
-      </div>
-      <div class="process-card">
-        <div class="process-step-num">02</div>
-        <span class="process-icon">🚐</span>
-        <div class="process-title">We Come To You</div>
-        <p class="process-desc">Our team arrives fully equipped at your home or office. You don't lift a finger — we bring everything we need.</p>
-      </div>
-      <div class="process-card">
-        <div class="process-step-num">03</div>
-        <span class="process-icon">🏎️</span>
-        <div class="process-title">Drive Away Shining</div>
-        <p class="process-desc">Inspect your vehicle, approve the result, and drive away with a car that turns heads. Satisfaction guaranteed.</p>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ─── WHY GLASS ──────────────────────────────────────────────────── -->
-<section id="why">
-  <div class="container">
-    <div class="why-grid">
-      <div class="why-text">
-        <div class="section-label why-label">Why Choose Glass</div>
-        <h2 class="section-title">We Do It Better.<br />Every Single Time.</h2>
-        <p class="section-sub">We're not a franchise or a factory line. Glass Mobile Detailing is an owner-operated business built on attention to detail and a guarantee that you'll love the result.</p>
-        <div class="why-list">
-          <div class="why-item">
-            <div class="why-check">✓</div>
-            <div>
-              <div class="why-item-title">Owner On Every Job</div>
-              <div class="why-item-desc">The owner shows up personally — you're not getting handed off to an untrained sub.</div>
-            </div>
-          </div>
-          <div class="why-item">
-            <div class="why-check">✓</div>
-            <div>
-              <div class="why-item-title">100% Satisfaction Guaranteed</div>
-              <div class="why-item-desc">Not happy? We come back and make it right. No questions asked.</div>
-            </div>
-          </div>
-          <div class="why-item">
-            <div class="why-check">✓</div>
-            <div>
-              <div class="why-item-title">Premium Products Only</div>
-              <div class="why-item-desc">We use professional-grade chemicals and tools — nothing from the auto parts store shelf.</div>
-            </div>
-          </div>
-          <div class="why-item">
-            <div class="why-check">✓</div>
-            <div>
-              <div class="why-item-title">Fully Insured</div>
-              <div class="why-item-desc">Fully licensed and insured for your peace of mind — your vehicle is always protected.</div>
-            </div>
-          </div>
-          <div class="why-item">
-            <div class="why-check">✓</div>
-            <div>
-              <div class="why-item-title">Serving All of Scottsdale</div>
-              <div class="why-item-desc">North Scottsdale, Old Town, Arcadia, Paradise Valley — we come to you, wherever you are.</div>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="why-image-wrap">
-        <img src="https://images.pexels.com/photos/1643383/pexels-photo-1643383.jpeg?auto=compress&cs=tinysrgb&w=700&h=900&fit=crop" alt="Professional detailer at work" loading="lazy" />
-        <div class="why-img-overlay"></div>
-        <div class="why-badge">
-          <div class="why-badge-num">500+</div>
-          <div class="why-badge-label">Cars Detailed<br />in Scottsdale</div>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
 <!-- ─── REVIEWS ────────────────────────────────────────────────────── -->
 <section id="reviews">
   <div class="container">
@@ -1662,6 +1571,95 @@
           </div>
         </div>
 
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─── PROCESS ────────────────────────────────────────────────────── -->
+<section id="process">
+  <div class="container">
+    <div class="process-header">
+      <div class="section-label">How It Works</div>
+      <h2 class="section-title">Three Steps to a Showroom Finish</h2>
+      <p class="section-sub" style="margin: 0 auto;">Simple, fast, and completely hassle-free — we built the process around your schedule, not ours.</p>
+    </div>
+    <div class="process-grid">
+      <div class="process-card">
+        <div class="process-step-num">01</div>
+        <span class="process-icon">📅</span>
+        <div class="process-title">Book Online</div>
+        <p class="process-desc">Pick your service, tell us your location, and lock in a time — takes 60 seconds. No phone tag, no waiting on hold.</p>
+      </div>
+      <div class="process-card">
+        <div class="process-step-num">02</div>
+        <span class="process-icon">🚐</span>
+        <div class="process-title">We Come To You</div>
+        <p class="process-desc">Our team arrives fully equipped at your home or office. You don't lift a finger — we bring everything we need.</p>
+      </div>
+      <div class="process-card">
+        <div class="process-step-num">03</div>
+        <span class="process-icon">🏎️</span>
+        <div class="process-title">Drive Away Shining</div>
+        <p class="process-desc">Inspect your vehicle, approve the result, and drive away with a car that turns heads. Satisfaction guaranteed.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─── WHY GLASS ──────────────────────────────────────────────────── -->
+<section id="why">
+  <div class="container">
+    <div class="why-grid">
+      <div class="why-text">
+        <div class="section-label why-label">Why Choose Glass</div>
+        <h2 class="section-title">We Do It Better.<br />Every Single Time.</h2>
+        <p class="section-sub">We're not a franchise or a factory line. Glass Mobile Detailing is an owner-operated business built on attention to detail and a guarantee that you'll love the result.</p>
+        <div class="why-list">
+          <div class="why-item">
+            <div class="why-check">✓</div>
+            <div>
+              <div class="why-item-title">Owner On Every Job</div>
+              <div class="why-item-desc">The owner shows up personally — you're not getting handed off to an untrained sub.</div>
+            </div>
+          </div>
+          <div class="why-item">
+            <div class="why-check">✓</div>
+            <div>
+              <div class="why-item-title">100% Satisfaction Guaranteed</div>
+              <div class="why-item-desc">Not happy? We come back and make it right. No questions asked.</div>
+            </div>
+          </div>
+          <div class="why-item">
+            <div class="why-check">✓</div>
+            <div>
+              <div class="why-item-title">Premium Products Only</div>
+              <div class="why-item-desc">We use professional-grade chemicals and tools — nothing from the auto parts store shelf.</div>
+            </div>
+          </div>
+          <div class="why-item">
+            <div class="why-check">✓</div>
+            <div>
+              <div class="why-item-title">Fully Insured</div>
+              <div class="why-item-desc">Fully licensed and insured for your peace of mind — your vehicle is always protected.</div>
+            </div>
+          </div>
+          <div class="why-item">
+            <div class="why-check">✓</div>
+            <div>
+              <div class="why-item-title">Serving All of Scottsdale</div>
+              <div class="why-item-desc">North Scottsdale, Old Town, Arcadia, Paradise Valley — we come to you, wherever you are.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="why-image-wrap">
+        <img src="https://images.pexels.com/photos/1643383/pexels-photo-1643383.jpeg?auto=compress&cs=tinysrgb&w=700&h=900&fit=crop" alt="Professional detailer at work" loading="lazy" />
+        <div class="why-img-overlay"></div>
+        <div class="why-badge">
+          <div class="why-badge-num">500+</div>
+          <div class="why-badge-label">Cars Detailed<br />in Scottsdale</div>
+        </div>
       </div>
     </div>
   </div>
