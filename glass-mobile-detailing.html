@@ -109,16 +109,16 @@
     /* ─── NAV ───────────────────────────────────────────────── */
     #nav {
       position: fixed; top: 0; left: 0; right: 0;
-      z-index: 900; padding: 14px 20px; background: transparent;
+      z-index: 900; padding: 0; background: transparent;
     }
     .nav-inner {
       display: flex; align-items: center;
-      max-width: 1280px; margin: 0 auto;
-      background: rgba(255,255,255,0.92);
+      max-width: 100%; margin: 0;
+      background: rgba(255,255,255,0.96);
       backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
-      border-radius: 60px; padding: 6px 8px 6px 14px;
-      border: 1px solid rgba(14,165,233,0.15);
-      box-shadow: 0 4px 28px rgba(14,165,233,0.12); height: 60px;
+      border-radius: 0; padding: 0 24px;
+      border-bottom: 2px solid rgba(14,165,233,0.2);
+      box-shadow: 0 4px 20px rgba(14,165,233,0.1); height: 76px;
     }
     .nav-logo img { height: 58px; width: auto; flex-shrink: 0; }
     .btn-call-nav {
