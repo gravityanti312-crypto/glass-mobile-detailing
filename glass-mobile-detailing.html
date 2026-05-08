@@ -1178,6 +1178,8 @@
     /* ─── INSTAGRAM ─────────────────────────────────────────── */
     #instagram { background: white; padding: 5rem 0; }
     .ig-header { text-align: center; margin-bottom: 2.5rem; }
+    .ig-section-title { font-size: clamp(2rem, 4vw, 3rem); font-weight: 900; color: #0f172a; margin-bottom: 0.5rem; letter-spacing: -0.02em; }
+    .ig-section-title span { color: var(--teal); }
     .ig-handle-link {
       display: inline-flex; align-items: center; gap: 10px;
       text-decoration: none; margin-bottom: 0.75rem;
@@ -1191,8 +1193,8 @@
       font-size: 1.4rem;
     }
     .ig-handle-text { text-align: left; }
-    .ig-handle-name { font-size: 1.1rem; font-weight: 900; color: #0f172a; display: block; }
-    .ig-handle-sub { font-size: 0.8rem; color: #64748b; }
+    .ig-handle-name { font-size: 1.25rem; font-weight: 900; color: #0f172a; display: block; }
+    .ig-handle-sub { font-size: 0.9rem; color: #64748b; font-weight: 600; }
     .ig-grid {
       display: grid;
       grid-template-columns: repeat(6, 1fr);
@@ -1488,11 +1490,13 @@
 <section id="instagram">
   <div class="container">
     <div class="ig-header">
+      <h2 class="ig-section-title">See Our <span>Professional Work</span></h2>
+      <p style="color:#64748b;margin-bottom:1.5rem;font-size:1rem;">Real results from real customers in Scottsdale</p>
       <a href="https://www.instagram.com/glassdetailingaz" target="_blank" rel="noopener" class="ig-handle-link">
         <div class="ig-handle-icon">📷</div>
         <div class="ig-handle-text">
           <span class="ig-handle-name">@glassdetailingaz</span>
-          <span class="ig-handle-sub">Our Professional Work</span>
+          <span class="ig-handle-sub">See Our Professional Work</span>
         </div>
       </a>
     </div>
