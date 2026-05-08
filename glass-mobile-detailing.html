@@ -1174,6 +1174,55 @@
 @media (max-width: 768px) {
   #membership > .container > div:nth-child(2) { grid-template-columns: 1fr !important; }
 }
+
+    /* ─── INSTAGRAM ─────────────────────────────────────────── */
+    #instagram { background: white; padding: 5rem 0; }
+    .ig-header { text-align: center; margin-bottom: 2.5rem; }
+    .ig-handle-link {
+      display: inline-flex; align-items: center; gap: 10px;
+      text-decoration: none; margin-bottom: 0.75rem;
+      transition: opacity 0.2s;
+    }
+    .ig-handle-link:hover { opacity: 0.8; }
+    .ig-handle-icon {
+      width: 48px; height: 48px; border-radius: 14px;
+      background: linear-gradient(45deg, #f09433, #e6683c, #dc2743, #cc2366, #bc1888);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.4rem;
+    }
+    .ig-handle-text { text-align: left; }
+    .ig-handle-name { font-size: 1.1rem; font-weight: 900; color: #0f172a; display: block; }
+    .ig-handle-sub { font-size: 0.8rem; color: #64748b; }
+    .ig-grid {
+      display: grid;
+      grid-template-columns: repeat(6, 1fr);
+      gap: 4px;
+      margin-bottom: 2rem;
+    }
+    .ig-tile {
+      aspect-ratio: 1; overflow: hidden; position: relative;
+      background: #f1f5f9;
+    }
+    .ig-tile img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.4s; display: block; }
+    .ig-tile:hover img { transform: scale(1.06); }
+    .ig-tile-overlay {
+      position: absolute; inset: 0;
+      background: rgba(14,165,233,0.0);
+      display: flex; align-items: center; justify-content: center;
+      transition: background 0.3s;
+    }
+    .ig-tile:hover .ig-tile-overlay { background: rgba(14,165,233,0.25); }
+    .ig-follow-btn {
+      display: inline-flex; align-items: center; gap: 8px;
+      background: linear-gradient(45deg, #f09433, #e6683c, #dc2743, #cc2366, #bc1888);
+      color: white; font-weight: 800; font-size: 0.9rem;
+      padding: 0.85rem 2.25rem; border-radius: 50px;
+      text-decoration: none; transition: opacity 0.2s;
+      box-shadow: 0 4px 16px rgba(220,39,67,0.3);
+    }
+    .ig-follow-btn:hover { opacity: 0.88; }
+    @media (max-width: 768px) { .ig-grid { grid-template-columns: repeat(3, 1fr); } }
+
   </style>
 </head>
 <body>
@@ -1432,6 +1481,52 @@
 
     </div>
     <p style="text-align:center;margin-top:1.5rem;font-size:0.8rem;color:#64748b;">All plans are flexible — no contracts, cancel anytime. Call us to get started.</p>
+  </div>
+</section>
+
+<!-- ─── INSTAGRAM ────────────────────────────────────────────────────── -->
+<section id="instagram">
+  <div class="container">
+    <div class="ig-header">
+      <a href="https://www.instagram.com/glassdetailingaz" target="_blank" rel="noopener" class="ig-handle-link">
+        <div class="ig-handle-icon">📷</div>
+        <div class="ig-handle-text">
+          <span class="ig-handle-name">@glassdetailingaz</span>
+          <span class="ig-handle-sub">This is what we do ✨ Follow our work</span>
+        </div>
+      </a>
+    </div>
+    <div class="ig-grid">
+      <a href="https://www.instagram.com/glassdetailingaz" target="_blank" rel="noopener" class="ig-tile">
+        <img src="https://images.pexels.com/photos/3807517/pexels-photo-3807517.jpeg?auto=compress&cs=tinysrgb&w=400&h=400&fit=crop" loading="lazy" alt="Glass Detailing" />
+        <div class="ig-tile-overlay"></div>
+      </a>
+      <a href="https://www.instagram.com/glassdetailingaz" target="_blank" rel="noopener" class="ig-tile">
+        <img src="https://images.pexels.com/photos/1687093/pexels-photo-1687093.jpeg?auto=compress&cs=tinysrgb&w=400&h=400&fit=crop" loading="lazy" alt="Paint Correction" />
+        <div class="ig-tile-overlay"></div>
+      </a>
+      <a href="https://www.instagram.com/glassdetailingaz" target="_blank" rel="noopener" class="ig-tile">
+        <img src="https://images.pexels.com/photos/1545743/pexels-photo-1545743.jpeg?auto=compress&cs=tinysrgb&w=400&h=400&fit=crop" loading="lazy" alt="Ceramic Coating" />
+        <div class="ig-tile-overlay"></div>
+      </a>
+      <a href="https://www.instagram.com/glassdetailingaz" target="_blank" rel="noopener" class="ig-tile">
+        <img src="https://images.pexels.com/photos/3757226/pexels-photo-3757226.jpeg?auto=compress&cs=tinysrgb&w=400&h=400&fit=crop" loading="lazy" alt="Exterior Detail" />
+        <div class="ig-tile-overlay"></div>
+      </a>
+      <a href="https://www.instagram.com/glassdetailingaz" target="_blank" rel="noopener" class="ig-tile">
+        <img src="https://images.pexels.com/photos/2244746/pexels-photo-2244746.jpeg?auto=compress&cs=tinysrgb&w=400&h=400&fit=crop" loading="lazy" alt="Interior Detail" />
+        <div class="ig-tile-overlay"></div>
+      </a>
+      <a href="https://www.instagram.com/glassdetailingaz" target="_blank" rel="noopener" class="ig-tile">
+        <img src="https://images.pexels.com/photos/1643383/pexels-photo-1643383.jpeg?auto=compress&cs=tinysrgb&w=400&h=400&fit=crop" loading="lazy" alt="Detailing Work" />
+        <div class="ig-tile-overlay"></div>
+      </a>
+    </div>
+    <div style="text-align:center;">
+      <a href="https://www.instagram.com/glassdetailingaz" target="_blank" rel="noopener" class="ig-follow-btn">
+        📷 Follow @glassdetailingaz
+      </a>
+    </div>
   </div>
 </section>
 
