@@ -2005,44 +2005,103 @@
 </section>
 
 <section class="clean-guarantee-banner" id="clean-guarantee">
-  <div class="cgb-inner">
+  <div class="cgb-glow"></div>
+  <div class="cgb-inner container">
     <div class="cgb-text">
-      <div class="cgb-eyebrow">100% Clean Car Guarantee</div>
-      <h2 class="cgb-title">Book a detail<br/>in 60 seconds.</h2>
-      <a href="javascript:void(0)" onclick="openQuoteModal()" class="cgb-btn">BOOK NOW</a>
+      <div class="cgb-chip">✦ 100% Clean Car Guarantee</div>
+      <h2 class="cgb-title">Book a detail in <span class="cgb-accent">60 seconds.</span></h2>
+      <p class="cgb-sub">Mobile detailing that comes to you. Showroom finish, satisfaction guaranteed.</p>
+      <a href="javascript:void(0)" onclick="openQuoteModal()" class="btn-cyan cgb-btn">Book Now →</a>
     </div>
-    <div class="cgb-mark" aria-hidden="true">
-      <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
-        <g stroke="#ffffff" stroke-width="10" stroke-linecap="round" fill="none">
-          <line x1="50" y1="14" x2="50" y2="36"/>
-          <line x1="50" y1="64" x2="50" y2="86"/>
-          <line x1="14" y1="32" x2="33" y2="43"/>
-          <line x1="67" y1="57" x2="86" y2="68"/>
-          <line x1="14" y1="68" x2="33" y2="57"/>
-          <line x1="67" y1="43" x2="86" y2="32"/>
-          <line x1="33" y1="50" x2="67" y2="50"/>
-        </g>
+    <div class="cgb-visual" aria-hidden="true">
+      <div class="cgb-shine"></div>
+      <svg viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+          <linearGradient id="cgbDrop" x1="0" y1="0" x2="1" y2="1">
+            <stop offset="0%" stop-color="#7dd3fc"/>
+            <stop offset="100%" stop-color="#0ea5e9"/>
+          </linearGradient>
+        </defs>
+        <circle cx="60" cy="60" r="54" fill="none" stroke="rgba(255,255,255,0.18)" stroke-width="1.5"/>
+        <circle cx="60" cy="60" r="42" fill="none" stroke="rgba(255,255,255,0.12)" stroke-width="1.5"/>
+        <path d="M60 28 C 48 46, 40 58, 40 72 a 20 20 0 0 0 40 0 C 80 58, 72 46, 60 28 Z"
+              fill="url(#cgbDrop)" stroke="#fff" stroke-width="2"/>
+        <ellipse cx="52" cy="64" rx="6" ry="9" fill="rgba(255,255,255,0.6)"/>
       </svg>
     </div>
   </div>
 </section>
 <style>
-  .clean-guarantee-banner { background: #0ea5e9; padding: 56px 24px; width: 100%; }
-  .cgb-inner { max-width: 1200px; margin: 0 auto; display: flex; align-items: center; justify-content: space-between; gap: 32px; }
+  .clean-guarantee-banner {
+    position: relative;
+    overflow: hidden;
+    background: linear-gradient(135deg, #0b1a30 0%, #0f2a4a 45%, #0ea5e9 100%);
+    padding: 80px 0;
+  }
+  .cgb-glow {
+    position: absolute; inset: 0;
+    background:
+      radial-gradient(600px circle at 85% 50%, rgba(14,165,233,0.45), transparent 60%),
+      radial-gradient(500px circle at 10% 100%, rgba(125,211,252,0.25), transparent 60%);
+    pointer-events: none;
+  }
+  .cgb-inner {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 48px;
+  }
   .cgb-text { flex: 1; min-width: 0; }
-  .cgb-eyebrow { color: #fff; font-size: 18px; font-weight: 400; margin-bottom: 14px; opacity: 0.95; }
-  .cgb-title { color: #fff; font-size: 56px; font-weight: 800; line-height: 1.05; margin: 0 0 28px; letter-spacing: -1px; }
-  .cgb-btn { display: inline-block; color: #fff; text-decoration: none; font-weight: 700; font-size: 15px; letter-spacing: 1.5px; padding: 14px 36px; border: 2px solid #fff; border-radius: 6px; transition: background 0.2s, color 0.2s; }
-  .cgb-btn:hover { background: #fff; color: #0ea5e9; }
-  .cgb-mark { flex: 0 0 auto; width: 220px; height: 220px; display: flex; align-items: center; justify-content: center; }
-  .cgb-mark svg { width: 100%; height: 100%; }
+  .cgb-chip {
+    display: inline-block;
+    color: #7dd3fc;
+    background: rgba(14,165,233,0.12);
+    border: 1px solid rgba(125,211,252,0.35);
+    font-size: 12px; font-weight: 700; letter-spacing: 0.12em;
+    text-transform: uppercase;
+    padding: 7px 14px; border-radius: 999px;
+    margin-bottom: 18px;
+  }
+  .cgb-title {
+    color: #fff;
+    font-size: clamp(2rem, 4.2vw, 3.4rem);
+    font-weight: 800;
+    line-height: 1.08;
+    letter-spacing: -0.5px;
+    margin: 0 0 14px;
+  }
+  .cgb-accent {
+    background: linear-gradient(135deg, #7dd3fc 0%, #0ea5e9 100%);
+    -webkit-background-clip: text; background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+  .cgb-sub {
+    color: rgba(226,232,240,0.85);
+    font-size: 1.05rem;
+    line-height: 1.6;
+    margin: 0 0 26px;
+    max-width: 520px;
+  }
+  .cgb-btn { font-size: 1rem; padding: 16px 34px; }
+  .cgb-visual {
+    position: relative;
+    flex: 0 0 auto;
+    width: 260px; height: 260px;
+    display: flex; align-items: center; justify-content: center;
+  }
+  .cgb-shine {
+    position: absolute; inset: -20px;
+    background: radial-gradient(circle, rgba(14,165,233,0.55) 0%, transparent 65%);
+    filter: blur(20px);
+  }
+  .cgb-visual svg { position: relative; width: 100%; height: 100%; filter: drop-shadow(0 10px 30px rgba(14,165,233,0.5)); }
   @media (max-width: 768px) {
-    .clean-guarantee-banner { padding: 40px 20px; }
-    .cgb-inner { flex-direction: column; text-align: center; gap: 20px; }
-    .cgb-eyebrow { font-size: 15px; }
-    .cgb-title { font-size: 34px; }
-    .cgb-btn { font-size: 14px; padding: 12px 28px; }
-    .cgb-mark { width: 120px; height: 120px; order: -1; }
+    .clean-guarantee-banner { padding: 56px 0; }
+    .cgb-inner { flex-direction: column; text-align: center; gap: 28px; }
+    .cgb-sub { margin-left: auto; margin-right: auto; }
+    .cgb-visual { width: 150px; height: 150px; order: -1; }
+    .cgb-btn { width: 100%; justify-content: center; }
   }
 </style>
 
