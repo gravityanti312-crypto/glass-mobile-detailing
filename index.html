@@ -1078,6 +1078,24 @@
     .qb-mc-sub { font-size: 13px; color: #475569; line-height: 1.5; }
     .qb-fineprint { font-size: 12px; color: #94a3b8; margin-top: 14px; text-align: center; line-height: 1.55; }
 
+    /* Disclaimer + terms + coupon (step 4) */
+    .qb-disclaimer { margin-top: 18px; padding: 14px 16px; background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 10px; }
+    .qb-disclaimer p { font-size: 12.5px; color: #475569; line-height: 1.55; margin: 0 0 10px; }
+    .qb-disclaimer p:last-child { margin-bottom: 0; }
+    .qb-disclaimer a { color: #0ea5e9; text-decoration: underline; }
+    .qb-terms { display: flex; align-items: center; gap: 10px; margin-top: 12px; padding: 12px 14px; border: 1.5px solid #e2e8f0; border-radius: 10px; cursor: pointer; }
+    .qb-terms input { accent-color: #0ea5e9; width: 18px; height: 18px; flex-shrink: 0; }
+    .qb-terms span { font-size: 14px; font-weight: 600; color: #0f172a; }
+    .qb-req { color: #ef4444; }
+    .qb-coupon { display: flex; gap: 8px; margin-top: 14px; }
+    .qb-coupon input { flex: 1; background: #fff; border: 1.5px solid #d0d5dd; border-radius: 8px; padding: 12px 14px; font-size: 14px; outline: none; }
+    .qb-coupon input:focus { border-color: var(--teal); }
+    .qb-coupon-btn { background: #0ea5e9; color: #fff; border: none; border-radius: 8px; padding: 0 22px; font-weight: 700; font-size: 14px; cursor: pointer; transition: background .15s; }
+    .qb-coupon-btn:hover { background: #0284c7; }
+    .qb-coupon-msg { font-size: 13px; margin-top: 6px; min-height: 18px; font-weight: 600; }
+    .qb-coupon-msg.success { color: #16a34a; }
+    .qb-coupon-msg.error { color: #ef4444; }
+
     @media (max-width: 640px) {
       .qb-addons { grid-template-columns: 1fr; }
       .qb-time-grid { grid-template-columns: repeat(2, 1fr); }
@@ -1094,7 +1112,8 @@
       color: #333;
     }
     .qb-form-group input,
-    .qb-form-group select {
+    .qb-form-group select,
+    .qb-form-group textarea {
       background: #fff;
       border: 1.5px solid #d0d5dd;
       border-radius: 8px;
@@ -1104,9 +1123,11 @@
       font-size: 15px;
       outline: none;
       transition: border-color 0.2s;
+      resize: vertical;
     }
     .qb-form-group input:focus,
-    .qb-form-group select:focus { border-color: var(--teal); }
+    .qb-form-group select:focus,
+    .qb-form-group textarea:focus { border-color: var(--teal); }
     .qb-form-group input::placeholder { color: #aaa; }
     /* QB success */
     #qb-success {
@@ -2404,10 +2425,44 @@
               <input type="text" id="qb-make" name="make_model" placeholder="2022 Toyota Camry" required />
             </div>
             <div class="qb-form-group full">
-              <label for="qb-notes">Anything else we should know?</label>
-              <input type="text" id="qb-notes" name="notes" placeholder="Gate code, dog on premises, parking notes…" />
+              <label for="qb-hear">How did you hear about us? *</label>
+              <select id="qb-hear" name="hear_about_us" required>
+                <option value="">Select an option…</option>
+                <option>Google Search</option>
+                <option>Instagram</option>
+                <option>Facebook</option>
+                <option>TikTok</option>
+                <option>Yelp</option>
+                <option>Referral from a friend</option>
+                <option>Saw the truck around town</option>
+                <option>Returning customer</option>
+                <option>Other</option>
+              </select>
+            </div>
+            <div class="qb-form-group full">
+              <label for="qb-notes">Additional information our Service Pros need to know?</label>
+              <textarea id="qb-notes" name="notes" rows="3" placeholder="Gate code, dog on premises, parking notes, problem areas…"></textarea>
             </div>
           </div>
+
+          <div class="qb-disclaimer">
+            <p>I understand that price is subject to change based on vehicle condition. Our technician will assess the vehicle with you prior to starting your appointment.</p>
+            <p>I understand that I need to plan for an appointment window 2 hours before and/or after the time I have selected. (We'll text you when we're on our way.)</p>
+            <p>By submitting this form, I consent to receive marketing texts, calls, and emails from Glass Mobile Detailing at the contact info provided, including autodialed messages. Consent is not required for purchase. Msg &amp; data rates may apply. Frequency varies. Reply STOP to opt out.</p>
+            <p>A $9.92 convenience fee applies to non-cash payments to cover electronic payment processing and operational costs.</p>
+            <p>By submitting this form, you agree with our <a href="#" onclick="event.preventDefault()">Service Agreement</a>, <a href="#" onclick="event.preventDefault()">Cancellation Policy</a> and <a href="#" onclick="event.preventDefault()">Privacy Policy</a>.</p>
+          </div>
+          <label class="qb-terms">
+            <input type="checkbox" id="qb-agree" name="agree_terms" required />
+            <span>I have read and agree to the terms above <span class="qb-req">*</span></span>
+          </label>
+
+          <div class="qb-coupon">
+            <input type="text" id="qb-coupon-code" name="coupon" placeholder="Have a coupon? Enter code…" />
+            <button type="button" class="qb-coupon-btn" onclick="qbApplyCoupon()">Redeem Coupon</button>
+          </div>
+          <div class="qb-coupon-msg" id="qb-coupon-msg"></div>
+
           <input type="hidden" name="vehicle_type" id="qb-hidden-vehicle" />
           <input type="hidden" name="service_type" id="qb-hidden-service" />
           <input type="hidden" name="addons" id="qb-hidden-addons" />
@@ -2470,7 +2525,25 @@
   /* ── Quote Modal ─────────────────────────────────────────── */
   var qbStep = 1;
   var qbTotalSteps = 5;
-  var qbSelections = { 1: null, 2: null, '2_price': 0, '3_time': null, '3_addons': [], '3_addons_total': 0 };
+  var qbSelections = { 1: null, 2: null, '2_price': 0, '3_time': null, '3_addons': [], '3_addons_total': 0, 'coupon': null, 'coupon_pct': 0 };
+  var qbCoupons = { 'USA': 15, 'WELCOME10': 10, 'GLASS15': 15, 'NEW15': 15, 'GLASS20': 20 };
+
+  function qbApplyCoupon() {
+    var codeEl = document.getElementById('qb-coupon-code');
+    var msg = document.getElementById('qb-coupon-msg');
+    var code = (codeEl.value || '').trim().toUpperCase();
+    if (!code) { msg.textContent = ''; msg.className = 'qb-coupon-msg'; qbSelections.coupon = null; qbSelections.coupon_pct = 0; return; }
+    if (qbCoupons[code]) {
+      qbSelections.coupon = code;
+      qbSelections.coupon_pct = qbCoupons[code];
+      msg.textContent = '✓ ' + code + ' applied — ' + qbCoupons[code] + '% off your service';
+      msg.className = 'qb-coupon-msg success';
+    } else {
+      qbSelections.coupon = null; qbSelections.coupon_pct = 0;
+      msg.textContent = 'Invalid coupon code';
+      msg.className = 'qb-coupon-msg error';
+    }
+  }
   // Full pricing per vehicle for one-time + Glass Club tiers
   var qbPricing = {
     'Coupe/Sedan':       { interior: 177, full: 197, monthly: 117, bimonthly: 147, quarterly: 167 },
@@ -2628,7 +2701,10 @@
     var s = qbSelections[2] || '';
     var basePrice = qbSelections['2_price'] || 0;
     var addonsTotal = qbSelections['3_addons_total'] || 0;
-    var total = basePrice + addonsTotal;
+    var pre = basePrice + addonsTotal;
+    var pct = qbSelections.coupon_pct || 0;
+    var discount = pct ? Math.round(pre * pct / 100) : 0;
+    var total = pre - discount;
 
     var addonHtml = (qbSelections['3_addons'] || []).map(function(a) { return '<div class="qb-sum-row"><span>' + a.split(' — ')[0] + '</span><span>+$' + a.split('$').pop() + '</span></div>'; }).join('');
     if (!addonHtml) addonHtml = '<div class="qb-sum-row qb-sum-muted"><span>No add-ons selected</span><span>—</span></div>';
@@ -2640,6 +2716,7 @@
       '<div class="qb-sum-divider"></div>' +
       '<div class="qb-sum-section">Add-ons</div>' +
       addonHtml +
+      (discount ? '<div class="qb-sum-divider"></div><div class="qb-sum-row qb-sum-discount"><span>Coupon ' + qbSelections.coupon + ' (' + pct + '% off)</span><span>−$' + discount + '</span></div>' : '') +
       '<div class="qb-sum-divider"></div>' +
       '<div class="qb-sum-row qb-sum-total"><span>Estimated Total</span><span>' + (basePrice ? '$' + total : 'Custom Quote') + '</span></div>';
     document.getElementById('qb-summary').innerHTML = html;
@@ -2661,7 +2738,9 @@
       var form = document.getElementById('qb-form');
       var required = form.querySelectorAll('[required]');
       for (var i = 0; i < required.length; i++) {
-        if (!required[i].value.trim()) { required[i].focus(); required[i].style.borderColor = '#ff4d4f'; return; }
+        var el = required[i];
+        var bad = el.type === 'checkbox' ? !el.checked : !el.value.trim();
+        if (bad) { el.focus(); el.style.outline = '2px solid #ff4d4f'; setTimeout(function(x){x.style.outline=''}, 2000, el); return; }
       }
       showQbStep(5);
       return;
@@ -2729,12 +2808,15 @@
     var v = qbSelections[1] || '';
     var basePrice = qbSelections['2_price'] || 0;
     var addonsTotal = qbSelections['3_addons_total'] || 0;
-    var total = basePrice + addonsTotal;
+    var pre = basePrice + addonsTotal;
+    var pct = qbSelections.coupon_pct || 0;
+    var discount = pct ? Math.round(pre * pct / 100) : 0;
+    var total = pre - discount;
     document.getElementById('qb-hidden-vehicle').value = v;
     document.getElementById('qb-hidden-service').value = qbSelections[2] || '';
     document.getElementById('qb-hidden-addons').value = (qbSelections['3_addons'] || []).join('; ');
     document.getElementById('qb-hidden-time').value = qbSelections['3_time'] || '';
-    document.getElementById('qb-hidden-total').value = basePrice ? ('$' + total) : 'Custom Quote';
+    document.getElementById('qb-hidden-total').value = basePrice ? ('$' + total + (pct ? ' (after ' + qbSelections.coupon + ' ' + pct + '% off)' : '')) : 'Custom Quote';
 
     var data = new FormData(form);
 
