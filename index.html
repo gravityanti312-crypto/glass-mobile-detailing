@@ -959,8 +959,51 @@
     .footer-social-row a:hover { color: var(--teal); transform: translateY(-2px); }
     .footer-social-row svg { width: 22px; height: 22px; }
     @media (max-width: 768px) {
-      .footer-grid { grid-template-columns: 1fr; gap: 36px; margin-bottom: 36px; }
-      .footer-grid > div, .footer-grid > div:first-child { align-items: center; text-align: center; }
+      #footer { padding-bottom: 28px; }
+      .footer-grid {
+        grid-template-columns: 1fr;
+        gap: 0;
+        margin-bottom: 24px;
+      }
+      .footer-grid > div,
+      .footer-grid > div:first-child {
+        align-items: center;
+        text-align: center;
+        padding: 28px 16px;
+        border-bottom: 1px solid rgba(255,255,255,0.08);
+      }
+      .footer-grid > div:last-child { border-bottom: none; }
+      .footer-brand-logo img { height: 38px; }
+      .footer-brand-desc { font-size: 13.5px; max-width: 320px; margin: 0 auto 4px; }
+      .footer-col-title { font-size: 12px; margin-bottom: 14px; }
+      .footer-areas {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 8px 28px;
+        max-width: 280px;
+        margin: 0 auto;
+      }
+      .footer-areas div { font-size: 13.5px; }
+      .footer-hours-list { font-size: 13.5px; gap: 6px; }
+      /* Bigger, more prominent reviews badge on mobile */
+      .footer-reviews-badge {
+        margin-top: 18px;
+        padding: 14px 22px;
+        border-radius: 14px;
+        box-shadow: 0 6px 20px rgba(0,0,0,0.25);
+      }
+      .frb-label { font-size: 12px; line-height: 1; }
+      .frb-stars { font-size: 20px; margin: 6px 0; letter-spacing: 3px; }
+      .frb-text { font-size: 12px; line-height: 1.2; }
+      /* Make taps easier on social icons */
+      .footer-social-row { gap: 18px; margin-top: 16px; }
+      .footer-social-row a { width: 44px; height: 44px; border-radius: 50%; background: rgba(255,255,255,0.06); }
+      .footer-social-row svg { width: 20px; height: 20px; }
+      .footer-contact-list { gap: 8px; }
+      .footer-contact-item { font-size: 13.5px; }
+      /* Bottom row stacks centered */
+      .footer-bottom { flex-direction: column; text-align: center; gap: 10px; padding-top: 24px; }
+      .footer-bottom-links { gap: 18px; }
     }
 
     /* ─── MOBILE STICKY BAR ───────────────────────────────────── */
