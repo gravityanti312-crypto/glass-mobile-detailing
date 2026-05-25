@@ -1179,6 +1179,128 @@
       line-height: 1.3;
     }
 
+    /* Step 1 hero banner */
+    .qb-hero {
+      position: relative;
+      border-radius: 14px;
+      overflow: hidden;
+      margin-bottom: 28px;
+      min-height: 260px;
+      background: #0a0f1e url('https://images.unsplash.com/photo-1605559424843-9e4c228bf1c2?auto=format&fit=crop&w=1600&q=80') center/cover no-repeat;
+    }
+    .qb-hero-overlay {
+      position: absolute; inset: 0;
+      background: linear-gradient(135deg, rgba(10,15,30,0.78), rgba(10,15,30,0.55) 50%, rgba(14,165,233,0.35));
+    }
+    .qb-hero-content {
+      position: relative;
+      padding: 32px 28px;
+      color: #fff;
+      text-align: center;
+    }
+    .qb-hero-title {
+      font-size: clamp(1.5rem, 3vw, 2.2rem);
+      font-weight: 900;
+      letter-spacing: 0.5px;
+      line-height: 1.1;
+      margin: 0 0 18px;
+    }
+    .qb-hero-benefits {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      align-items: center;
+      margin-bottom: 16px;
+    }
+    .qb-hero-benefit {
+      display: inline-flex; align-items: center; gap: 10px;
+      font-size: 15px; font-weight: 700;
+    }
+    .qb-hb-icon {
+      width: 28px; height: 28px;
+      display: inline-flex; align-items: center; justify-content: center;
+      background: rgba(14,165,233,0.25); border: 1.5px solid rgba(125,211,252,0.5);
+      border-radius: 50%; font-size: 14px;
+    }
+    .qb-hero-reviews {
+      display: inline-flex; align-items: center; gap: 10px;
+      background: rgba(0,0,0,0.35);
+      padding: 8px 14px;
+      border-radius: 999px;
+      color: #fff;
+      text-decoration: none;
+      font-size: 13px; font-weight: 700;
+      backdrop-filter: blur(6px);
+      transition: background .2s;
+    }
+    .qb-hero-reviews:hover { background: rgba(0,0,0,0.55); }
+    .qb-hr-label { color: #fff; letter-spacing: 0.06em; }
+    .qb-hr-stars { color: #fbbf24; letter-spacing: 1px; font-size: 14px; }
+    .qb-hr-count { color: #cbd5e1; font-weight: 600; }
+    .qb-hr-google { font-weight: 900; letter-spacing: -0.5px; }
+
+    /* Vehicle selection (row layout) */
+    .qb-pick-headline {
+      text-align: center;
+      font-size: 1.1rem;
+      font-weight: 500;
+      color: #334155;
+      margin: 0 0 18px;
+      line-height: 1.4;
+    }
+    .qb-pick-headline strong { color: #0f172a; font-weight: 900; letter-spacing: 0.5px; }
+    .qb-vehicle-card {
+      background: #fff;
+      border: 1px solid #e2e8f0;
+      border-radius: 14px;
+      padding: 20px;
+    }
+    .qb-redeem-pill {
+      background: #0ea5e9; color: #fff;
+      border: none; border-radius: 999px;
+      padding: 10px 22px;
+      font-weight: 800; font-size: 14px;
+      cursor: pointer;
+      margin-bottom: 16px;
+      transition: background .15s;
+    }
+    .qb-redeem-pill:hover { background: #0284c7; }
+    .qb-vehicle-list { display: flex; flex-direction: column; gap: 10px; }
+    .qb-vrow {
+      display: flex; justify-content: space-between; align-items: center;
+      background: #fff;
+      border: 1.5px solid #e2e8f0;
+      border-radius: 12px;
+      padding: 14px 18px;
+      cursor: pointer;
+      transition: border-color .15s, box-shadow .15s, transform .12s;
+    }
+    .qb-vrow:hover { border-color: #0ea5e9; box-shadow: 0 4px 14px rgba(14,165,233,0.12); }
+    .qb-vrow.selected { border-color: #0ea5e9; background: linear-gradient(135deg, rgba(14,165,233,0.06), rgba(14,165,233,0.02)); }
+    .qb-vrow-label { font-size: 15px; font-weight: 800; color: #0f172a; display: flex; align-items: center; gap: 4px; }
+    .qb-vrow-num { color: #64748b; font-weight: 700; margin-right: 6px; }
+    .qb-vrow-sub { color: #64748b; font-weight: 600; margin-left: 4px; }
+    .qb-vrow-pick {
+      background: #0ea5e9; color: #fff;
+      padding: 9px 22px;
+      border-radius: 999px;
+      font-size: 14px; font-weight: 800;
+      flex-shrink: 0;
+      transition: background .15s;
+    }
+    .qb-vrow:hover .qb-vrow-pick { background: #0284c7; }
+
+    @media (max-width: 640px) {
+      .qb-hero { min-height: 220px; }
+      .qb-hero-content { padding: 26px 18px; }
+      .qb-hero-title { font-size: 1.45rem; }
+      .qb-hero-benefit { font-size: 14px; }
+      .qb-vehicle-card { padding: 16px 14px; }
+      .qb-vrow { padding: 12px 14px; }
+      .qb-vrow-label { font-size: 14px; }
+      .qb-vrow-pick { padding: 8px 16px; font-size: 13px; }
+    }
+
     /* Services with prices */
     .qb-services { display: flex; flex-direction: column; gap: 14px; }
     .qb-svc {
@@ -2495,28 +2617,47 @@
 
       <!-- Step 1 -->
       <div class="qb-step active" id="qb-step-1">
-        <h2 class="qb-step-title">What type of vehicle?</h2>
-        <p class="qb-step-sub">This helps us price your service accurately.</p>
-        <div class="qb-cards">
-          <div class="qb-card" onclick="qbSelect(this, 1)" data-value="Coupe/Sedan">
-            <span class="qb-card-icon">🚗</span>
-            <div class="qb-card-label">Coupe / Sedan</div>
+        <div class="qb-hero">
+          <div class="qb-hero-overlay"></div>
+          <div class="qb-hero-content">
+            <h2 class="qb-hero-title">SCHEDULE MOBILE DETAILING</h2>
+            <div class="qb-hero-benefits">
+              <div class="qb-hero-benefit"><span class="qb-hb-icon">💲</span><span>No Upfront Payments</span></div>
+              <div class="qb-hero-benefit"><span class="qb-hb-icon">🛡️</span><span>100% Glass Guarantee</span></div>
+              <div class="qb-hero-benefit"><span class="qb-hb-icon">📍</span><span>We Come To You</span></div>
+            </div>
+            <a href="https://maps.app.goo.gl/qWgirLzyZgKjfj3GA" target="_blank" rel="noopener" class="qb-hero-reviews">
+              <span class="qb-hr-label">EXCELLENT</span>
+              <span class="qb-hr-stars">★★★★★</span>
+              <span class="qb-hr-count">35 reviews</span>
+              <span class="qb-hr-google"><span style="color:#4285F4;">G</span><span style="color:#EA4335;">o</span><span style="color:#FBBC05;">o</span><span style="color:#4285F4;">g</span><span style="color:#34A853;">l</span><span style="color:#EA4335;">e</span></span>
+            </a>
           </div>
-          <div class="qb-card" onclick="qbSelect(this, 1)" data-value="Small SUV (2 Row)">
-            <span class="qb-card-icon">🚙</span>
-            <div class="qb-card-label">Small SUV<br/><span style="font-weight:400;font-size:12px;opacity:0.7;">2 Row</span></div>
-          </div>
-          <div class="qb-card" onclick="qbSelect(this, 1)" data-value="Large SUV (3 Row)">
-            <span class="qb-card-icon">🚐</span>
-            <div class="qb-card-label">Large SUV<br/><span style="font-weight:400;font-size:12px;opacity:0.7;">3 Row</span></div>
-          </div>
-          <div class="qb-card" onclick="qbSelect(this, 1)" data-value="Truck">
-            <span class="qb-card-icon">🛻</span>
-            <div class="qb-card-label">Truck</div>
-          </div>
-          <div class="qb-card" onclick="qbSelect(this, 1)" data-value="Van/Minivan">
-            <span class="qb-card-icon">🚚</span>
-            <div class="qb-card-label">Van / Minivan</div>
+        </div>
+        <h3 class="qb-pick-headline">To see Pricing &amp; Availability,<br/><strong>SELECT YOUR VEHICLE SIZE BELOW</strong></h3>
+        <div class="qb-vehicle-card">
+          <button type="button" class="qb-redeem-pill" onclick="qbScrollToCoupon()">Redeem Coupon</button>
+          <div class="qb-vehicle-list">
+            <div class="qb-vrow" onclick="qbSelect(this, 1)" data-value="Coupe/Sedan">
+              <div class="qb-vrow-label"><span class="qb-vrow-num">1</span> Coupe / Sedan</div>
+              <span class="qb-vrow-pick">Select</span>
+            </div>
+            <div class="qb-vrow" onclick="qbSelect(this, 1)" data-value="Small SUV (2 Row)">
+              <div class="qb-vrow-label"><span class="qb-vrow-num">2</span> Small SUV <span class="qb-vrow-sub">(2 Row)</span></div>
+              <span class="qb-vrow-pick">Select</span>
+            </div>
+            <div class="qb-vrow" onclick="qbSelect(this, 1)" data-value="Truck">
+              <div class="qb-vrow-label"><span class="qb-vrow-num">3</span> Truck</div>
+              <span class="qb-vrow-pick">Select</span>
+            </div>
+            <div class="qb-vrow" onclick="qbSelect(this, 1)" data-value="Large SUV (3 Row)">
+              <div class="qb-vrow-label"><span class="qb-vrow-num">4</span> Large SUV <span class="qb-vrow-sub">(3 Row)</span></div>
+              <span class="qb-vrow-pick">Select</span>
+            </div>
+            <div class="qb-vrow" onclick="qbSelect(this, 1)" data-value="Van/Minivan">
+              <div class="qb-vrow-label"><span class="qb-vrow-num">5</span> Minivan / Van</div>
+              <span class="qb-vrow-pick">Select</span>
+            </div>
           </div>
         </div>
       </div>
@@ -2695,6 +2836,11 @@
   var qbSelections = { 1: null, 2: null, '2_price': 0, '3_time': null, '3_addons': [], '3_addons_total': 0, 'coupon': null, 'coupon_pct': 0 };
   var qbCoupons = { 'USA': 15, 'WELCOME10': 10, 'GLASS15': 15, 'NEW15': 15, 'GLASS20': 20 };
 
+  function qbScrollToCoupon() {
+    // friendly inline tip — coupon lives at step 4 (contact info)
+    alert('You can enter your coupon code on Step 4 — Your Information. Pick a vehicle to continue.');
+  }
+
   function qbApplyCoupon() {
     var codeEl = document.getElementById('qb-coupon-code');
     var msg = document.getElementById('qb-coupon-msg');
@@ -2761,7 +2907,10 @@
   }
 
   function qbSelect(el, step) {
-    el.closest('.qb-cards').querySelectorAll('.qb-card').forEach(function(c) { c.classList.remove('selected'); });
+    var container = el.closest('.qb-cards') || el.closest('.qb-vehicle-list');
+    if (container) {
+      container.querySelectorAll('.qb-card, .qb-vrow').forEach(function(c) { c.classList.remove('selected'); });
+    }
     el.classList.add('selected');
     qbSelections[step] = el.dataset.value;
     updateQbNext();
