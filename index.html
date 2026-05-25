@@ -199,12 +199,19 @@
       justify-content: flex-start;
       padding: 72px 0 24px;
       gap: 0;
-      transform: translateX(100%);
-      transition: transform 0.35s cubic-bezier(0.4,0,0.2,1);
+      transform: translateX(101%);
+      transition: transform 0.35s cubic-bezier(0.4,0,0.2,1), visibility 0s linear 0.35s;
       box-shadow: -12px 0 40px rgba(0,0,0,0.18);
       overflow-y: auto;
+      visibility: hidden;
+      pointer-events: none;
     }
-    #mobile-menu.open { transform: translateX(0); }
+    #mobile-menu.open {
+      transform: translateX(0);
+      visibility: visible;
+      pointer-events: auto;
+      transition: transform 0.35s cubic-bezier(0.4,0,0.2,1), visibility 0s;
+    }
     .mobile-menu-close {
       position: absolute;
       top: 18px; right: 22px;
@@ -3725,66 +3732,9 @@ function closeService() {
     transition: all 0.3s;
   }
 
-  /* ── MOBILE MENU FULL SCREEN ── */
-  #mobile-menu {
-    position: fixed;
-    inset: 0;
-    z-index: 950;
-    background: #0a0f1e;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    gap: 0;
-    padding: 32px 24px;
-    transform: translateX(100%);
-    transition: transform 0.38s cubic-bezier(0.4,0,0.2,1);
-  }
-
-  #mobile-menu.open { transform: translateX(0); }
-
-  .mobile-menu-close {
-    position: absolute;
-    top: 24px;
-    right: 24px;
-    font-size: 28px;
-    color: #ffffff;
-    background: rgba(255,255,255,0.1);
-    width: 44px;
-    height: 44px;
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    line-height: 1;
-  }
-
-  .mobile-menu-logo img { height: 52px; margin-bottom: 36px; }
-
-  #mobile-menu a {
-    font-size: 26px;
-    font-weight: 700;
-    color: #ffffff;
-    letter-spacing: -0.01em;
-    padding: 14px 0;
-    width: 100%;
-    text-align: center;
-    border-bottom: 1px solid rgba(255,255,255,0.08);
-  }
-
-  #mobile-menu a:last-of-type { border-bottom: none; }
-
-  #mobile-menu .mobile-book {
-    margin-top: 28px;
-    background: #0ea5e9;
-    color: #000000;
-    font-size: 17px;
-    font-weight: 800;
-    padding: 16px 40px;
-    border-radius: 50px;
-    border-bottom: none !important;
-    width: auto;
-  }
+  /* (Old full-screen dark mobile menu rules removed — the right-side
+     drawer styles defined at the top of the file now apply on all
+     viewports, so the menu is fully off-screen until opened.) */
 
   /* ── HERO ── */
   #hero { min-height: 100svh; }
