@@ -561,20 +561,39 @@
 
     /* ─── REVIEWS ─────────────────────────────────────────── */
     #reviews { background: #eef4ff; padding: 0.5rem 0 3rem; }
-    .reviews-cards-viewport { overflow: hidden; }
+    .reviews-cards-viewport {
+      overflow-x: auto;
+      overflow-y: hidden;
+      scroll-snap-type: x mandatory;
+      -webkit-overflow-scrolling: touch;
+      scrollbar-width: none;
+      scroll-padding-left: 0;
+      padding-bottom: 6px;
+    }
+    .reviews-cards-viewport::-webkit-scrollbar { display: none; }
     .reviews-cards-track {
       display: flex; gap: 1rem;
-      transition: transform 0.6s ease;
     }
     .reviews-cards-track > .grev-card {
       flex: 0 0 calc((100% - 2rem) / 3);
       min-width: 0;
+      scroll-snap-align: start;
     }
     @media (max-width: 900px) {
       .reviews-cards-track > .grev-card { flex: 0 0 calc((100% - 1rem) / 2); }
     }
     @media (max-width: 560px) {
-      .reviews-cards-track > .grev-card { flex: 0 0 100%; }
+      .reviews-cards-track > .grev-card { flex: 0 0 82%; }
+      .reviews-swipe-hint { display: block; }
+    }
+    .reviews-swipe-hint {
+      display: none;
+      text-align: center;
+      font-size: 12px;
+      color: #64748b;
+      margin-top: 12px;
+      font-weight: 600;
+      letter-spacing: 0.04em;
     }
     .reviews-google-wrap {
       display: grid; grid-template-columns: 220px 1fr; gap: 2.5rem; align-items: start;
@@ -2070,6 +2089,7 @@
         </div>
       </div>
       </div>
+      <div class="reviews-swipe-hint">← Swipe for more reviews →</div>
     </div>
   </div>
 </section>
@@ -2077,7 +2097,9 @@
 (function(){
   var track = document.getElementById('reviews-track');
   if (!track) return;
+  var viewport = track.parentElement;
   var idx = 0;
+  var paused = false;
   function visiblePerView(){
     var w = window.innerWidth;
     if (w <= 560) return 1;
@@ -2085,30 +2107,24 @@
     return 3;
   }
   function tick(){
+    if (paused) return;
     var cards = track.children;
     var perView = visiblePerView();
     var total = cards.length;
     if (total <= perView) return;
     idx = (idx + 1) % (total - perView + 1);
-    if (idx === 0) {
-      // brief pause then reset to start with no animation
-      track.style.transition = 'none';
-      track.style.transform = 'translateX(0)';
-      void track.offsetWidth;
-      track.style.transition = '';
-      return;
-    }
     var card = cards[0];
-    var step = card.getBoundingClientRect().width + 16; // gap = 1rem ≈ 16px
-    track.style.transform = 'translateX(' + (-step * idx) + 'px)';
+    var step = card.getBoundingClientRect().width + 16; // gap = 1rem
+    viewport.scrollTo({ left: step * idx, behavior: 'smooth' });
   }
   setInterval(tick, 5000);
+  // Pause auto-cycle once the user swipes/scrolls so it doesn't fight them.
+  ['touchstart','wheel','pointerdown'].forEach(function(ev){
+    viewport.addEventListener(ev, function(){ paused = true; }, { passive: true });
+  });
   window.addEventListener('resize', function(){
     idx = 0;
-    track.style.transition = 'none';
-    track.style.transform = 'translateX(0)';
-    void track.offsetWidth;
-    track.style.transition = '';
+    viewport.scrollTo({ left: 0 });
   });
 })();
 </script>
