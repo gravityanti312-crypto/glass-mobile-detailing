@@ -1430,41 +1430,53 @@
 
     /* ── DESKTOP-ONLY layout for Step 1 ── */
     @media (min-width: 769px) {
-      #qb-step-1 { max-width: 920px; }
+      #qb-step-1 { max-width: 1040px; }
       .qb-hero {
-        min-height: 320px;
+        min-height: 380px;
         border-radius: 18px;
         margin-bottom: 36px;
+        /* slightly lighter overlay on desktop so the photo reads */
+      }
+      .qb-hero-overlay {
+        background: linear-gradient(180deg, rgba(10,15,30,0.45) 0%, rgba(10,15,30,0.30) 45%, rgba(10,15,30,0.55) 100%);
       }
       .qb-hero-content {
-        padding: 56px 48px;
-        text-align: left;
-        display: grid;
-        grid-template-columns: 1fr auto;
-        align-items: end;
-        gap: 24px;
+        padding: 48px 48px 36px;
+        text-align: center;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        gap: 22px;
       }
+      .qb-hero-reviews {
+        order: -1;
+        background: rgba(0,0,0,0.45);
+        padding: 8px 16px;
+        font-size: 13px;
+      }
+      .qb-hr-stars { font-size: 15px; }
       .qb-hero-title {
-        grid-column: 1 / -1;
-        font-size: 2.6rem;
-        letter-spacing: 1px;
+        font-size: clamp(2.4rem, 4.5vw, 3.4rem);
+        letter-spacing: 1.5px;
         margin: 0;
-        max-width: 560px;
+        max-width: 900px;
+        text-shadow: 0 4px 24px rgba(0,0,0,0.45);
       }
       .qb-hero-benefits {
         flex-direction: row;
-        gap: 28px;
-        margin: 0;
-        align-items: center;
         flex-wrap: wrap;
+        gap: 36px;
+        margin: 0;
+        justify-content: center;
+        align-items: center;
       }
       .qb-hero-benefit { font-size: 15px; }
-      .qb-hero-reviews {
-        justify-self: end;
-        padding: 10px 18px;
-        font-size: 14px;
+      .qb-hb-icon {
+        background: rgba(14,165,233,0.85);
+        border-color: rgba(255,255,255,0.85);
+        color: #fff;
       }
-      .qb-hr-stars { font-size: 16px; }
 
       .qb-pick-headline {
         font-size: 1.35rem;
@@ -2859,18 +2871,19 @@
         <div class="qb-hero">
           <div class="qb-hero-overlay"></div>
           <div class="qb-hero-content">
-            <h2 class="qb-hero-title">SCHEDULE MOBILE DETAILING</h2>
-            <div class="qb-hero-benefits">
-              <div class="qb-hero-benefit"><span class="qb-hb-icon">💲</span><span>No Upfront Payments</span></div>
-              <div class="qb-hero-benefit"><span class="qb-hb-icon">🛡️</span><span>100% Glass Guarantee</span></div>
-              <div class="qb-hero-benefit"><span class="qb-hb-icon">📍</span><span>We Come To You</span></div>
-            </div>
             <a href="https://maps.app.goo.gl/qWgirLzyZgKjfj3GA" target="_blank" rel="noopener" class="qb-hero-reviews">
               <span class="qb-hr-label">EXCELLENT</span>
               <span class="qb-hr-stars">★★★★★</span>
               <span class="qb-hr-count">35 reviews</span>
               <span class="qb-hr-google"><span style="color:#4285F4;">G</span><span style="color:#EA4335;">o</span><span style="color:#FBBC05;">o</span><span style="color:#4285F4;">g</span><span style="color:#34A853;">l</span><span style="color:#EA4335;">e</span></span>
             </a>
+            <h2 class="qb-hero-title">SCHEDULE MOBILE DETAILING</h2>
+            <div class="qb-hero-benefits">
+              <div class="qb-hero-benefit"><span class="qb-hb-icon">💲</span><span>No Upfront Payments</span></div>
+              <div class="qb-hero-benefit"><span class="qb-hb-icon">🛡️</span><span>100% Glass Guarantee</span></div>
+              <div class="qb-hero-benefit"><span class="qb-hb-icon">📍</span><span>We Come To You</span></div>
+              <div class="qb-hero-benefit"><span class="qb-hb-icon">🕒</span><span>Easy Booking</span></div>
+            </div>
           </div>
         </div>
         <h3 class="qb-pick-headline">To see Pricing &amp; Availability,<br/><strong>SELECT YOUR VEHICLE SIZE BELOW</strong></h3>
