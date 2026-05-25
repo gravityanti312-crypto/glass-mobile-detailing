@@ -1022,6 +1022,67 @@
       color: #1a1a2e;
       line-height: 1.3;
     }
+
+    /* Services with prices */
+    .qb-services { display: flex; flex-direction: column; gap: 14px; }
+    .qb-svc {
+      background: #fff; border: 2px solid #e2e8f0; border-radius: 14px;
+      padding: 18px 20px; cursor: pointer; transition: border-color .2s, box-shadow .2s, transform .15s;
+    }
+    .qb-svc:hover { border-color: #0ea5e9; box-shadow: 0 6px 20px rgba(14,165,233,0.12); }
+    .qb-svc.selected { border-color: #0ea5e9; background: linear-gradient(135deg, rgba(14,165,233,0.06), rgba(14,165,233,0.02)); box-shadow: 0 6px 20px rgba(14,165,233,0.15); }
+    .qb-svc-head { display: flex; justify-content: space-between; align-items: center; gap: 12px; }
+    .qb-svc-title { font-size: 15px; font-weight: 800; color: #0f172a; line-height: 1.3; }
+    .qb-svc-tag { display: inline-block; background: #0ea5e9; color: #fff; font-size: 10px; padding: 3px 8px; border-radius: 999px; margin-left: 6px; vertical-align: middle; letter-spacing: 0.5px; }
+    .qb-svc-price { font-size: 22px; font-weight: 800; color: #0ea5e9; margin-top: 4px; }
+    .qb-svc-per { font-size: 13px; color: #64748b; font-weight: 600; margin-left: 2px; }
+    .qb-svc-pick { font-size: 12px; font-weight: 700; color: #0ea5e9; border: 1.5px solid #0ea5e9; padding: 8px 14px; border-radius: 999px; flex-shrink: 0; }
+    .qb-svc.selected .qb-svc-pick { background: #0ea5e9; color: #fff; }
+    .qb-svc-desc { font-size: 13.5px; color: #475569; line-height: 1.55; margin: 10px 0 0; }
+
+    /* Add-ons */
+    .qb-section-label { font-size: 13px; font-weight: 800; color: #0f172a; text-transform: uppercase; letter-spacing: .08em; margin: 18px 0 10px; display: flex; justify-content: space-between; align-items: center; }
+    .qb-tz { font-size: 11px; color: #64748b; font-weight: 600; text-transform: none; letter-spacing: 0; }
+    .qb-addons { display: grid; grid-template-columns: 1fr 1fr; gap: 8px 16px; }
+    .qb-addon { display: flex; align-items: center; gap: 10px; padding: 10px 12px; border: 1.5px solid #e2e8f0; border-radius: 10px; cursor: pointer; transition: border-color .15s, background .15s; }
+    .qb-addon:hover { border-color: #0ea5e9; }
+    .qb-addon input { accent-color: #0ea5e9; width: 18px; height: 18px; flex-shrink: 0; }
+    .qb-addon-text { font-size: 13.5px; color: #334155; line-height: 1.35; }
+    .qb-addon-text em { font-style: normal; color: #0ea5e9; font-weight: 700; margin-left: 4px; }
+    .qb-addon input:checked + .qb-addon-text { color: #0f172a; font-weight: 600; }
+
+    /* Time grid */
+    .qb-time-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 8px; background: #f1f5f9; border-radius: 12px; padding: 12px; }
+    .qb-time-col { display: flex; flex-direction: column; gap: 6px; }
+    .qb-time-head { text-align: center; font-size: 12px; font-weight: 800; color: #0f172a; padding: 6px 0; background: #fff; border-radius: 8px; }
+    .qb-time-slot { background: #fff; border: 1.5px solid transparent; border-radius: 8px; padding: 10px 4px; font-size: 13px; font-weight: 700; color: #0f172a; cursor: pointer; transition: all .15s; }
+    .qb-time-slot:hover { border-color: #0ea5e9; color: #0ea5e9; }
+    .qb-time-slot.selected { background: #0ea5e9; color: #fff; border-color: #0ea5e9; }
+
+    /* Summary + Membership */
+    .qb-summary { background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 14px; padding: 18px 20px; }
+    .qb-sum-row { display: flex; justify-content: space-between; align-items: baseline; padding: 6px 0; font-size: 14px; color: #334155; }
+    .qb-sum-row.qb-sum-head { font-weight: 800; color: #0f172a; font-size: 15px; }
+    .qb-sum-row.qb-sum-muted { color: #94a3b8; font-style: italic; }
+    .qb-sum-row.qb-sum-discount { color: #16a34a; font-weight: 700; }
+    .qb-sum-row.qb-sum-total { font-size: 18px; font-weight: 900; color: #0ea5e9; padding-top: 10px; }
+    .qb-sum-sub { font-size: 13px; color: #64748b; margin: 2px 0 4px; }
+    .qb-sum-divider { height: 1px; background: #e2e8f0; margin: 8px 0; }
+    .qb-sum-section { font-size: 12px; font-weight: 800; text-transform: uppercase; letter-spacing: .06em; color: #64748b; margin: 4px 0; }
+
+    .qb-membership-card { display: flex; align-items: flex-start; gap: 12px; margin-top: 16px; padding: 16px 18px; border: 2px solid #e2e8f0; border-radius: 14px; cursor: pointer; transition: all .2s; }
+    .qb-membership-card:has(input:checked) { border-color: #0ea5e9; background: linear-gradient(135deg, rgba(14,165,233,0.06), rgba(14,165,233,0.02)); }
+    .qb-membership-card input { accent-color: #0ea5e9; width: 20px; height: 20px; margin-top: 2px; flex-shrink: 0; }
+    .qb-mc-title { font-size: 15px; font-weight: 800; color: #0f172a; margin-bottom: 4px; }
+    .qb-mc-sub { font-size: 13px; color: #475569; line-height: 1.5; }
+    .qb-fineprint { font-size: 12px; color: #94a3b8; margin-top: 14px; text-align: center; line-height: 1.55; }
+
+    @media (max-width: 640px) {
+      .qb-addons { grid-template-columns: 1fr; }
+      .qb-time-grid { grid-template-columns: repeat(2, 1fr); }
+      .qb-svc-head { flex-direction: column; align-items: flex-start; }
+      .qb-svc-pick { align-self: flex-end; }
+    }
     /* Step 4 form */
     .qb-form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
     .qb-form-group { display: flex; flex-direction: column; gap: 6px; }
@@ -2275,70 +2336,101 @@
         </div>
       </div>
 
-      <!-- Step 2 -->
+      <!-- Step 2: Service Selection with Prices -->
       <div class="qb-step" id="qb-step-2">
-        <h2 class="qb-step-title">What service are you looking for?</h2>
-        <p class="qb-step-sub">Pick the service that best fits your needs.</p>
-        <div class="qb-cards">
-          <div class="qb-card" onclick="qbSelect(this, 2)" data-value="Exterior Detail">
-            <span class="qb-card-icon">💧</span>
-            <div class="qb-card-label">Exterior Detail</div>
+        <h2 class="qb-step-title">Pick a service</h2>
+        <p class="qb-step-sub">All prices shown for <span id="qb-vehicle-echo">your vehicle</span>. Larger vehicles add $20–$40.</p>
+        <div class="qb-services">
+          <div class="qb-svc" onclick="qbSelectService(this)" data-value="Interior Detail — One Time" data-price="177">
+            <div class="qb-svc-head">
+              <div>
+                <div class="qb-svc-title">Interior Detail Only — One Time</div>
+                <div class="qb-svc-price">$177</div>
+              </div>
+              <span class="qb-svc-pick">Select</span>
+            </div>
+            <p class="qb-svc-desc">Trash removal, air blast, spotless vacuum, light stain removal, seat wipe-down, dashboard, cup holder &amp; vents, steam cleaning, floor mats, door jams &amp; trim, plastic shine, streak-free interior windows, trunk, + 1 FREE child seat cleaning.</p>
           </div>
-          <div class="qb-card" onclick="qbSelect(this, 2)" data-value="Interior Detail">
-            <span class="qb-card-icon">🪑</span>
-            <div class="qb-card-label">Interior Detail</div>
+          <div class="qb-svc" onclick="qbSelectService(this)" data-value="Exterior Wash + Interior Detail — One Time" data-price="197">
+            <div class="qb-svc-head">
+              <div>
+                <div class="qb-svc-title">Exterior Wash &amp; Interior Detail — One Time</div>
+                <div class="qb-svc-price">$197</div>
+              </div>
+              <span class="qb-svc-pick">Select</span>
+            </div>
+            <p class="qb-svc-desc">Everything in Interior Detail + hand wash &amp; dry with spot-free water, bug/tar removal, wheels/rims, trim &amp; tire shine, streak-free windows.</p>
           </div>
-          <div class="qb-card" onclick="qbSelect(this, 2)" data-value="Full Detail Package">
-            <span class="qb-card-icon">🏆</span>
-            <div class="qb-card-label">Full Detail</div>
+          <div class="qb-svc" onclick="qbSelectService(this)" data-value="Monthly Glass Club — Interior + Exterior" data-price="117">
+            <div class="qb-svc-head">
+              <div>
+                <div class="qb-svc-title">Monthly Glass Club — Interior + Exterior <span class="qb-svc-tag">SAVE BIG</span></div>
+                <div class="qb-svc-price">$117<span class="qb-svc-per">/mo</span></div>
+              </div>
+              <span class="qb-svc-pick">Select</span>
+            </div>
+            <p class="qb-svc-desc">Spotless interior detail + complimentary exterior wash every month. Month-to-month — pay back the discount only if cancelled within 3 services.</p>
           </div>
-          <div class="qb-card" onclick="qbSelect(this, 2)" data-value="Ceramic Coating">
-            <span class="qb-card-icon">🔬</span>
-            <div class="qb-card-label">Ceramic Coating</div>
+          <div class="qb-svc" onclick="qbSelectService(this)" data-value="Bi-Monthly Glass Club" data-price="147">
+            <div class="qb-svc-head">
+              <div>
+                <div class="qb-svc-title">Bi-Monthly Glass Club</div>
+                <div class="qb-svc-price">$147<span class="qb-svc-per">/visit</span></div>
+              </div>
+              <span class="qb-svc-pick">Select</span>
+            </div>
+            <p class="qb-svc-desc">Interior detail + complimentary exterior wash every other month. Month-to-month — cancel anytime after 3 services with no penalty.</p>
           </div>
-          <div class="qb-card" onclick="qbSelect(this, 2)" data-value="Paint Correction">
-            <span class="qb-card-icon">✨</span>
-            <div class="qb-card-label">Paint Correction</div>
+          <div class="qb-svc" onclick="qbSelectService(this)" data-value="Quarterly Glass Club" data-price="167">
+            <div class="qb-svc-head">
+              <div>
+                <div class="qb-svc-title">Quarterly Glass Club</div>
+                <div class="qb-svc-price">$167<span class="qb-svc-per">/visit</span></div>
+              </div>
+              <span class="qb-svc-pick">Select</span>
+            </div>
+            <p class="qb-svc-desc">Interior detail + complimentary exterior wash every 3 months. Keep your car fresh year-round.</p>
           </div>
-          <div class="qb-card" onclick="qbSelect(this, 2)" data-value="Engine Bay">
-            <span class="qb-card-icon">⚙️</span>
-            <div class="qb-card-label">Engine Bay</div>
-          </div>
-          <div class="qb-card" onclick="qbSelect(this, 2)" data-value="Not Sure">
-            <span class="qb-card-icon">🤷</span>
-            <div class="qb-card-label">Not Sure</div>
+          <div class="qb-svc" onclick="qbSelectService(this)" data-value="Ceramic Coating — Quote" data-price="0">
+            <div class="qb-svc-head">
+              <div>
+                <div class="qb-svc-title">Ceramic Coating</div>
+                <div class="qb-svc-price">Custom Quote</div>
+              </div>
+              <span class="qb-svc-pick">Select</span>
+            </div>
+            <p class="qb-svc-desc">Long-lasting paint protection &amp; gloss. We'll send a personalized quote based on your vehicle and prep needs.</p>
           </div>
         </div>
       </div>
 
-      <!-- Step 3 -->
+      <!-- Step 3: Add-ons + Time Slot -->
       <div class="qb-step" id="qb-step-3">
-        <h2 class="qb-step-title">What's the current condition?</h2>
-        <p class="qb-step-sub">Be honest — this helps us know what to bring.</p>
-        <div class="qb-cards" style="grid-template-columns: repeat(2,1fr);">
-          <div class="qb-card" onclick="qbSelect(this, 3)" data-value="Like New">
-            <span class="qb-card-icon">🟢</span>
-            <div class="qb-card-label">Like New<br /><span style="font-weight:400; font-size:12px; opacity:0.7;">Light maintenance</span></div>
-          </div>
-          <div class="qb-card" onclick="qbSelect(this, 3)" data-value="Normal">
-            <span class="qb-card-icon">🟡</span>
-            <div class="qb-card-label">Normal<br /><span style="font-weight:400; font-size:12px; opacity:0.7;">Some dirt &amp; wear</span></div>
-          </div>
-          <div class="qb-card" onclick="qbSelect(this, 3)" data-value="Needs Work">
-            <span class="qb-card-icon">🟠</span>
-            <div class="qb-card-label">Needs Work<br /><span style="font-weight:400; font-size:12px; opacity:0.7;">Been a while</span></div>
-          </div>
-          <div class="qb-card" onclick="qbSelect(this, 3)" data-value="Very Dirty">
-            <span class="qb-card-icon">🔴</span>
-            <div class="qb-card-label">Very Dirty<br /><span style="font-weight:400; font-size:12px; opacity:0.7;">Full restoration needed</span></div>
-          </div>
+        <h2 class="qb-step-title">Add-ons &amp; pick a time</h2>
+        <p class="qb-step-sub">Optional add-ons + your preferred appointment window.</p>
+
+        <div class="qb-section-label">Optional Add-Ons</div>
+        <div class="qb-addons">
+          <label class="qb-addon"><input type="checkbox" value="Clean Air Fresheners (Pack of 3) — $10" data-price="10" /><span class="qb-addon-text">Clean Air Fresheners (Pack of 3) <em>$10</em></span></label>
+          <label class="qb-addon"><input type="checkbox" value="Clean Scent Bomb — $25" data-price="25" /><span class="qb-addon-text">Clean Scent Bomb <em>$25</em></span></label>
+          <label class="qb-addon"><input type="checkbox" value="Engine Cleaning — $50" data-price="50" /><span class="qb-addon-text">Engine Cleaning — Clean, degrease &amp; dress <em>$50</em></span></label>
+          <label class="qb-addon"><input type="checkbox" value="Headlight Restoration — $60" data-price="60" /><span class="qb-addon-text">Headlight Restoration — Cut, polish &amp; coat <em>$60</em></span></label>
+          <label class="qb-addon"><input type="checkbox" value="Pet Hair Removal — $50" data-price="50" /><span class="qb-addon-text">Pet Hair Removal <em>$50</em></span></label>
+          <label class="qb-addon"><input type="checkbox" value="Seat Shampooing — $75" data-price="75" /><span class="qb-addon-text">Seat Shampooing (front + back) <em>$75</em></span></label>
+          <label class="qb-addon"><input type="checkbox" value="Floor Shampoo — $50" data-price="50" /><span class="qb-addon-text">Floor Shampoo (front + back) <em>$50</em></span></label>
+          <label class="qb-addon"><input type="checkbox" value="Leather Conditioning — $50" data-price="50" /><span class="qb-addon-text">Seat Leather Condition <em>$50</em></span></label>
+          <label class="qb-addon"><input type="checkbox" value="Fabric/Upholstery Protector — $50" data-price="50" /><span class="qb-addon-text">Fabric / Upholstery Protector <em>$50</em></span></label>
+          <label class="qb-addon"><input type="checkbox" value="Odor Elimination Treatment — $150" data-price="150" /><span class="qb-addon-text">Odor Elimination (Ozone + Shampoo) <em>$150</em></span></label>
         </div>
+
+        <div class="qb-section-label">Pick a Time <span class="qb-tz">Time Zone: America/Phoenix</span></div>
+        <div class="qb-time-grid" id="qb-time-grid"><!-- populated by JS --></div>
       </div>
 
-      <!-- Step 4 -->
+      <!-- Step 4: Contact + Vehicle Info -->
       <div class="qb-step" id="qb-step-4">
-        <h2 class="qb-step-title">Almost there — contact info</h2>
-        <p class="qb-step-sub">We'll reach out with your personalized quote within the hour.</p>
+        <h2 class="qb-step-title">Your information</h2>
+        <p class="qb-step-sub">We'll text you a reminder and confirm the appointment.</p>
         <form id="qb-form" onsubmit="submitQbForm(event)">
           <div class="qb-form-grid">
             <div class="qb-form-group">
@@ -2351,31 +2443,59 @@
             </div>
             <div class="qb-form-group">
               <label for="qb-phone">Phone Number *</label>
-              <input type="tel" id="qb-phone" name="phone" placeholder="(626) 650-7713" required />
+              <input type="tel" id="qb-phone" name="phone" placeholder="(602) 555-0123" required />
             </div>
             <div class="qb-form-group">
               <label for="qb-email">Email Address *</label>
               <input type="email" id="qb-email" name="email" placeholder="john@example.com" required />
             </div>
             <div class="qb-form-group full">
-              <label for="qb-address">Service Address *</label>
-              <input type="text" id="qb-address" name="address" placeholder="123 Main Street" required />
+              <label for="qb-address">Full Service Address — Street, City &amp; Zip *</label>
+              <input type="text" id="qb-address" name="address" placeholder="123 Main Street, Scottsdale, AZ 85251" required />
             </div>
             <div class="qb-form-group">
-              <label for="qb-city">City *</label>
+              <label for="qb-city">Confirm City *</label>
               <input type="text" id="qb-city" name="city" placeholder="Scottsdale" required />
             </div>
             <div class="qb-form-group">
-              <label for="qb-zip">ZIP Code *</label>
+              <label for="qb-zip">ZIP *</label>
               <input type="text" id="qb-zip" name="zip" placeholder="85251" required />
+            </div>
+            <div class="qb-form-group full">
+              <label for="qb-make">Make &amp; Model of your vehicle *</label>
+              <input type="text" id="qb-make" name="make_model" placeholder="2022 Toyota Camry" required />
+            </div>
+            <div class="qb-form-group full">
+              <label for="qb-notes">Anything else we should know?</label>
+              <input type="text" id="qb-notes" name="notes" placeholder="Gate code, dog on premises, parking notes…" />
             </div>
           </div>
           <input type="hidden" name="vehicle_type" id="qb-hidden-vehicle" />
           <input type="hidden" name="service_type" id="qb-hidden-service" />
-          <input type="hidden" name="condition" id="qb-hidden-condition" />
-          <input type="hidden" name="_subject" value="New Quote Request — Glass Mobile Detailing" />
+          <input type="hidden" name="addons" id="qb-hidden-addons" />
+          <input type="hidden" name="time_slot" id="qb-hidden-time" />
+          <input type="hidden" name="estimated_total" id="qb-hidden-total" />
+          <input type="hidden" name="_subject" value="New Booking Request — Glass Mobile Detailing" />
           <input type="hidden" name="_captcha" value="false" />
         </form>
+      </div>
+
+      <!-- Step 5: Review + Membership Upsell -->
+      <div class="qb-step" id="qb-step-5">
+        <h2 class="qb-step-title">Review your booking</h2>
+        <p class="qb-step-sub">No payment required to book — we'll collect on-site or send a secure link.</p>
+
+        <div class="qb-summary" id="qb-summary"><!-- populated by JS --></div>
+
+        <label class="qb-membership-card" id="qb-club-toggle">
+          <input type="checkbox" id="qb-club" />
+          <div class="qb-mc-body">
+            <div class="qb-mc-title">⭐ Join The Glass Club &amp; Save 15%</div>
+            <div class="qb-mc-sub">Apply a 15% member discount to today's service. Month-to-month — pay back only if cancelled within 3 services.</div>
+          </div>
+        </label>
+
+        <div class="qb-fineprint">By submitting, you agree to be contacted to confirm your appointment. No charge until service is complete.</div>
       </div>
 
       <!-- Success -->
@@ -2388,7 +2508,7 @@
     </div>
 
     <div class="qb-footer" id="qb-footer">
-      <div class="qb-step-indicator" id="qb-step-indicator">Step 1 of 4</div>
+      <div class="qb-step-indicator" id="qb-step-indicator">Step 1 of 5</div>
       <div class="qb-footer-btns">
         <button class="qb-back" id="qb-back-btn" onclick="qbPrev()" style="display:none">← Back</button>
         <button class="qb-next" id="qb-next-btn" onclick="qbNext()" disabled>Continue →</button>
@@ -2411,7 +2531,9 @@
 
   /* ── Quote Modal ─────────────────────────────────────────── */
   var qbStep = 1;
-  var qbSelections = { 1: null, 2: null, 3: null };
+  var qbTotalSteps = 5;
+  var qbSelections = { 1: null, 2: null, 2_price: 0, 3_time: null, 3_addons: [] };
+  var qbVehicleSurcharge = { 'Sedan / Coupe': 0, 'Sports Car': 0, 'SUV / Crossover': 20, 'Truck': 20, 'Luxury / Exotic': 30, 'Van / Large SUV': 40 };
 
   function openQuoteModal() {
     document.getElementById('quote-modal').classList.add('open');
@@ -2426,67 +2548,155 @@
 
   function showQbStep(n) {
     qbStep = n;
-    // Hide all steps & success
     document.querySelectorAll('.qb-step').forEach(function(s) { s.classList.remove('active'); });
     document.getElementById('qb-success').style.display = 'none';
     document.getElementById('qb-footer').style.display = 'flex';
 
-    if (n <= 4) {
+    if (n <= qbTotalSteps) {
       var stepEl = document.getElementById('qb-step-' + n);
       if (stepEl) stepEl.classList.add('active');
     }
 
-    // Progress bar
-    var pct = (n / 4) * 100;
+    if (n === 2 && qbSelections[1]) {
+      var echo = document.getElementById('qb-vehicle-echo');
+      if (echo) echo.textContent = qbSelections[1];
+    }
+    if (n === 3) qbBuildTimeGrid();
+    if (n === 5) qbBuildSummary();
+
+    var pct = (n / qbTotalSteps) * 100;
     document.getElementById('qb-progress').style.width = pct + '%';
-
-    // Step indicator
-    document.getElementById('qb-step-indicator').textContent = 'Step ' + n + ' of 4';
-
-    // Back button
+    document.getElementById('qb-step-indicator').textContent = 'Step ' + n + ' of ' + qbTotalSteps;
     document.getElementById('qb-back-btn').style.display = n > 1 ? 'inline-flex' : 'none';
 
-    // Next button label & state
     var nextBtn = document.getElementById('qb-next-btn');
-    nextBtn.textContent = n === 4 ? 'Submit Quote →' : 'Continue →';
+    nextBtn.textContent = n === qbTotalSteps ? 'Confirm Booking →' : 'Continue →';
     updateQbNext();
   }
 
   function qbSelect(el, step) {
-    // Deselect siblings
     el.closest('.qb-cards').querySelectorAll('.qb-card').forEach(function(c) { c.classList.remove('selected'); });
     el.classList.add('selected');
     qbSelections[step] = el.dataset.value;
     updateQbNext();
+    if (step === 1) setTimeout(function() { qbNext(); }, 280);
+  }
 
-    // Auto-advance for steps 1–3
-    if (step < 4) {
-      setTimeout(function() { qbNext(); }, 280);
+  function qbSelectService(el) {
+    document.querySelectorAll('.qb-svc').forEach(function(c) { c.classList.remove('selected'); });
+    el.classList.add('selected');
+    qbSelections[2] = el.dataset.value;
+    qbSelections['2_price'] = parseInt(el.dataset.price || '0', 10);
+    updateQbNext();
+    setTimeout(function() { qbNext(); }, 320);
+  }
+
+  function qbBuildTimeGrid() {
+    var grid = document.getElementById('qb-time-grid');
+    if (grid.dataset.built === '1') return;
+    var days = ['Sun','Mon','Tue','Wed','Thu','Fri','Sat'];
+    var months = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+    var slots = ['7:00 AM','9:00 AM','11:00 AM','1:00 PM','3:00 PM'];
+    var html = '';
+    var d = new Date();
+    var added = 0;
+    while (added < 5) {
+      d.setDate(d.getDate() + 1);
+      if (d.getDay() === 0) continue; // skip Sunday
+      var label = days[d.getDay()] + ' ' + months[d.getMonth()] + ' ' + d.getDate();
+      html += '<div class="qb-time-col"><div class="qb-time-head">' + label + '</div>';
+      slots.forEach(function(t) {
+        var val = label + ' @ ' + t;
+        html += '<button type="button" class="qb-time-slot" onclick="qbPickTime(this)" data-value="' + val + '">' + t + '</button>';
+      });
+      html += '</div>';
+      added++;
     }
+    grid.innerHTML = html;
+    grid.dataset.built = '1';
+  }
+
+  function qbPickTime(el) {
+    document.querySelectorAll('.qb-time-slot').forEach(function(b) { b.classList.remove('selected'); });
+    el.classList.add('selected');
+    qbSelections['3_time'] = el.dataset.value;
+    updateQbNext();
+  }
+
+  function qbCollectAddons() {
+    var addons = [];
+    var total = 0;
+    document.querySelectorAll('#qb-step-3 .qb-addon input:checked').forEach(function(cb) {
+      addons.push(cb.value);
+      total += parseInt(cb.dataset.price || '0', 10);
+    });
+    qbSelections['3_addons'] = addons;
+    qbSelections['3_addons_total'] = total;
+    return { list: addons, total: total };
+  }
+
+  function qbBuildSummary() {
+    qbCollectAddons();
+    var v = qbSelections[1] || '';
+    var s = qbSelections[2] || '';
+    var basePrice = qbSelections['2_price'] || 0;
+    var surcharge = qbVehicleSurcharge[v] || 0;
+    var addonsTotal = qbSelections['3_addons_total'] || 0;
+    var club = document.getElementById('qb-club') && document.getElementById('qb-club').checked;
+    var preDiscount = basePrice + surcharge + addonsTotal;
+    var discount = club ? Math.round(preDiscount * 0.15) : 0;
+    var total = preDiscount - discount;
+
+    var addonHtml = (qbSelections['3_addons'] || []).map(function(a) { return '<div class="qb-sum-row"><span>' + a.split(' — ')[0] + '</span><span>+$' + a.split('$').pop() + '</span></div>'; }).join('');
+    if (!addonHtml) addonHtml = '<div class="qb-sum-row qb-sum-muted"><span>No add-ons selected</span><span>—</span></div>';
+
+    var html = '' +
+      '<div class="qb-sum-row qb-sum-head"><span>' + s + '</span><span>' + (basePrice ? '$' + basePrice : 'Quote') + '</span></div>' +
+      '<div class="qb-sum-row"><span>Vehicle: ' + v + (surcharge ? '' : '') + '</span><span>' + (surcharge ? '+$' + surcharge : 'included') + '</span></div>' +
+      '<div class="qb-sum-sub">Time: ' + (qbSelections['3_time'] || '—') + '</div>' +
+      '<div class="qb-sum-divider"></div>' +
+      '<div class="qb-sum-section">Add-ons</div>' +
+      addonHtml +
+      (club ? '<div class="qb-sum-divider"></div><div class="qb-sum-row qb-sum-discount"><span>Glass Club discount (15%)</span><span>−$' + discount + '</span></div>' : '') +
+      '<div class="qb-sum-divider"></div>' +
+      '<div class="qb-sum-row qb-sum-total"><span>Estimated Total</span><span>' + (basePrice ? '$' + total : 'Custom Quote') + '</span></div>';
+    document.getElementById('qb-summary').innerHTML = html;
   }
 
   function updateQbNext() {
     var nextBtn = document.getElementById('qb-next-btn');
-    if (qbStep === 4) {
-      nextBtn.disabled = false;
-    } else {
-      nextBtn.disabled = !qbSelections[qbStep];
-    }
+    if (qbStep === 1) nextBtn.disabled = !qbSelections[1];
+    else if (qbStep === 2) nextBtn.disabled = !qbSelections[2];
+    else if (qbStep === 3) nextBtn.disabled = !qbSelections['3_time'];
+    else nextBtn.disabled = false;
   }
 
   function qbNext() {
-    if (qbStep < 4) {
-      if (!qbSelections[qbStep]) return;
-      showQbStep(qbStep + 1);
-    } else {
-      // Submit form
-      document.getElementById('qb-form').dispatchEvent(new Event('submit', { cancelable: true, bubbles: true }));
+    if (qbStep === 1 && !qbSelections[1]) return;
+    if (qbStep === 2 && !qbSelections[2]) return;
+    if (qbStep === 3) { qbCollectAddons(); if (!qbSelections['3_time']) return; }
+    if (qbStep === 4) {
+      var form = document.getElementById('qb-form');
+      var required = form.querySelectorAll('[required]');
+      for (var i = 0; i < required.length; i++) {
+        if (!required[i].value.trim()) { required[i].focus(); required[i].style.borderColor = '#ff4d4f'; return; }
+      }
+      showQbStep(5);
+      return;
     }
+    if (qbStep === 5) {
+      document.getElementById('qb-form').dispatchEvent(new Event('submit', { cancelable: true, bubbles: true }));
+      return;
+    }
+    showQbStep(qbStep + 1);
   }
 
-  function qbPrev() {
-    if (qbStep > 1) showQbStep(qbStep - 1);
-  }
+  function qbPrev() { if (qbStep > 1) showQbStep(qbStep - 1); }
+
+  document.addEventListener('change', function(e) {
+    if (e.target && e.target.closest && e.target.closest('.qb-addon')) qbCollectAddons();
+    if (e.target && e.target.id === 'qb-club') qbBuildSummary();
+  });
 
   /* ── Reviews Scroll ──────────────────────────────────────── */
   function scrollReviews(dir) {
@@ -2534,9 +2744,19 @@
     }
 
     // Inject hidden fields
-    document.getElementById('qb-hidden-vehicle').value = qbSelections[1] || '';
-    document.getElementById('qb-hidden-service').value = qbSelections[2] || '';
-    document.getElementById('qb-hidden-condition').value = qbSelections[3] || '';
+    qbCollectAddons();
+    var v = qbSelections[1] || '';
+    var basePrice = qbSelections['2_price'] || 0;
+    var surcharge = qbVehicleSurcharge[v] || 0;
+    var addonsTotal = qbSelections['3_addons_total'] || 0;
+    var club = document.getElementById('qb-club') && document.getElementById('qb-club').checked;
+    var pre = basePrice + surcharge + addonsTotal;
+    var total = club ? pre - Math.round(pre * 0.15) : pre;
+    document.getElementById('qb-hidden-vehicle').value = v;
+    document.getElementById('qb-hidden-service').value = (qbSelections[2] || '') + (club ? ' (Glass Club 15% applied)' : '');
+    document.getElementById('qb-hidden-addons').value = (qbSelections['3_addons'] || []).join('; ');
+    document.getElementById('qb-hidden-time').value = qbSelections['3_time'] || '';
+    document.getElementById('qb-hidden-total').value = basePrice ? ('$' + total) : 'Custom Quote';
 
     var data = new FormData(form);
 
