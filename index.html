@@ -1099,6 +1099,102 @@
       overflow-y: auto;
     }
     #quote-modal.open { display: block; }
+
+    /* ─── REFERRAL MODAL ──────────────────────────────────── */
+    #referral-modal { position: fixed; inset: 0; z-index: 1000; display: none; overflow-y: auto; }
+    #referral-modal.open { display: block; }
+    .rm-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.65); z-index: 1001; }
+    .rm-wrap {
+      position: relative; z-index: 1002;
+      max-width: 720px;
+      margin: 56px auto;
+      background: #fff;
+      border-radius: 18px;
+      box-shadow: 0 24px 80px rgba(0,0,0,0.4);
+      overflow: hidden;
+    }
+    .rm-close {
+      position: absolute; top: 14px; right: 16px;
+      width: 36px; height: 36px;
+      border-radius: 50%; border: none;
+      background: rgba(15,23,42,0.06);
+      color: #0f172a; font-size: 24px; line-height: 1;
+      cursor: pointer; z-index: 3;
+      transition: background .15s;
+    }
+    .rm-close:hover { background: rgba(15,23,42,0.12); }
+    .rm-body { padding: 40px 36px 36px; }
+    .rm-title {
+      color: var(--teal);
+      font-size: clamp(1.8rem, 4vw, 2.4rem);
+      font-weight: 900;
+      letter-spacing: -0.5px;
+      line-height: 1.05;
+      margin: 0 0 14px;
+    }
+    .rm-lead { font-size: 15.5px; color: #475569; line-height: 1.55; margin: 0 0 20px; }
+    .rm-howto p, .rm-howto ol { margin: 0; }
+    .rm-howto-head { font-size: 15px; font-weight: 700; color: #0f172a; margin-bottom: 10px; }
+    .rm-howto ol { padding-left: 22px; display: flex; flex-direction: column; gap: 14px; margin-bottom: 16px; }
+    .rm-howto li { font-size: 14.5px; color: #334155; line-height: 1.6; }
+    .rm-howto strong { color: #0f172a; }
+    .rm-howto em { color: var(--teal); font-style: normal; font-weight: 700; }
+    .rm-tagline { font-size: 14.5px; color: #334155; line-height: 1.55; margin-bottom: 24px !important; }
+
+    .rm-form-card {
+      background: #f8fafc;
+      border: 1px solid #e2e8f0;
+      border-radius: 14px;
+      padding: 26px 22px;
+    }
+    .rm-form-title {
+      text-align: center;
+      font-size: 1.2rem;
+      font-weight: 800;
+      color: #0f172a;
+      margin: 0 0 18px;
+      line-height: 1.35;
+    }
+    #referral-form { display: flex; flex-direction: column; gap: 12px; }
+    #referral-form input,
+    #referral-form textarea {
+      width: 100%;
+      background: #fff;
+      border: 1.5px solid #cbd5e1;
+      border-radius: 10px;
+      padding: 14px 16px;
+      font-size: 15px;
+      font-family: inherit;
+      color: #0f172a;
+      outline: none;
+      transition: border-color .15s;
+      resize: vertical;
+    }
+    #referral-form input:focus,
+    #referral-form textarea:focus { border-color: var(--teal); }
+    #referral-form input::placeholder,
+    #referral-form textarea::placeholder { color: #94a3b8; }
+    .rm-submit {
+      margin-top: 6px;
+      background: var(--teal); color: #fff;
+      border: none; border-radius: 12px;
+      padding: 16px 20px;
+      font-size: 15px; font-weight: 800; letter-spacing: 0.08em;
+      cursor: pointer;
+      transition: background .15s, transform .12s;
+    }
+    .rm-submit:hover { background: var(--teal-dark); transform: translateY(-1px); }
+
+    .rm-success { display: none; text-align: center; padding: 12px 0 4px; }
+    .rm-success-icon { font-size: 48px; margin-bottom: 10px; }
+    .rm-success-title { font-size: 1.2rem; font-weight: 800; color: #0f172a; margin-bottom: 8px; }
+    .rm-success p { font-size: 14px; color: #475569; line-height: 1.55; margin: 0; }
+
+    @media (max-width: 640px) {
+      .rm-wrap { margin: 24px 14px; border-radius: 14px; }
+      .rm-body { padding: 32px 22px 24px; }
+      .rm-form-card { padding: 20px 16px; }
+    }
     .qb-overlay {
       position: fixed;
       inset: 0;
@@ -1808,7 +1904,7 @@
       <a href="#membership">The Glass Club</a>
       <a href="#footer">Contact Us</a>
       <a href="#footer">Service Areas</a>
-      <a href="mailto:glassmobiledetailing@gmail.com?subject=Refer%20A%20Friend">Refer A Friend</a>
+      <a href="javascript:void(0)" onclick="openReferralModal()">Refer A Friend</a>
     </div>
     <div class="nav-right">
       <a href="tel:6266507713" class="nav-ig-btn">
@@ -1834,7 +1930,7 @@
   <a href="mailto:glassmobiledetailing@gmail.com?subject=Gift%20Card%20Inquiry" onclick="closeMobile()">Gift Cards</a>
   <a href="#footer" onclick="closeMobile()">Contact Us</a>
   <a href="#footer" onclick="closeMobile()">Service Areas</a>
-  <a href="mailto:glassmobiledetailing@gmail.com?subject=Refer%20A%20Friend" onclick="closeMobile()">Refer A Friend</a>
+  <a href="javascript:void(0)" onclick="closeMobile(); openReferralModal()">Refer A Friend</a>
   <a href="https://maps.app.goo.gl/qWgirLzyZgKjfj3GA" target="_blank" rel="noopener" onclick="closeMobile()">Reviews</a>
   <a href="javascript:void(0)" class="mobile-book" onclick="closeMobile(); openQuoteModal()">Get Your Instant Quote</a>
 </div>
@@ -2703,6 +2799,45 @@
 </div>
 
 <!-- ─── QUOTE MODAL ────────────────────────────────────────────────── -->
+<div id="referral-modal">
+  <div class="rm-overlay" onclick="closeReferralModal()"></div>
+  <div class="rm-wrap" role="dialog" aria-labelledby="rm-title">
+    <button class="rm-close" type="button" onclick="closeReferralModal()" aria-label="Close">&times;</button>
+    <div class="rm-body">
+      <h2 id="rm-title" class="rm-title">Our Referral Program</h2>
+      <p class="rm-lead">If you've enjoyed your Glass detail, why not share it with someone you care about?</p>
+      <div class="rm-howto">
+        <p class="rm-howto-head">Here's how it works:</p>
+        <ol>
+          <li><strong>Tell a friend or family member</strong> about Glass Mobile Detailing.</li>
+          <li>Once they book their detail, <strong>send us an email or text with their full name.</strong></li>
+          <li>We'll send you a <strong>$50 OFF discount code</strong> to use on your next service and we'll also apply the discount to your referral's booked appointment. <em>(This is our biggest discount yet, so don't miss out!)</em></li>
+        </ol>
+        <p class="rm-tagline">It's that simple — clean cars and savings all around! Together let's keep Arizona's cars CLEAN.</p>
+      </div>
+
+      <div class="rm-form-card">
+        <h3 class="rm-form-title">You can use the submission box to send us your referral!</h3>
+        <form id="referral-form" onsubmit="submitReferralForm(event)">
+          <input type="text" name="your_name" required placeholder="Your Name" />
+          <input type="email" name="your_email" required placeholder="Your Email" />
+          <input type="text" name="friend_name" required placeholder="Friend's Name" />
+          <input type="email" name="friend_email" placeholder="Friend's Email (optional)" />
+          <textarea name="message" rows="4" placeholder="Message (optional — tell us about your friend!)"></textarea>
+          <input type="hidden" name="_subject" value="New Glass Referral" />
+          <input type="hidden" name="_captcha" value="false" />
+          <button type="submit" class="rm-submit">SUBMIT REFERRAL</button>
+        </form>
+        <div id="referral-success" class="rm-success">
+          <div class="rm-success-icon">🎉</div>
+          <div class="rm-success-title">Thanks for the referral!</div>
+          <p>We'll reach out once your friend books their detail and send your $50 OFF discount code.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
 <div id="quote-modal">
   <div class="qb-overlay" onclick="closeQuoteModal()"></div>
   <div class="qb-wrap">
@@ -2979,6 +3114,45 @@
   function closeQuoteModal() {
     document.getElementById('quote-modal').classList.remove('open');
     document.body.style.overflow = '';
+  }
+
+  function openReferralModal() {
+    var m = document.getElementById('referral-modal');
+    if (!m) return;
+    m.classList.add('open');
+    document.body.style.overflow = 'hidden';
+    // reset
+    var f = document.getElementById('referral-form');
+    if (f) { f.reset(); f.style.display = ''; }
+    var s = document.getElementById('referral-success');
+    if (s) s.style.display = 'none';
+    m.scrollTop = 0;
+  }
+
+  function closeReferralModal() {
+    var m = document.getElementById('referral-modal');
+    if (!m) return;
+    m.classList.remove('open');
+    document.body.style.overflow = '';
+  }
+
+  function submitReferralForm(e) {
+    e.preventDefault();
+    var form = document.getElementById('referral-form');
+    var data = new FormData(form);
+    fetch('https://formsubmit.co/ajax/glassmobiledetailing@gmail.com', {
+      method: 'POST',
+      headers: { 'Accept': 'application/json' },
+      body: data
+    })
+    .then(function(res) { return res.json(); })
+    .then(function() {
+      form.style.display = 'none';
+      document.getElementById('referral-success').style.display = 'block';
+    })
+    .catch(function() {
+      alert('Something went wrong. Please email glassmobiledetailing@gmail.com or call (626) 650-7713.');
+    });
   }
 
   function showQbStep(n) {
@@ -3265,6 +3439,7 @@
   document.addEventListener('keydown', function(e) {
     if (e.key === 'Escape') {
       closeQuoteModal();
+      closeReferralModal();
       closeService();
       closeMobile();
     }
