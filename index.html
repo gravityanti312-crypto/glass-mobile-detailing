@@ -3339,16 +3339,17 @@
     if (grid.dataset.built === '1') return;
     var days = ['Sun','Mon','Tue','Wed','Thu','Fri','Sat'];
     var months = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
-    var slots = ['7:00 AM','9:00 AM','11:00 AM','1:00 PM','3:00 PM'];
+    var slots = ['5:00 AM','7:00 AM','9:00 AM','11:00 AM','1:00 PM','3:00 PM','5:00 PM'];
     var html = '';
     var d = new Date();
     var added = 0;
     while (added < 5) {
       d.setDate(d.getDate() + 1);
-      if (d.getDay() === 0) continue; // skip Sunday
       var label = days[d.getDay()] + ' ' + months[d.getMonth()] + ' ' + d.getDate();
+      // Sunday opens at 6am, so drop the 5am slot that day
+      var daySlots = (d.getDay() === 0) ? slots.filter(function(t) { return t !== '5:00 AM'; }) : slots;
       html += '<div class="qb-time-col"><div class="qb-time-head">' + label + '</div>';
-      slots.forEach(function(t) {
+      daySlots.forEach(function(t) {
         var val = label + ' @ ' + t;
         html += '<button type="button" class="qb-time-slot" onclick="qbPickTime(this)" data-value="' + val + '">' + t + '</button>';
       });
