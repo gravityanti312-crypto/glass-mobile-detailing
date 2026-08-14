@@ -667,6 +667,14 @@
     .reviews-google-logo span:nth-child(4) { color: #4285F4; }
     .reviews-google-logo span:nth-child(5) { color: #34A853; }
     .reviews-google-logo span:nth-child(6) { color: #EA4335; }
+    a.reviews-excellent { display: block; text-decoration: none; transition: transform 0.2s, box-shadow 0.2s; }
+    a.reviews-excellent:hover { transform: translateY(-3px); box-shadow: 0 10px 28px rgba(55,65,81,0.16); }
+    .reviews-cta {
+      margin-top: 1.1rem; display: inline-block; background: #374151; color: #ffffff;
+      font-weight: 800; font-size: 0.78rem; letter-spacing: 0.05em; text-transform: uppercase;
+      padding: 0.72rem 1.5rem; border-radius: 50px;
+    }
+    a.reviews-excellent:hover .reviews-cta { background: #2a2f38; }
     .reviews-cards-grid {
       display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem;
     }
@@ -2073,12 +2081,13 @@
 <section id="reviews">
   <div class="container">
     <div class="reviews-google-wrap">
-      <div class="reviews-excellent">
+      <a href="https://maps.app.goo.gl/qWgirLzyZgKjfj3GA" target="_blank" rel="noopener" class="reviews-excellent">
        <div class="reviews-excellent-label">EXCELLENT</div>
         <div class="reviews-stars-row">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
         <div class="reviews-count">Based on <strong>59 reviews</strong></div>
         <div class="reviews-google-logo"><span>G</span><span>o</span><span>o</span><span>g</span><span>l</span><span>e</span></div>
-      </div>
+        <div class="reviews-cta">Read Our Reviews &rarr;</div>
+      </a>
       <div class="reviews-cards-viewport">
       <div class="reviews-cards-track" id="reviews-track">
         <div class="grev-card">
