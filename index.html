@@ -2043,7 +2043,7 @@
           <li>Restores Gloss &amp; Shine</li>
           <li>Complete Vehicle Reset</li>
         </ul>
-        <button class="svc-card-btn" onclick="event.stopPropagation(); openQuoteModal()">BOOK NOW</button>
+        <button class="svc-card-btn" onclick="event.stopPropagation(); openDetailType()">BOOK NOW</button>
       </div>
 
       <div class="service-card" onclick="openService('paint')">
@@ -2894,6 +2894,48 @@
   <div class="svc-body" id="svc-body"></div>
 </div>
 
+<!-- ─── DETAIL TYPE CHOICE (Full Detail) ───────────────────────────── -->
+<style>
+  #detail-type-modal { display:none; position:fixed; inset:0; z-index:6000; align-items:center; justify-content:center; padding:20px; }
+  #detail-type-modal.open { display:flex; }
+  #detail-type-modal .dt-overlay { position:absolute; inset:0; background:rgba(11,31,68,0.55); }
+  .dt-wrap { position:relative; background:#ffffff; border-radius:20px; padding:2.6rem 2rem 2.2rem; width:min(540px,94vw); box-shadow:0 24px 60px rgba(0,0,0,0.3); text-align:center; }
+  .dt-close { position:absolute; top:12px; right:16px; background:none; border:none; font-size:1.6rem; line-height:1; color:#94a3b8; cursor:pointer; }
+  .dt-close:hover { color:#0b1f44; }
+  .dt-eyebrow { font-size:0.72rem; font-weight:800; letter-spacing:0.14em; text-transform:uppercase; color:#374151; margin-bottom:0.5rem; }
+  .dt-title { font-size:1.55rem; font-weight:900; color:#0b1f44; margin-bottom:0.35rem; letter-spacing:-0.01em; }
+  .dt-sub { font-size:0.94rem; color:#64748b; margin-bottom:1.6rem; }
+  .dt-options { display:flex; flex-direction:column; gap:0.85rem; }
+  .dt-option { display:flex; align-items:center; justify-content:space-between; gap:1rem; text-align:left; background:#f5f7fa; border:2px solid #e2e8f0; border-radius:14px; padding:1.05rem 1.3rem; cursor:pointer; transition:border-color .2s, background .2s, transform .15s, box-shadow .2s; font-family:inherit; }
+  .dt-option:hover { border-color:#374151; background:#ffffff; transform:translateY(-2px); box-shadow:0 8px 22px rgba(55,65,81,0.12); }
+  .dt-option-title { font-size:1.05rem; font-weight:800; color:#0b1f44; }
+  .dt-option-desc { font-size:0.82rem; color:#64748b; margin-top:2px; }
+  .dt-option-arrow { font-size:1.2rem; color:#374151; flex-shrink:0; }
+</style>
+<div id="detail-type-modal" aria-hidden="true">
+  <div class="dt-overlay" onclick="closeDetailType()"></div>
+  <div class="dt-wrap" role="dialog" aria-labelledby="dt-title">
+    <button class="dt-close" onclick="closeDetailType()" aria-label="Close">&times;</button>
+    <div class="dt-eyebrow">Full Detail</div>
+    <h2 class="dt-title" id="dt-title">What would you like detailed?</h2>
+    <p class="dt-sub">Pick an option to see pricing &amp; availability.</p>
+    <div class="dt-options">
+      <button type="button" class="dt-option" onclick="pickDetailType('interior')">
+        <span><span class="dt-option-title">Interior Only</span><br/><span class="dt-option-desc">Deep clean inside your vehicle</span></span>
+        <span class="dt-option-arrow">&rarr;</span>
+      </button>
+      <button type="button" class="dt-option" onclick="pickDetailType('exterior')">
+        <span><span class="dt-option-title">Exterior Only</span><br/><span class="dt-option-desc">Wash, decon &amp; shine the outside</span></span>
+        <span class="dt-option-arrow">&rarr;</span>
+      </button>
+      <button type="button" class="dt-option" onclick="pickDetailType('both')">
+        <span><span class="dt-option-title">Interior &amp; Exterior</span><br/><span class="dt-option-desc">The complete full detail</span></span>
+        <span class="dt-option-arrow">&rarr;</span>
+      </button>
+    </div>
+  </div>
+</div>
+
 <!-- ─── QUOTE MODAL ────────────────────────────────────────────────── -->
 <div id="referral-modal">
   <div class="rm-overlay" onclick="closeReferralModal()"></div>
@@ -3211,6 +3253,26 @@
   function closeQuoteModal() {
     document.getElementById('quote-modal').classList.remove('open');
     document.body.style.overflow = '';
+  }
+
+  /* Full Detail → Interior / Exterior / Both, then vehicle size */
+  function openDetailType() {
+    var m = document.getElementById('detail-type-modal');
+    if (!m) { openQuoteModal(); return; }
+    m.classList.add('open');
+    m.setAttribute('aria-hidden', 'false');
+    document.body.style.overflow = 'hidden';
+  }
+  function closeDetailType() {
+    var m = document.getElementById('detail-type-modal');
+    if (m) { m.classList.remove('open'); m.setAttribute('aria-hidden', 'true'); }
+    document.body.style.overflow = '';
+  }
+  function pickDetailType(type) {
+    try { qbSelections.detailType = type; } catch (e) {}
+    window.__glassDetailType = type;
+    closeDetailType();
+    openQuoteModal();
   }
 
   function openReferralModal() {
