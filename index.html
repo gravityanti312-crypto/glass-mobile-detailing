@@ -2043,7 +2043,7 @@
           <li>Restores Gloss &amp; Shine</li>
           <li>Complete Vehicle Reset</li>
         </ul>
-        <button class="svc-card-btn" onclick="event.stopPropagation(); openDetailType()">BOOK NOW</button>
+        <button class="svc-card-btn" onclick="event.stopPropagation(); openQuoteModal(true)">BOOK NOW</button>
       </div>
 
       <div class="service-card" onclick="openService('paint')">
@@ -2911,30 +2911,8 @@
   .dt-option-title { font-size:1.05rem; font-weight:800; color:#0b1f44; }
   .dt-option-desc { font-size:0.82rem; color:#64748b; margin-top:2px; }
   .dt-option-arrow { font-size:1.2rem; color:#374151; flex-shrink:0; }
+  #qb-detail-type .qb-detail-options { max-width:620px; margin:0 auto; display:flex; flex-direction:column; gap:0.9rem; }
 </style>
-<div id="detail-type-modal" aria-hidden="true">
-  <div class="dt-overlay" onclick="closeDetailType()"></div>
-  <div class="dt-wrap" role="dialog" aria-labelledby="dt-title">
-    <button class="dt-close" onclick="closeDetailType()" aria-label="Close">&times;</button>
-    <div class="dt-eyebrow">Full Detail</div>
-    <h2 class="dt-title" id="dt-title">What would you like detailed?</h2>
-    <p class="dt-sub">Pick an option to see pricing &amp; availability.</p>
-    <div class="dt-options">
-      <button type="button" class="dt-option" onclick="pickDetailType('interior')">
-        <span><span class="dt-option-title">Interior Only</span><br/><span class="dt-option-desc">Deep clean inside your vehicle</span></span>
-        <span class="dt-option-arrow">&rarr;</span>
-      </button>
-      <button type="button" class="dt-option" onclick="pickDetailType('exterior')">
-        <span><span class="dt-option-title">Exterior Only</span><br/><span class="dt-option-desc">Wash, decon &amp; shine the outside</span></span>
-        <span class="dt-option-arrow">&rarr;</span>
-      </button>
-      <button type="button" class="dt-option" onclick="pickDetailType('both')">
-        <span><span class="dt-option-title">Interior &amp; Exterior</span><br/><span class="dt-option-desc">The complete full detail</span></span>
-        <span class="dt-option-arrow">&rarr;</span>
-      </button>
-    </div>
-  </div>
-</div>
 
 <!-- ─── QUOTE MODAL ────────────────────────────────────────────────── -->
 <div id="referral-modal">
@@ -3012,6 +2990,15 @@
             </div>
           </div>
         </div>
+        <div id="qb-detail-type" style="display:none;">
+          <h3 class="qb-pick-headline"><strong>WHAT WOULD YOU LIKE DETAILED?</strong></h3>
+          <div class="qb-detail-options">
+            <button type="button" class="dt-option" onclick="qbPickDetail('interior')"><span><span class="dt-option-title">Interior Only</span><br/><span class="dt-option-desc">Deep clean inside your vehicle</span></span><span class="dt-option-arrow">&rarr;</span></button>
+            <button type="button" class="dt-option" onclick="qbPickDetail('exterior')"><span><span class="dt-option-title">Exterior Only</span><br/><span class="dt-option-desc">Wash, decon &amp; shine the outside</span></span><span class="dt-option-arrow">&rarr;</span></button>
+            <button type="button" class="dt-option" onclick="qbPickDetail('both')"><span><span class="dt-option-title">Interior &amp; Exterior</span><br/><span class="dt-option-desc">The complete full detail</span></span><span class="dt-option-arrow">&rarr;</span></button>
+          </div>
+        </div>
+        <div id="qb-vehicle-section">
         <h3 class="qb-pick-headline">To see Pricing &amp; Availability,<br/><strong>SELECT YOUR VEHICLE SIZE BELOW</strong></h3>
         <div class="qb-vehicle-card">
           <button type="button" class="qb-redeem-pill" onclick="qbScrollToCoupon()">Redeem Coupon</button>
@@ -3038,6 +3025,7 @@
             </div>
           </div>
         </div>
+        </div><!-- /#qb-vehicle-section -->
       </div>
 
       <!-- Step 2: Service Selection with Prices -->
@@ -3244,10 +3232,31 @@
     'Van/Minivan':       { interior: 237, full: 277, monthly: 177, bimonthly: 207, quarterly: 227 }
   };
 
-  function openQuoteModal() {
+  function openQuoteModal(fullDetail) {
+    var dt = document.getElementById('qb-detail-type');
+    var veh = document.getElementById('qb-vehicle-section');
+    if (fullDetail) {
+      // Full Detail: ask Interior / Exterior / Both first, then vehicle size
+      try { qbSelections.detailType = null; } catch (e) {}
+      if (dt) dt.style.display = '';
+      if (veh) veh.style.display = 'none';
+    } else {
+      if (dt) dt.style.display = 'none';
+      if (veh) veh.style.display = '';
+    }
     document.getElementById('quote-modal').classList.add('open');
     document.body.style.overflow = 'hidden';
     showQbStep(1);
+  }
+
+  // Full Detail: after picking a detail type, reveal the vehicle-size step
+  function qbPickDetail(type) {
+    try { qbSelections.detailType = type; } catch (e) {}
+    window.__glassDetailType = type;
+    var dt = document.getElementById('qb-detail-type');
+    var veh = document.getElementById('qb-vehicle-section');
+    if (dt) dt.style.display = 'none';
+    if (veh) veh.style.display = '';
   }
 
   function closeQuoteModal() {
@@ -3255,25 +3264,6 @@
     document.body.style.overflow = '';
   }
 
-  /* Full Detail → Interior / Exterior / Both, then vehicle size */
-  function openDetailType() {
-    var m = document.getElementById('detail-type-modal');
-    if (!m) { openQuoteModal(); return; }
-    m.classList.add('open');
-    m.setAttribute('aria-hidden', 'false');
-    document.body.style.overflow = 'hidden';
-  }
-  function closeDetailType() {
-    var m = document.getElementById('detail-type-modal');
-    if (m) { m.classList.remove('open'); m.setAttribute('aria-hidden', 'true'); }
-    document.body.style.overflow = '';
-  }
-  function pickDetailType(type) {
-    try { qbSelections.detailType = type; } catch (e) {}
-    window.__glassDetailType = type;
-    closeDetailType();
-    openQuoteModal();
-  }
 
   function openReferralModal() {
     var m = document.getElementById('referral-modal');
