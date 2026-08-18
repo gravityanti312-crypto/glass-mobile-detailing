@@ -2919,9 +2919,10 @@
   .qbsp-card { background:#f5f7fa; border:2px solid #e2e8f0; border-radius:16px; padding:0.85rem 0.85rem 1.05rem; cursor:pointer; display:flex; flex-direction:column; align-items:center; text-align:center; gap:0.5rem; font-family:inherit; transition:border-color .2s, background .2s, transform .15s, box-shadow .2s; }
   .qbsp-card:hover { border-color:#374151; background:#ffffff; transform:translateY(-3px); box-shadow:0 10px 24px rgba(55,65,81,0.14); }
   .qbsp-img { width:100%; aspect-ratio:1/1; object-fit:cover; border-radius:12px; background:#ffffff; }
+  .qbsp-ph { width:100%; aspect-ratio:1/1; border-radius:12px; display:flex; align-items:center; justify-content:center; color:#94a3b8; font-size:0.72rem; font-weight:700; text-transform:uppercase; letter-spacing:1.5px; background:repeating-linear-gradient(45deg,#eef2f7,#eef2f7 11px,#e2e8f0 11px,#e2e8f0 22px); }
   .qbsp-title { font-size:1rem; font-weight:800; color:#0b1f44; }
   .qbsp-desc { font-size:0.78rem; color:#64748b; line-height:1.3; }
-  @media (max-width:560px){ .qb-service-picker { grid-template-columns:1fr; max-width:340px; } .qbsp-img { aspect-ratio:16/10; } }
+  @media (max-width:560px){ .qb-service-picker { grid-template-columns:1fr; max-width:340px; } .qbsp-img, .qbsp-ph { aspect-ratio:16/10; } }
 </style>
 
 <!-- ─── QUOTE MODAL ────────────────────────────────────────────────── -->
@@ -3001,22 +3002,22 @@
           </div>
         </div>
         <div id="qb-detail-type" style="display:none;">
-          <h3 class="qb-pick-headline"><strong>CHOOSE YOUR SERVICE</strong></h3>
+          <h3 class="qb-pick-headline"><strong>WHAT WOULD YOU LIKE DETAILED?</strong></h3>
           <div class="qb-service-picker">
-            <button type="button" class="qbsp-card" onclick="qbPickDetail('full')">
-              <img class="qbsp-img" src="fulldetail.jpg" alt="Full Detail" loading="lazy" />
-              <span class="qbsp-title">Full Detail</span>
-              <span class="qbsp-desc">Interior &amp; exterior reset</span>
+            <button type="button" class="qbsp-card" onclick="qbPickDetail('interior')">
+              <span class="qbsp-ph">Photo</span>
+              <span class="qbsp-title">Interior Only</span>
+              <span class="qbsp-desc">Deep clean inside your vehicle</span>
             </button>
-            <button type="button" class="qbsp-card" onclick="qbPickDetail('paint')">
-              <img class="qbsp-img" src="paintcorrection.jpg" alt="Paint Correction" loading="lazy" />
-              <span class="qbsp-title">Paint Correction</span>
-              <span class="qbsp-desc">Remove swirls &amp; scratches</span>
+            <button type="button" class="qbsp-card" onclick="qbPickDetail('exterior')">
+              <span class="qbsp-ph">Photo</span>
+              <span class="qbsp-title">Exterior Only</span>
+              <span class="qbsp-desc">Wash, decon &amp; shine the outside</span>
             </button>
-            <button type="button" class="qbsp-card" onclick="qbPickDetail('ceramic')">
-              <img class="qbsp-img" src="ceramic.jpg" alt="Ceramic Coating" loading="lazy" />
-              <span class="qbsp-title">Ceramic Coating</span>
-              <span class="qbsp-desc">Long-term protection</span>
+            <button type="button" class="qbsp-card" onclick="qbPickDetail('both')">
+              <span class="qbsp-ph">Photo</span>
+              <span class="qbsp-title">Interior &amp; Exterior</span>
+              <span class="qbsp-desc">The complete full detail</span>
             </button>
           </div>
         </div>
