@@ -2915,6 +2915,13 @@
   .dt-option-desc { font-size:0.82rem; color:#64748b; margin-top:2px; }
   .dt-option-arrow { font-size:1.2rem; color:#374151; flex-shrink:0; }
   #qb-detail-type .qb-detail-options { max-width:620px; margin:0 auto; display:flex; flex-direction:column; gap:0.9rem; }
+  .qb-service-picker { display:grid; grid-template-columns:repeat(3,1fr); gap:1rem; max-width:760px; margin:0 auto; }
+  .qbsp-card { background:#f5f7fa; border:2px solid #e2e8f0; border-radius:16px; padding:0.85rem 0.85rem 1.05rem; cursor:pointer; display:flex; flex-direction:column; align-items:center; text-align:center; gap:0.5rem; font-family:inherit; transition:border-color .2s, background .2s, transform .15s, box-shadow .2s; }
+  .qbsp-card:hover { border-color:#374151; background:#ffffff; transform:translateY(-3px); box-shadow:0 10px 24px rgba(55,65,81,0.14); }
+  .qbsp-img { width:100%; aspect-ratio:1/1; object-fit:cover; border-radius:12px; background:#ffffff; }
+  .qbsp-title { font-size:1rem; font-weight:800; color:#0b1f44; }
+  .qbsp-desc { font-size:0.78rem; color:#64748b; line-height:1.3; }
+  @media (max-width:560px){ .qb-service-picker { grid-template-columns:1fr; max-width:340px; } .qbsp-img { aspect-ratio:16/10; } }
 </style>
 
 <!-- ─── QUOTE MODAL ────────────────────────────────────────────────── -->
@@ -2994,11 +3001,23 @@
           </div>
         </div>
         <div id="qb-detail-type" style="display:none;">
-          <h3 class="qb-pick-headline"><strong>WHAT WOULD YOU LIKE DETAILED?</strong></h3>
-          <div class="qb-detail-options">
-            <button type="button" class="dt-option" onclick="qbPickDetail('interior')"><span><span class="dt-option-title">Interior Only</span><br/><span class="dt-option-desc">Deep clean inside your vehicle</span></span><span class="dt-option-arrow">&rarr;</span></button>
-            <button type="button" class="dt-option" onclick="qbPickDetail('exterior')"><span><span class="dt-option-title">Exterior Only</span><br/><span class="dt-option-desc">Wash, decon &amp; shine the outside</span></span><span class="dt-option-arrow">&rarr;</span></button>
-            <button type="button" class="dt-option" onclick="qbPickDetail('both')"><span><span class="dt-option-title">Interior &amp; Exterior</span><br/><span class="dt-option-desc">The complete full detail</span></span><span class="dt-option-arrow">&rarr;</span></button>
+          <h3 class="qb-pick-headline"><strong>CHOOSE YOUR SERVICE</strong></h3>
+          <div class="qb-service-picker">
+            <button type="button" class="qbsp-card" onclick="qbPickDetail('full')">
+              <img class="qbsp-img" src="fulldetail.jpg" alt="Full Detail" loading="lazy" />
+              <span class="qbsp-title">Full Detail</span>
+              <span class="qbsp-desc">Interior &amp; exterior reset</span>
+            </button>
+            <button type="button" class="qbsp-card" onclick="qbPickDetail('paint')">
+              <img class="qbsp-img" src="paintcorrection.jpg" alt="Paint Correction" loading="lazy" />
+              <span class="qbsp-title">Paint Correction</span>
+              <span class="qbsp-desc">Remove swirls &amp; scratches</span>
+            </button>
+            <button type="button" class="qbsp-card" onclick="qbPickDetail('ceramic')">
+              <img class="qbsp-img" src="ceramic.jpg" alt="Ceramic Coating" loading="lazy" />
+              <span class="qbsp-title">Ceramic Coating</span>
+              <span class="qbsp-desc">Long-term protection</span>
+            </button>
           </div>
         </div>
         <div id="qb-vehicle-section">
