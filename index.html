@@ -2059,7 +2059,7 @@
           <li>Restores Depth &amp; Gloss</li>
           <li>Brings Paint Back to Life</li>
         </ul>
-        <button class="svc-card-btn" onclick="event.stopPropagation(); openQuoteModal()">BOOK NOW</button>
+        <button class="svc-card-btn" onclick="event.stopPropagation(); qbBookService('paint')">BOOK NOW</button>
       </div>
 
       <div class="service-card" onclick="openService('ceramic')">
@@ -2072,7 +2072,7 @@
           <li>Hydrophobic, Easy-to-Clean Finish</li>
           <li>Long-Term Gloss &amp; Paint Protection</li>
         </ul>
-        <button class="svc-card-btn" onclick="event.stopPropagation(); openQuoteModal()">BOOK NOW</button>
+        <button class="svc-card-btn" onclick="event.stopPropagation(); qbBookService('ceramic')">BOOK NOW</button>
       </div>
     </div>
   </div>
@@ -3001,6 +3001,26 @@
             </div>
           </div>
         </div>
+        <div id="qb-service-choice" style="display:none;">
+          <h3 class="qb-pick-headline"><strong>CHOOSE YOUR SERVICE</strong></h3>
+          <div class="qb-service-picker">
+            <button type="button" class="qbsp-card" onclick="qbChooseService('full')">
+              <img class="qbsp-img" src="fulldetail.jpg" alt="Full Detail" loading="lazy" />
+              <span class="qbsp-title">Full Detail</span>
+              <span class="qbsp-desc">Interior &amp; exterior reset</span>
+            </button>
+            <button type="button" class="qbsp-card" onclick="qbChooseService('paint')">
+              <img class="qbsp-img" src="paintcorrection.jpg" alt="Paint Correction" loading="lazy" />
+              <span class="qbsp-title">Paint Correction</span>
+              <span class="qbsp-desc">Remove swirls &amp; scratches</span>
+            </button>
+            <button type="button" class="qbsp-card" onclick="qbChooseService('ceramic')">
+              <img class="qbsp-img" src="ceramic.jpg" alt="Ceramic Coating" loading="lazy" />
+              <span class="qbsp-title">Ceramic Coating</span>
+              <span class="qbsp-desc">Long-term protection</span>
+            </button>
+          </div>
+        </div>
         <div id="qb-detail-type" style="display:none;">
           <h3 class="qb-pick-headline"><strong>WHAT WOULD YOU LIKE DETAILED?</strong></h3>
           <div class="qb-service-picker">
@@ -3255,31 +3275,52 @@
     'Van/Minivan':       { interior: 237, full: 277, monthly: 177, bimonthly: 207, quarterly: 227 }
   };
 
-  function openQuoteModal(fullDetail) {
+  // Show one of the step-1 panels: 'service' | 'detail' | 'vehicle'
+  function qbShowPanel(which) {
+    var svc = document.getElementById('qb-service-choice');
     var dt = document.getElementById('qb-detail-type');
     var veh = document.getElementById('qb-vehicle-section');
-    if (fullDetail) {
-      // Full Detail: ask Interior / Exterior / Both first, then vehicle size
-      try { qbSelections.detailType = null; } catch (e) {}
-      if (dt) dt.style.display = '';
-      if (veh) veh.style.display = 'none';
+    if (svc) svc.style.display = (which === 'service') ? '' : 'none';
+    if (dt)  dt.style.display  = (which === 'detail')  ? '' : 'none';
+    if (veh) veh.style.display = (which === 'vehicle') ? '' : 'none';
+  }
+
+  // mode: 'service' (default — general buttons) | 'full' (Full Detail card) | 'vehicle' (Paint/Ceramic cards)
+  function openQuoteModal(mode) {
+    if (mode === true) mode = 'full';
+    if (!mode) mode = 'service';
+    if (mode === 'full') {
+      try { qbSelections.service = 'full'; qbSelections.detailType = null; } catch (e) {}
+      qbShowPanel('detail');
+    } else if (mode === 'vehicle') {
+      qbShowPanel('vehicle');
     } else {
-      if (dt) dt.style.display = 'none';
-      if (veh) veh.style.display = '';
+      try { qbSelections.service = null; qbSelections.detailType = null; } catch (e) {}
+      qbShowPanel('service');
     }
     document.getElementById('quote-modal').classList.add('open');
     document.body.style.overflow = 'hidden';
     showQbStep(1);
   }
 
+  // From "Choose your service": Full Detail asks interior/exterior/both, others go to vehicle
+  function qbChooseService(service) {
+    try { qbSelections.service = service; } catch (e) {}
+    if (service === 'full') { qbShowPanel('detail'); }
+    else { qbShowPanel('vehicle'); }
+  }
+
+  // Paint Correction / Ceramic Coating service cards: skip straight to vehicle
+  function qbBookService(service) {
+    try { qbSelections.service = service; } catch (e) {}
+    openQuoteModal('vehicle');
+  }
+
   // Full Detail: after picking a detail type, reveal the vehicle-size step
   function qbPickDetail(type) {
     try { qbSelections.detailType = type; } catch (e) {}
     window.__glassDetailType = type;
-    var dt = document.getElementById('qb-detail-type');
-    var veh = document.getElementById('qb-vehicle-section');
-    if (dt) dt.style.display = 'none';
-    if (veh) veh.style.display = '';
+    qbShowPanel('vehicle');
   }
 
   function closeQuoteModal() {
