@@ -3285,42 +3285,60 @@
     if (veh) veh.style.display = (which === 'vehicle') ? '' : 'none';
   }
 
-  // mode: 'service' (default — general buttons) | 'full' (Full Detail card) | 'vehicle' (Paint/Ceramic cards)
+  function qbScrollTop() {
+    var e = document.getElementById('quote-modal'); if (e) e.scrollTop = 0;
+    var b = document.querySelector('#quote-modal .qb-body'); if (b) b.scrollTop = 0;
+    var w = document.querySelector('#quote-modal .qb-wrap'); if (w) w.scrollTop = 0;
+  }
+
+  // mode: 'service' (Get Quote / general) | 'full' (Full Detail card) | 'vehicle' (Paint/Ceramic cards)
+  // All flows now START with vehicle size; the service/detail choice comes AFTER.
   function openQuoteModal(mode) {
     if (mode === true) mode = 'full';
     if (!mode) mode = 'service';
-    if (mode === 'full') {
-      try { qbSelections.service = 'full'; qbSelections.detailType = null; } catch (e) {}
-      qbShowPanel('detail');
-    } else if (mode === 'vehicle') {
-      qbShowPanel('vehicle');
-    } else {
-      try { qbSelections.service = null; qbSelections.detailType = null; } catch (e) {}
-      qbShowPanel('service');
-    }
+    window.__qbFlow = mode;
+    try {
+      qbSelections.service = (mode === 'full') ? 'full' : (mode === 'vehicle' ? qbSelections.service : null);
+      qbSelections.detailType = null;
+    } catch (e) {}
+    qbShowPanel('vehicle');
     document.getElementById('quote-modal').classList.add('open');
     document.body.style.overflow = 'hidden';
     showQbStep(1);
+    qbScrollTop();
   }
 
-  // From "Choose your service": Full Detail asks interior/exterior/both, others go to vehicle
+  // Called after a vehicle is picked: reveal the next choice panel, or go straight to services
+  function qbAfterVehicle() {
+    var flow = window.__qbFlow || 'vehicle';
+    if (flow === 'service') { qbShowPanel('service'); }
+    else if (flow === 'full') { qbShowPanel('detail'); }
+    else { setTimeout(function () { qbNext(); }, 200); }
+  }
+
+  // From "Choose your service": Full Detail asks interior/exterior/both, others go to services
   function qbChooseService(service) {
     try { qbSelections.service = service; } catch (e) {}
     if (service === 'full') { qbShowPanel('detail'); }
-    else { qbShowPanel('vehicle'); }
+    else { qbGoToServices(); }
   }
 
-  // Paint Correction / Ceramic Coating service cards: skip straight to vehicle
+  // Paint Correction / Ceramic Coating service cards: still start with vehicle, then services
   function qbBookService(service) {
     try { qbSelections.service = service; } catch (e) {}
     openQuoteModal('vehicle');
   }
 
-  // Full Detail: after picking a detail type, reveal the vehicle-size step
+  // Full Detail: after picking a detail type, continue to the services step
   function qbPickDetail(type) {
     try { qbSelections.detailType = type; } catch (e) {}
     window.__glassDetailType = type;
-    qbShowPanel('vehicle');
+    qbGoToServices();
+  }
+
+  function qbGoToServices() {
+    if (qbStep === 1 && qbSelections[1]) { qbNext(); }
+    else { qbShowPanel('vehicle'); }
   }
 
   function closeQuoteModal() {
@@ -3405,7 +3423,7 @@
     el.classList.add('selected');
     qbSelections[step] = el.dataset.value;
     updateQbNext();
-    if (step === 1) setTimeout(function() { qbNext(); }, 280);
+    if (step === 1) qbAfterVehicle();
   }
 
   function qbPopulateServices(vehicle) {
