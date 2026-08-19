@@ -2932,11 +2932,11 @@
   .qbv-title span { font-weight:800; font-size:1.3rem; color:#071c45; letter-spacing:-0.5px; }
   .qbv-title small { font-weight:700; font-size:0.85rem; color:#68758d; }
   .qbv-img { position:absolute; z-index:1; width:84%; max-height:60%; object-fit:contain; object-position:bottom; left:50%; bottom:16px; transform:translateX(-50%); filter:drop-shadow(0 12px 11px rgba(20,32,50,0.16)); pointer-events:none; }
-  .qbv-sedan { grid-column:span 2; background:linear-gradient(145deg,#f3f6ff,#e8eefc); }
-  .qbv-smallsuv { grid-column:span 2; background:linear-gradient(145deg,#edf7ff,#deeffb); }
-  .qbv-truck { grid-column:span 2; background:linear-gradient(145deg,#f0fbf3,#e2f4e7); }
-  .qbv-largesuv { grid-column:span 3; background:linear-gradient(145deg,#fff9f0,#fcebd9); min-height:300px; }
-  .qbv-minivan { grid-column:span 3; background:linear-gradient(145deg,#fff3f6,#fbe4e9); min-height:300px; }
+  .qbv-sedan { grid-column:span 2; background:linear-gradient(150deg,#f6f8fc,#e9edf4); }
+  .qbv-smallsuv { grid-column:span 2; background:linear-gradient(150deg,#f6f8fc,#e9edf4); }
+  .qbv-truck { grid-column:span 2; background:linear-gradient(150deg,#f6f8fc,#e9edf4); }
+  .qbv-largesuv { grid-column:span 3; background:linear-gradient(150deg,#f6f8fc,#e9edf4); min-height:300px; }
+  .qbv-minivan { grid-column:span 3; background:linear-gradient(150deg,#f6f8fc,#e9edf4); min-height:300px; }
   .qbv-largesuv .qbv-img, .qbv-minivan .qbv-img { width:72%; max-height:66%; }
   .qbv-coupon { display:block; margin:1.4rem auto 0; background:none; border:none; color:#64748b; font-weight:600; font-size:0.86rem; text-decoration:underline; cursor:pointer; font-family:inherit; }
   .qbv-coupon:hover { color:#0b1f44; }
@@ -3089,7 +3089,6 @@
             <img class="qbv-img" src="veh-minivan.png" alt="Minivan or Van" loading="lazy" />
           </button>
         </div>
-        <button type="button" class="qbv-coupon" onclick="qbScrollToCoupon()">Have a coupon code?</button>
         </div><!-- /#qb-vehicle-section -->
       </div>
 
@@ -3195,12 +3194,6 @@
             <input type="checkbox" id="qb-agree" name="agree_terms" required />
             <span>I have read and agree to the terms above <span class="qb-req">*</span></span>
           </label>
-
-          <div class="qb-coupon">
-            <input type="text" id="qb-coupon-code" name="coupon" placeholder="Have a coupon? Enter code…" />
-            <button type="button" class="qb-coupon-btn" onclick="qbApplyCoupon()">Redeem Coupon</button>
-          </div>
-          <div class="qb-coupon-msg" id="qb-coupon-msg"></div>
 
           <input type="hidden" name="vehicle_type" id="qb-hidden-vehicle" />
           <input type="hidden" name="service_type" id="qb-hidden-service" />
