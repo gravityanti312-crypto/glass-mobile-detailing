@@ -2924,20 +2924,29 @@
   .qbsp-desc { font-size:1rem; color:#64748b; line-height:1.4; }
   @media (max-width:560px){ .qb-service-picker { grid-template-columns:1fr; max-width:460px; } .qbsp-img, .qbsp-ph { aspect-ratio:16/10; } }
   /* Vehicle size picker */
-  .qb-vehicle-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:1rem; max-width:860px; margin:0 auto; }
-  .qbv-card { display:flex; flex-direction:column; text-align:left; gap:0.25rem; border:2px solid transparent; border-radius:20px; padding:1.1rem 1.2rem 1.25rem; cursor:pointer; font-family:inherit; transition:transform .15s, box-shadow .2s, border-color .2s; }
-  .qbv-top { display:flex; align-items:baseline; }
-  .qbv-name { font-weight:800; color:#0b1f44; font-size:1.05rem; line-height:1.2; }
-  .qbv-name .sub { font-weight:600; color:#64748b; font-size:0.8rem; margin-left:7px; }
-  .qbv-photo { flex:1; min-height:90px; display:flex; align-items:center; justify-content:center; margin-top:0.4rem; color:#0b1f44; }
-  .qbv-photo svg { width:82%; max-width:150px; height:auto; }
-  .qbv-photo img { width:100%; height:auto; max-height:120px; object-fit:contain; }
-  .qbv-card:hover { transform:translateY(-4px); box-shadow:0 16px 34px rgba(11,31,68,0.12); }
-  .qbv-card.selected { border-color:#0b1f44; box-shadow:0 12px 30px rgba(11,31,68,0.16); }
-  .qbv-c1{background:#eef0fb}.qbv-c2{background:#e9f2fb}.qbv-c3{background:#eaf6ef}.qbv-c4{background:#fbf1e8}.qbv-c5{background:#fbecef}
+  .qb-vehicle-grid { display:grid; grid-template-columns:repeat(6,1fr); gap:16px; max-width:940px; margin:0 auto; }
+  .qbv-card { position:relative; display:flex; flex-direction:column; align-items:flex-start; min-height:270px; padding:20px 22px; border:2px solid transparent; border-radius:22px; overflow:hidden; cursor:pointer; text-align:left; font-family:inherit; transition:transform .22s ease, box-shadow .22s ease, border-color .2s ease; }
+  .qbv-card:hover { transform:translateY(-5px); box-shadow:0 18px 40px rgba(15,38,76,0.12); }
+  .qbv-card.selected { border-color:#0b2d66; box-shadow:0 12px 32px rgba(11,45,102,0.18); }
+  .qbv-title { position:relative; z-index:2; display:flex; align-items:baseline; gap:8px; }
+  .qbv-title span { font-weight:800; font-size:1.3rem; color:#071c45; letter-spacing:-0.5px; }
+  .qbv-title small { font-weight:700; font-size:0.85rem; color:#68758d; }
+  .qbv-img { position:absolute; z-index:1; width:84%; max-height:60%; object-fit:contain; object-position:bottom; left:50%; bottom:16px; transform:translateX(-50%); filter:drop-shadow(0 12px 11px rgba(20,32,50,0.16)); pointer-events:none; }
+  .qbv-sedan { grid-column:span 2; background:linear-gradient(145deg,#f3f6ff,#e8eefc); }
+  .qbv-smallsuv { grid-column:span 2; background:linear-gradient(145deg,#edf7ff,#deeffb); }
+  .qbv-truck { grid-column:span 2; background:linear-gradient(145deg,#f0fbf3,#e2f4e7); }
+  .qbv-largesuv { grid-column:span 3; background:linear-gradient(145deg,#fff9f0,#fcebd9); min-height:300px; }
+  .qbv-minivan { grid-column:span 3; background:linear-gradient(145deg,#fff3f6,#fbe4e9); min-height:300px; }
+  .qbv-largesuv .qbv-img, .qbv-minivan .qbv-img { width:72%; max-height:66%; }
   .qbv-coupon { display:block; margin:1.4rem auto 0; background:none; border:none; color:#64748b; font-weight:600; font-size:0.86rem; text-decoration:underline; cursor:pointer; font-family:inherit; }
   .qbv-coupon:hover { color:#0b1f44; }
-  @media (max-width:560px){ .qb-vehicle-grid { grid-template-columns:1fr 1fr; } }
+  @media (max-width:900px){ .qb-vehicle-grid { grid-template-columns:repeat(2,1fr); } .qbv-sedan,.qbv-smallsuv,.qbv-truck,.qbv-largesuv,.qbv-minivan { grid-column:span 1; } .qbv-minivan { grid-column:span 2; } }
+  @media (max-width:560px){
+    .qb-vehicle-grid { grid-template-columns:1fr; gap:14px; }
+    .qbv-sedan,.qbv-smallsuv,.qbv-truck,.qbv-largesuv,.qbv-minivan { grid-column:1; min-height:184px; }
+    .qbv-title span { font-size:1.15rem; }
+    .qbv-img, .qbv-largesuv .qbv-img, .qbv-minivan .qbv-img { width:60%; max-height:42%; bottom:12px; }
+  }
 </style>
 
 <!-- ─── QUOTE MODAL ────────────────────────────────────────────────── -->
@@ -3059,25 +3068,25 @@
         <div id="qb-vehicle-section">
         <h3 class="qb-pick-headline">To see Pricing &amp; Availability,<br/><strong>SELECT YOUR VEHICLE SIZE BELOW</strong></h3>
         <div class="qb-vehicle-grid">
-          <button type="button" class="qbv-card qbv-c1" onclick="qbSelect(this, 1)" data-value="Coupe/Sedan">
-            <span class="qbv-top"><span class="qbv-name">Coupe / Sedan</span></span>
-            <span class="qbv-photo"><svg viewBox="0 0 128 60" fill="none" stroke="currentColor" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 42c0-6 4-9 10-10l14-1c6-11 15-16 26-16h18c11 0 18 5 24 16l14 1c6 1 10 4 10 10"/><path d="M6 42h116"/><path d="M40 31l9-11h22l9 11"/><circle cx="38" cy="43" r="9"/><circle cx="38" cy="43" r="3"/><circle cx="94" cy="43" r="9"/><circle cx="94" cy="43" r="3"/></svg></span>
+          <button type="button" class="qbv-card qbv-sedan" onclick="qbSelect(this, 1)" data-value="Coupe/Sedan">
+            <span class="qbv-title"><span>Coupe / Sedan</span></span>
+            <img class="qbv-img" src="veh-sedan.png" alt="Coupe or Sedan" loading="lazy" />
           </button>
-          <button type="button" class="qbv-card qbv-c2" onclick="qbSelect(this, 1)" data-value="Small SUV (2 Row)">
-            <span class="qbv-top"><span class="qbv-name">Small SUV <span class="sub">2 Row</span></span></span>
-            <span class="qbv-photo"><svg viewBox="0 0 128 60" fill="none" stroke="currentColor" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 42V24c0-3 2-5 5-5h20l8-9h30c8 0 14 4 18 10l10 13"/><path d="M6 42h116"/><path d="M40 19l7-8h24l6 8"/><circle cx="40" cy="43" r="9"/><circle cx="40" cy="43" r="3"/><circle cx="94" cy="43" r="9"/><circle cx="94" cy="43" r="3"/></svg></span>
+          <button type="button" class="qbv-card qbv-smallsuv" onclick="qbSelect(this, 1)" data-value="Small SUV (2 Row)">
+            <span class="qbv-title"><span>Small SUV</span><small>2 Row</small></span>
+            <img class="qbv-img" src="veh-smallsuv.png" alt="Small SUV" loading="lazy" />
           </button>
-          <button type="button" class="qbv-card qbv-c3" onclick="qbSelect(this, 1)" data-value="Truck">
-            <span class="qbv-top"><span class="qbv-name">Truck</span></span>
-            <span class="qbv-photo"><svg viewBox="0 0 128 60" fill="none" stroke="currentColor" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 42V24h26l7-9h18l7 9v6h48v12"/><path d="M6 42h116"/><path d="M40 24l4-6h14l4 6"/><circle cx="34" cy="43" r="9"/><circle cx="34" cy="43" r="3"/><circle cx="98" cy="43" r="9"/><circle cx="98" cy="43" r="3"/></svg></span>
+          <button type="button" class="qbv-card qbv-truck" onclick="qbSelect(this, 1)" data-value="Truck">
+            <span class="qbv-title"><span>Truck</span></span>
+            <img class="qbv-img" src="veh-truck.png" alt="Truck" loading="lazy" />
           </button>
-          <button type="button" class="qbv-card qbv-c4" onclick="qbSelect(this, 1)" data-value="Large SUV (3 Row)">
-            <span class="qbv-top"><span class="qbv-name">Large SUV <span class="sub">3 Row</span></span></span>
-            <span class="qbv-photo"><svg viewBox="0 0 128 60" fill="none" stroke="currentColor" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 42V22c0-3 2-5 5-5h22l7-8h38c8 0 14 4 18 10l6 8"/><path d="M6 42h116"/><path d="M44 17l6-7h30l5 7"/><circle cx="40" cy="43" r="9"/><circle cx="40" cy="43" r="3"/><circle cx="96" cy="43" r="9"/><circle cx="96" cy="43" r="3"/></svg></span>
+          <button type="button" class="qbv-card qbv-largesuv" onclick="qbSelect(this, 1)" data-value="Large SUV (3 Row)">
+            <span class="qbv-title"><span>Large SUV</span><small>3 Row</small></span>
+            <img class="qbv-img" src="veh-largesuv.png" alt="Large SUV" loading="lazy" />
           </button>
-          <button type="button" class="qbv-card qbv-c5" onclick="qbSelect(this, 1)" data-value="Van/Minivan">
-            <span class="qbv-top"><span class="qbv-name">Minivan / Van</span></span>
-            <span class="qbv-photo"><svg viewBox="0 0 128 60" fill="none" stroke="currentColor" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 42V18c0-3 2-5 6-5h58c11 0 19 6 24 16"/><path d="M6 42h116"/><path d="M22 20h44"/><circle cx="38" cy="43" r="9"/><circle cx="38" cy="43" r="3"/><circle cx="94" cy="43" r="9"/><circle cx="94" cy="43" r="3"/></svg></span>
+          <button type="button" class="qbv-card qbv-minivan" onclick="qbSelect(this, 1)" data-value="Van/Minivan">
+            <span class="qbv-title"><span>Minivan / Van</span></span>
+            <img class="qbv-img" src="veh-minivan.png" alt="Minivan or Van" loading="lazy" />
           </button>
         </div>
         <button type="button" class="qbv-coupon" onclick="qbScrollToCoupon()">Have a coupon code?</button>
