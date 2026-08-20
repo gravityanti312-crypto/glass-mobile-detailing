@@ -3309,11 +3309,11 @@
   }
   // Full pricing per vehicle for one-time + Glass Club tiers
   var qbPricing = {
-    'Coupe/Sedan':       { interior: 175, exterior: 125, full: 225 },
-    'Small SUV (2 Row)': { interior: 215, exterior: 145, full: 265 },
-    'Truck':             { interior: 215, exterior: 165, full: 285 },
-    'Large SUV (3 Row)': { interior: 245, exterior: 165, full: 315 },
-    'Van/Minivan':       { interior: 255, exterior: 175, full: 335 }
+    'Coupe/Sedan':       { interior: 175, exterior: 125, full: 225, pw: 250, pc: 599, sc: 799 },
+    'Small SUV (2 Row)': { interior: 215, exterior: 145, full: 265, pw: 285, pc: 675, sc: 875 },
+    'Truck':             { interior: 215, exterior: 165, full: 285, pw: 300, pc: 700, sc: 900 },
+    'Large SUV (3 Row)': { interior: 245, exterior: 165, full: 315, pw: 325, pc: 750, sc: 950 },
+    'Van/Minivan':       { interior: 255, exterior: 175, full: 335, pw: 350, pc: 800, sc: 1000 }
   };
 
   // Show one of the step-1 panels: 'service' | 'detail' | 'vehicle'
@@ -3485,19 +3485,24 @@
     var body = document.getElementById('qb-price-body');
     if (!body) return;
 
+    var esc = function (t) { return String(t).replace(/&/g, '&amp;'); };
+    var opt = null;
+
     if (svc === 'full') {
       var dt = qbSelections.detailType || 'both';
-      var opt;
-      if (dt === 'interior') {
-        opt = { name: 'Interior Detail', price: p.interior, inc: 'Deep interior clean — vacuum, steam, stains, seats, dash, vents, mats, trim, plastic shine & streak-free interior windows.' };
-      } else if (dt === 'exterior') {
-        opt = { name: 'Exterior Detail', price: p.exterior, inc: 'Hand wash & dry with spot-free water, bug/tar removal, wheels & rims, trim & tire shine, streak-free windows.' };
-      } else {
-        opt = { name: 'Interior & Exterior', price: p.full, inc: 'The complete detail — full interior + exterior hand wash, wheels, tire shine & streak-free glass, inside and out.' };
-      }
+      if (dt === 'interior') opt = { name: 'Interior Detail', price: p.interior, inc: 'Deep interior clean — vacuum, steam, stains, seats, dash, vents, mats, trim, plastic shine & streak-free interior windows.' };
+      else if (dt === 'exterior') opt = { name: 'Exterior Detail', price: p.exterior, inc: 'Hand wash & dry with spot-free water, bug/tar removal, wheels & rims, trim & tire shine, streak-free windows.' };
+      else opt = { name: 'Interior & Exterior', price: p.full, inc: 'The complete detail — full interior + exterior hand wash, wheels, tire shine & streak-free glass, inside and out.' };
+    } else if (svc === 'paint') {
+      var pt = qbSelections.paintType || 'correction';
+      if (pt === 'polish-wax') opt = { name: 'Polish & Wax', price: p.pw, inc: 'Light machine polish for shine, plus a protective wax that seals and shields your paint.' };
+      else if (pt === 'show-car') opt = { name: 'Show-Car Correction', price: p.sc, inc: 'Our most intensive, multi-stage correction for a flawless, mirror-like showroom finish.' };
+      else opt = { name: 'Paint Correction', price: p.pc, inc: 'Machine polishing that erases swirls & scratches and restores deep, glossy clarity.' };
+    }
+
+    if (opt && opt.price) {
       qbSelections[2] = vehicle + ' — ' + opt.name;
-      qbSelections['2_price'] = opt.price || 0;
-      var esc = function (t) { return t.replace(/&/g, '&amp;'); };
+      qbSelections['2_price'] = opt.price;
       body.innerHTML =
         '<div class="qb-price-wrap">' +
           '<div class="qb-price-eyebrow">Your Instant Price</div>' +
@@ -3506,15 +3511,15 @@
           '<p class="qb-price-includes">' + esc(opt.inc) + '</p>' +
         '</div>';
     } else {
-      var label = (svc === 'paint') ? 'Paint Correction' : 'Ceramic Coating';
+      var label = (svc === 'ceramic') ? 'Ceramic Coating' : (opt ? opt.name : 'Your Detail');
       qbSelections[2] = vehicle + ' — ' + label;
       qbSelections['2_price'] = 0;
       body.innerHTML =
         '<div class="qb-price-wrap">' +
           '<div class="qb-price-eyebrow">Your Quote</div>' +
-          '<div class="qb-price-vehicle">' + vehicle + ' &middot; ' + label + '</div>' +
+          '<div class="qb-price-vehicle">' + esc(vehicle) + ' &middot; ' + esc(label) + '</div>' +
           '<div class="qb-price-amount qb-price-custom">Custom Quote</div>' +
-          '<p class="qb-price-includes">Pricing depends on your paint &amp; prep. Pick a time and we&rsquo;ll confirm your exact quote within the hour.</p>' +
+          '<p class="qb-price-includes">Pricing depends on your vehicle &amp; prep. Pick a time and we&rsquo;ll confirm your exact quote within the hour.</p>' +
         '</div>';
     }
     updateQbNext();
