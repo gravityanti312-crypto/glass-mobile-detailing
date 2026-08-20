@@ -2049,7 +2049,7 @@
         <button class="svc-card-btn" onclick="event.stopPropagation(); openQuoteModal(true)">BOOK NOW</button>
       </div>
 
-      <div class="service-card" onclick="qbBookService('paint')">
+      <div class="service-card" onclick="openQuoteModal('paint')">
         <div class="svc-card-tag">Scratch Removal</div>
         <div class="svc-card-title">Paint Correction</div>
         <img class="svc-card-img" src="paintcorrection.jpg" alt="Paint Correction" loading="lazy"/>
@@ -2059,7 +2059,7 @@
           <li>Restores Depth &amp; Gloss</li>
           <li>Brings Paint Back to Life</li>
         </ul>
-        <button class="svc-card-btn" onclick="event.stopPropagation(); qbBookService('paint')">BOOK NOW</button>
+        <button class="svc-card-btn" onclick="event.stopPropagation(); openQuoteModal('paint')">BOOK NOW</button>
       </div>
 
       <div class="service-card" onclick="qbBookService('ceramic')">
@@ -3065,6 +3065,26 @@
             </button>
           </div>
         </div>
+        <div id="qb-paint-type" style="display:none;">
+          <h3 class="qb-pick-headline"><strong>WHAT LEVEL OF CORRECTION?</strong></h3>
+          <div class="qb-service-picker">
+            <button type="button" class="qbsp-card" onclick="qbPickPaint('one-step')">
+              <span class="qbsp-ph">Photo</span>
+              <span class="qbsp-title">Gloss Enhancement</span>
+              <span class="qbsp-desc">1-Step &middot; Boost shine &amp; remove light swirls</span>
+            </button>
+            <button type="button" class="qbsp-card" onclick="qbPickPaint('two-step')">
+              <span class="qbsp-ph">Photo</span>
+              <span class="qbsp-title">Full Correction</span>
+              <span class="qbsp-desc">2-Step &middot; Remove swirls &amp; deeper scratches</span>
+            </button>
+            <button type="button" class="qbsp-card" onclick="qbPickPaint('three-step')">
+              <span class="qbsp-ph">Photo</span>
+              <span class="qbsp-title">Show-Car Finish</span>
+              <span class="qbsp-desc">3-Step &middot; Maximum correction, near-flawless</span>
+            </button>
+          </div>
+        </div>
         <div id="qb-vehicle-section">
         <h3 class="qb-pick-headline">To see Pricing &amp; Availability,<br/><strong>SELECT YOUR VEHICLE SIZE BELOW</strong></h3>
         <div class="qb-vehicle-grid">
@@ -3294,9 +3314,11 @@
   function qbShowPanel(which) {
     var svc = document.getElementById('qb-service-choice');
     var dt = document.getElementById('qb-detail-type');
+    var pt = document.getElementById('qb-paint-type');
     var veh = document.getElementById('qb-vehicle-section');
     if (svc) svc.style.display = (which === 'service') ? '' : 'none';
     if (dt)  dt.style.display  = (which === 'detail')  ? '' : 'none';
+    if (pt)  pt.style.display  = (which === 'paint')   ? '' : 'none';
     if (veh) veh.style.display = (which === 'vehicle') ? '' : 'none';
   }
 
@@ -3313,8 +3335,9 @@
     if (!mode) mode = 'service';
     window.__qbFlow = mode;
     try {
-      qbSelections.service = (mode === 'full') ? 'full' : (mode === 'vehicle' ? qbSelections.service : null);
+      qbSelections.service = (mode === 'full') ? 'full' : (mode === 'paint') ? 'paint' : (mode === 'vehicle' ? qbSelections.service : null);
       qbSelections.detailType = null;
+      qbSelections.paintType = null;
     } catch (e) {}
     qbShowPanel('vehicle');
     document.getElementById('quote-modal').classList.add('open');
@@ -3328,14 +3351,23 @@
     var flow = window.__qbFlow || 'vehicle';
     if (flow === 'service') { qbShowPanel('service'); }
     else if (flow === 'full') { qbShowPanel('detail'); }
+    else if (flow === 'paint') { qbShowPanel('paint'); }
     else { setTimeout(function () { qbNext(); }, 200); }
   }
 
-  // From "Choose your service": Full Detail asks interior/exterior/both, others go to services
+  // From "Choose your service": Full Detail asks interior/exterior/both, Paint asks level, others go to services
   function qbChooseService(service) {
     try { qbSelections.service = service; } catch (e) {}
     if (service === 'full') { qbShowPanel('detail'); }
+    else if (service === 'paint') { qbShowPanel('paint'); }
     else { qbGoToServices(); }
+  }
+
+  // Paint Correction: after picking a correction level, continue to the services step
+  function qbPickPaint(level) {
+    try { qbSelections.paintType = level; } catch (e) {}
+    window.__glassPaintType = level;
+    qbGoToServices();
   }
 
   // Paint Correction / Ceramic Coating service cards: still start with vehicle, then services
