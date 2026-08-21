@@ -1693,12 +1693,12 @@
     }
     .qb-back:hover { border-color: var(--teal); }
     .qb-next {
-      padding: 11px 28px;
-      border-radius: 8px;
+      padding: 15px 40px;
+      border-radius: 10px;
       background: var(--teal);
       color: #ffffff;
-      font-size: 14px;
-      font-weight: 700;
+      font-size: 16px;
+      font-weight: 800;
       cursor: pointer;
       transition: background 0.2s, opacity 0.2s;
     }
@@ -2964,6 +2964,9 @@
   .qb-price-amount.qb-price-custom { font-size:2.4rem; }
   .qb-price-includes { font-size:0.95rem; color:#64748b; line-height:1.6; max-width:460px; margin:0 auto; }
   @media (max-width:560px){ .qb-price-wrap { padding:2rem 1.4rem; } .qb-price-amount { font-size:3.4rem; } }
+  .qb-textquote-wrap { text-align:center; margin:2rem auto 0.5rem; }
+  .qb-textquote { display:inline-block; color:#374151; font-weight:700; font-size:0.98rem; text-decoration:underline; padding:8px 12px; cursor:pointer; }
+  .qb-textquote:hover { color:#0b1f44; }
   .qb-savebig { text-align:center; margin:2.2rem auto 0.4rem; }
   .qb-savebig-title { font-size:3.5rem; font-weight:900; color:#0b1f44; letter-spacing:-1px; line-height:1; }
   .qb-savebig-sub { font-size:1.1rem; font-weight:700; color:#374151; margin-top:0.5rem; }
@@ -3149,8 +3152,8 @@
 
       <!-- Step 3: Add-ons + Time Slot -->
       <div class="qb-step" id="qb-step-3">
-        <h2 class="qb-step-title">Add-ons &amp; pick a time</h2>
-        <p class="qb-step-sub">Optional add-ons + your preferred appointment window.</p>
+        <h2 class="qb-step-title">Lock in your appointment</h2>
+        <p class="qb-step-sub">Pick a time, add any extras, and enter your info — takes 30 seconds.</p>
 
         <div class="qb-section-label">Optional Add-Ons</div>
         <div class="qb-addons">
@@ -3169,12 +3172,8 @@
 
         <div class="qb-section-label">Pick a Time <span class="qb-tz">Time Zone: America/Phoenix</span></div>
         <div class="qb-time-grid" id="qb-time-grid"><!-- populated by JS --></div>
-      </div>
 
-      <!-- Step 4: Contact + Vehicle Info -->
-      <div class="qb-step" id="qb-step-4">
-        <h2 class="qb-step-title">Your information</h2>
-        <p class="qb-step-sub">We'll text you a reminder and confirm the appointment.</p>
+        <div class="qb-section-label" style="margin-top:1.6rem;">Your Information</div>
         <form id="qb-form" onsubmit="submitQbForm(event)">
           <div class="qb-form-grid">
             <div class="qb-form-group">
@@ -3253,7 +3252,7 @@
       </div>
 
       <!-- Step 5: Review + Membership Upsell -->
-      <div class="qb-step" id="qb-step-5">
+      <div class="qb-step" id="qb-step-4">
         <h2 class="qb-step-title">Review your booking</h2>
         <p class="qb-step-sub">No payment required to book — we'll collect on-site or send a secure link.</p>
 
@@ -3303,7 +3302,7 @@
 
   /* ── Quote Modal ─────────────────────────────────────────── */
   var qbStep = 1;
-  var qbTotalSteps = 5;
+  var qbTotalSteps = 4;
   var qbSelections = { 1: null, 2: null, '2_price': 0, '3_time': null, '3_addons': [], '3_addons_total': 0, 'coupon': null, 'coupon_pct': 0 };
   var qbCoupons = { 'USA': 15, 'WELCOME10': 10, 'GLASS15': 15, 'NEW15': 15, 'GLASS20': 20 };
 
@@ -3506,14 +3505,14 @@
       qbShowPrice();
     }
     if (n === 3) qbBuildTimeGrid();
-    if (n === 5) qbBuildSummary();
+    if (n === 4) qbBuildSummary();
 
     var pct = (n / qbTotalSteps) * 100;
     document.getElementById('qb-progress').style.width = pct + '%';
     document.getElementById('qb-step-indicator').textContent = 'Step ' + n + ' of ' + qbTotalSteps;
 
     var nextBtn = document.getElementById('qb-next-btn');
-    nextBtn.textContent = n === qbTotalSteps ? 'Confirm Booking →' : 'Continue →';
+    nextBtn.textContent = (n === qbTotalSteps) ? 'Confirm Booking →' : (n === 2 ? 'Lock In My Price →' : 'Continue →');
     updateQbNext();
     qbUpdateBack();
   }
@@ -3606,6 +3605,8 @@
       ph += '</div>';
       body.innerHTML += ph;
     }
+    var smsBody = encodeURIComponent('Hi Glass Mobile Detailing! I got a quote on your site: ' + vehicle + (opt ? ' · ' + opt.name + (opt.price ? ' ($' + opt.price + ')' : '') : '') + '. Can we book?');
+    body.innerHTML += '<div class="qb-textquote-wrap"><a href="sms:6266507713?body=' + smsBody + '" class="qb-textquote">📱 Not ready to book? Text me this quote &rarr;</a></div>';
     updateQbNext();
   }
 
@@ -3754,15 +3755,15 @@
     var nextBtn = document.getElementById('qb-next-btn');
     if (qbStep === 1) nextBtn.disabled = !qbSelections[1];
     else if (qbStep === 2) nextBtn.disabled = !qbSelections[2];
-    else if (qbStep === 3) nextBtn.disabled = !qbSelections['3_time'];
     else nextBtn.disabled = false;
   }
 
   function qbNext() {
     if (qbStep === 1 && !qbSelections[1]) return;
     if (qbStep === 2 && !qbSelections[2]) return;
-    if (qbStep === 3) { qbCollectAddons(); if (!qbSelections['3_time']) return; }
-    if (qbStep === 4) {
+    if (qbStep === 3) {
+      qbCollectAddons();
+      if (!qbSelections['3_time']) { alert('Please pick a time for your appointment.'); return; }
       var form = document.getElementById('qb-form');
       var required = form.querySelectorAll('[required]');
       for (var i = 0; i < required.length; i++) {
@@ -3770,10 +3771,10 @@
         var bad = el.type === 'checkbox' ? !el.checked : !el.value.trim();
         if (bad) { el.focus(); el.style.outline = '2px solid #ff4d4f'; setTimeout(function(x){x.style.outline=''}, 2000, el); return; }
       }
-      showQbStep(5);
+      showQbStep(4);
       return;
     }
-    if (qbStep === 5) {
+    if (qbStep === 4) {
       document.getElementById('qb-form').dispatchEvent(new Event('submit', { cancelable: true, bubbles: true }));
       return;
     }
