@@ -2969,7 +2969,8 @@
   .qb-savebig-sub { font-size:1.1rem; font-weight:700; color:#374151; margin-top:0.5rem; }
   .qb-plans-mc { display:grid; grid-template-columns:repeat(3,1fr); gap:1.5rem; max-width:1160px; margin:1.9rem auto 0; align-items:start; }
   .qb-plans-mc .glass-mc { padding:1.9rem 1.5rem; }
-  .qb-mc-yourprice { font-size:1.7rem; font-weight:900; color:#16a34a; line-height:1; margin-top:0.35rem; }
+  .qb-mc-payonly { font-size:0.72rem; font-weight:800; letter-spacing:0.1em; text-transform:uppercase; color:#16a34a; margin-top:0.5rem; }
+  .qb-mc-yourprice { font-size:1.7rem; font-weight:900; color:#16a34a; line-height:1; margin-top:0.2rem; }
   .qb-mc-yourprice span { display:block; font-size:0.76rem; font-weight:700; color:#64748b; margin-top:4px; text-transform:capitalize; }
   .qb-plan.selected { box-shadow:0 0 0 3px #0b1f44, 0 12px 30px rgba(11,31,68,0.18) !important; }
   @media (max-width:760px){ .qb-plans-mc { grid-template-columns:1fr; max-width:420px; } }
@@ -3591,6 +3592,7 @@
           '<div class="glass-mc-tier">' + pl.tier + '</div>' +
           '<div class="glass-mc-discount">$' + pl.off + ' OFF</div>' +
           '<div class="glass-mc-label">Every Detail</div>' +
+          '<div class="qb-mc-payonly">You Pay Only</div>' +
           '<div class="qb-mc-yourprice">$' + pp + '<span>per detail</span></div>' +
           '<hr class="glass-mc-divider" />' +
           '<ul class="glass-mc-features">' +
