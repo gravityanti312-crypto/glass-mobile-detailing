@@ -1660,9 +1660,9 @@
     .qb-ifield > .qb-iicon { position:absolute; left:16px; top:0; height:100%; display:flex; align-items:center; color:#9aa4b2; pointer-events:none; }
     .qb-ifield.qb-ifield--top > .qb-iicon { top:16px; height:auto; align-items:flex-start; }
     .qb-iicon svg { width:20px; height:20px; }
-    #qb-info-section .qb-ifield input,
-    #qb-info-section .qb-ifield select,
-    #qb-info-section .qb-ifield textarea {
+    .qb-ifield input,
+    .qb-ifield select,
+    .qb-ifield textarea {
       width:100%; box-sizing:border-box;
       padding:16px 16px 16px 48px;
       border:1.5px solid #e2e8f0; border-radius:14px; background:#fff;
@@ -1670,18 +1670,23 @@
       box-shadow:0 1px 2px rgba(16,24,40,0.05);
       transition:border-color .15s, box-shadow .15s; outline:none;
     }
-    #qb-info-section .qb-ifield textarea { resize:vertical; min-height:100px; }
-    #qb-info-section .qb-ifield input::placeholder,
-    #qb-info-section .qb-ifield textarea::placeholder { color:#94a3b8; }
-    #qb-info-section .qb-ifield select.qb-placeholder { color:#94a3b8; }
-    #qb-info-section .qb-ifield input:focus,
-    #qb-info-section .qb-ifield select:focus,
-    #qb-info-section .qb-ifield textarea:focus {
+    .qb-ifield textarea { resize:vertical; min-height:100px; }
+    .qb-ifield input::placeholder,
+    .qb-ifield textarea::placeholder { color:#94a3b8; }
+    .qb-ifield select.qb-placeholder { color:#94a3b8; }
+    .qb-ifield input:focus,
+    .qb-ifield select:focus,
+    .qb-ifield textarea:focus {
       border-color:var(--teal); box-shadow:0 0 0 4px rgba(55,65,81,0.10);
     }
-    #qb-info-section .qb-disclaimer { max-width:100%; margin-top:22px; }
-    #qb-info-section .qb-terms { max-width:100%; }
-    @media (max-width:560px){ #qb-info-section .qb-ifield input, #qb-info-section .qb-ifield select, #qb-info-section .qb-ifield textarea { padding:14px 14px 14px 44px; } .qb-ifield > .qb-iicon { left:14px; } }
+    #qb-info-section .qb-disclaimer, #qb-details-section .qb-disclaimer { max-width:100%; margin-top:22px; }
+    #qb-info-section .qb-terms, #qb-details-section .qb-terms { max-width:100%; }
+    #qb-details-section { max-width:560px; margin:1.8rem auto 0; }
+    #qb-details-section .qb-section-label { margin-bottom:12px; }
+    .qb-optin { display:flex; align-items:flex-start; gap:10px; margin-top:14px; cursor:pointer; }
+    .qb-optin input { accent-color:#374151; width:18px; height:18px; flex-shrink:0; margin-top:2px; }
+    .qb-optin span { font-size:13.5px; color:#475569; line-height:1.5; }
+    @media (max-width:560px){ .qb-ifield input, .qb-ifield select, .qb-ifield textarea { padding:14px 14px 14px 44px; } .qb-ifield > .qb-iicon { left:14px; } }
     /* QB success */
     #qb-success {
       display: none;
@@ -3068,66 +3073,42 @@
     </div>
 
     <div class="qb-body">
+    <form id="qb-form" onsubmit="submitQbForm(event)">
 
       <!-- Step 1 -->
       <div class="qb-step active" id="qb-step-1">
         <div id="qb-info-section" style="display:none;">
           <h2 class="qb-info-title">Let's Get To Know You!</h2>
-          <form id="qb-form" onsubmit="submitQbForm(event)">
             <div class="qb-form-grid">
               <div class="qb-form-group">
                 <div class="qb-ifield">
                   <span class="qb-iicon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4 4-6 8-6s8 2 8 6"/></svg></span>
-                  <input type="text" id="qb-fname" name="first_name" placeholder="First Name *" aria-label="First Name" required />
+                  <input type="text" id="qb-fname" name="first_name" placeholder="First *" aria-label="First Name" required />
                 </div>
               </div>
               <div class="qb-form-group">
                 <div class="qb-ifield">
                   <span class="qb-iicon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4 4-6 8-6s8 2 8 6"/></svg></span>
-                  <input type="text" id="qb-lname" name="last_name" placeholder="Last Name *" aria-label="Last Name" required />
+                  <input type="text" id="qb-lname" name="last_name" placeholder="Last *" aria-label="Last Name" required />
                 </div>
               </div>
-              <div class="qb-form-group">
-                <div class="qb-ifield">
-                  <span class="qb-iicon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h4l2 5-2.5 1.5a11 11 0 006 6L15 14l5 2v4a2 2 0 01-2 2A16 16 0 013 6a2 2 0 012-2"/></svg></span>
-                  <input type="tel" id="qb-phone" name="phone" placeholder="Phone Number *" aria-label="Phone Number" required />
-                </div>
-              </div>
-              <div class="qb-form-group">
+              <div class="qb-form-group full">
                 <div class="qb-ifield">
                   <span class="qb-iicon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></svg></span>
-                  <input type="email" id="qb-email" name="email" placeholder="Email Address *" aria-label="Email Address" required />
+                  <input type="email" id="qb-email" name="email" placeholder="Email *" aria-label="Email Address" required />
                 </div>
               </div>
               <div class="qb-form-group full">
                 <div class="qb-ifield">
-                  <span class="qb-iicon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s-7-6-7-11a7 7 0 1114 0c0 5-7 11-7 11z"/><circle cx="12" cy="10" r="2.5"/></svg></span>
-                  <input type="text" id="qb-address" name="address" placeholder="Full Service Address — Street, City &amp; Zip *" aria-label="Full Service Address" required />
-                </div>
-              </div>
-              <div class="qb-form-group">
-                <div class="qb-ifield">
-                  <span class="qb-iicon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 21V9l8-5 8 5v12"/><path d="M9 21v-6h6v6"/></svg></span>
-                  <input type="text" id="qb-city" name="city" placeholder="Confirm City *" aria-label="Confirm City" required />
-                </div>
-              </div>
-              <div class="qb-form-group">
-                <div class="qb-ifield">
-                  <span class="qb-iicon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 8a2 2 0 012-2h14a2 2 0 012 2 2 2 0 000 4 2 2 0 00-2 2H5a2 2 0 01-2-2 2 2 0 000-4z"/><path d="M9 9v6"/></svg></span>
-                  <input type="text" id="qb-zip" name="zip" placeholder="ZIP *" aria-label="ZIP" required />
-                </div>
-              </div>
-              <div class="qb-form-group full">
-                <div class="qb-ifield">
-                  <span class="qb-iicon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 13l1.6-4.8A2 2 0 018.5 7h7a2 2 0 011.9 1.2L19 13m-14 0h14m-14 0v4h2m10-4v4h2"/><circle cx="7.5" cy="16.5" r="1"/><circle cx="16.5" cy="16.5" r="1"/></svg></span>
-                  <input type="text" id="qb-make" name="make_model" placeholder="Make &amp; Model of your vehicle *" aria-label="Make and Model" required />
+                  <span class="qb-iicon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h4l2 5-2.5 1.5a11 11 0 006 6L15 14l5 2v4a2 2 0 01-2 2A16 16 0 013 6a2 2 0 012-2"/></svg></span>
+                  <input type="tel" id="qb-phone" name="phone" placeholder="Phone *" aria-label="Phone Number" required />
                 </div>
               </div>
               <div class="qb-form-group full">
                 <div class="qb-ifield">
                   <span class="qb-iicon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 11v2a1 1 0 001 1h3l5 4V6L7 10H4a1 1 0 00-1 1z"/><path d="M16 9a3 3 0 010 6"/></svg></span>
-                  <select id="qb-hear" name="hear_about_us" class="qb-placeholder" aria-label="How did you hear about us" required onchange="this.classList.toggle('qb-placeholder', !this.value)">
-                    <option value="">How did you hear about us? *</option>
+                  <select id="qb-hear" name="hear_about_us" class="qb-placeholder" aria-label="How you heard about us" onchange="this.classList.toggle('qb-placeholder', !this.value)">
+                    <option value="">How you heard about us</option>
                     <option>Google Search</option>
                     <option>Instagram</option>
                     <option>Facebook</option>
@@ -3141,33 +3122,17 @@
                 </div>
               </div>
               <div class="qb-form-group full">
-                <div class="qb-ifield qb-ifield--top">
-                  <span class="qb-iicon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 4h14v11l-4 4H5z"/><path d="M15 19v-4h4"/></svg></span>
-                  <textarea id="qb-notes" name="notes" rows="3" placeholder="Additional info our Service Pros need to know? (Gate code, dog on premises, parking notes…)" aria-label="Additional information"></textarea>
+                <div class="qb-ifield">
+                  <span class="qb-iicon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 8a2 2 0 012-2h14a2 2 0 012 2 2 2 0 000 4 2 2 0 00-2 2H5a2 2 0 01-2-2 2 2 0 000-4z"/><path d="M9 9v6"/></svg></span>
+                  <input type="text" id="qb-coupon-code" name="promo_code" placeholder="Promo Code (Optional)" aria-label="Promo Code" onchange="qbApplyCoupon()" onblur="qbApplyCoupon()" />
                 </div>
+                <div class="qb-coupon-msg" id="qb-coupon-msg"></div>
               </div>
             </div>
-
-            <div class="qb-disclaimer">
-              <p>I understand that price is subject to change based on vehicle condition. Our technician will assess the vehicle with you prior to starting your appointment.</p>
-              <p>I understand that I need to plan for an appointment window 2 hours before and/or after the time I have selected. (We'll text you when we're on our way.)</p>
-              <p>By submitting this form, I consent to receive marketing texts, calls, and emails from Glass Mobile Detailing at the contact info provided, including autodialed messages. Consent is not required for purchase. Msg &amp; data rates may apply. Frequency varies. Reply STOP to opt out.</p>
-              <p>A $9.92 convenience fee applies to non-cash payments to cover electronic payment processing and operational costs.</p>
-              <p>By submitting this form, you agree with our <a href="#" onclick="event.preventDefault()">Service Agreement</a>, <a href="#" onclick="event.preventDefault()">Cancellation Policy</a> and <a href="#" onclick="event.preventDefault()">Privacy Policy</a>.</p>
-            </div>
-            <label class="qb-terms">
-              <input type="checkbox" id="qb-agree" name="agree_terms" required />
-              <span>I have read and agree to the terms above <span class="qb-req">*</span></span>
+            <label class="qb-optin">
+              <input type="checkbox" id="qb-optin" name="marketing_opt_in" />
+              <span>I agree to receive marketing text messages from Glass Mobile Detailing about promotions, seasonal offers, and special deals. (Optional — not required to book. Msg &amp; data rates may apply. Reply STOP to opt out.)</span>
             </label>
-
-            <input type="hidden" name="vehicle_type" id="qb-hidden-vehicle" />
-            <input type="hidden" name="service_type" id="qb-hidden-service" />
-            <input type="hidden" name="addons" id="qb-hidden-addons" />
-            <input type="hidden" name="time_slot" id="qb-hidden-time" />
-            <input type="hidden" name="estimated_total" id="qb-hidden-total" />
-            <input type="hidden" name="_subject" value="New Booking Request — Glass Mobile Detailing" />
-            <input type="hidden" name="_captcha" value="false" />
-          </form>
         </div>
         <div class="qb-hero">
           <div class="qb-hero-overlay"></div>
@@ -3298,7 +3263,64 @@
       <div class="qb-step" id="qb-step-3">
         <div id="qb-price-body"></div>
         <div class="qb-summary" id="qb-summary" style="max-width:560px;margin:1.6rem auto 0;"><!-- populated by JS --></div>
+
+        <div id="qb-details-section">
+          <div class="qb-section-label">Where &amp; What We're Detailing</div>
+          <div class="qb-form-grid">
+            <div class="qb-form-group full">
+              <div class="qb-ifield">
+                <span class="qb-iicon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s-7-6-7-11a7 7 0 1114 0c0 5-7 11-7 11z"/><circle cx="12" cy="10" r="2.5"/></svg></span>
+                <input type="text" id="qb-address" name="address" placeholder="Full Service Address — Street, City &amp; Zip *" aria-label="Full Service Address" required />
+              </div>
+            </div>
+            <div class="qb-form-group">
+              <div class="qb-ifield">
+                <span class="qb-iicon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 21V9l8-5 8 5v12"/><path d="M9 21v-6h6v6"/></svg></span>
+                <input type="text" id="qb-city" name="city" placeholder="Confirm City *" aria-label="Confirm City" required />
+              </div>
+            </div>
+            <div class="qb-form-group">
+              <div class="qb-ifield">
+                <span class="qb-iicon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 8a2 2 0 012-2h14a2 2 0 012 2 2 2 0 000 4 2 2 0 00-2 2H5a2 2 0 01-2-2 2 2 0 000-4z"/><path d="M9 9v6"/></svg></span>
+                <input type="text" id="qb-zip" name="zip" placeholder="ZIP *" aria-label="ZIP" required />
+              </div>
+            </div>
+            <div class="qb-form-group full">
+              <div class="qb-ifield">
+                <span class="qb-iicon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 13l1.6-4.8A2 2 0 018.5 7h7a2 2 0 011.9 1.2L19 13m-14 0h14m-14 0v4h2m10-4v4h2"/><circle cx="7.5" cy="16.5" r="1"/><circle cx="16.5" cy="16.5" r="1"/></svg></span>
+                <input type="text" id="qb-make" name="make_model" placeholder="Make &amp; Model of your vehicle *" aria-label="Make and Model" required />
+              </div>
+            </div>
+            <div class="qb-form-group full">
+              <div class="qb-ifield qb-ifield--top">
+                <span class="qb-iicon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 4h14v11l-4 4H5z"/><path d="M15 19v-4h4"/></svg></span>
+                <textarea id="qb-notes" name="notes" rows="3" placeholder="Additional info our Service Pros need to know? (Gate code, dog on premises, parking notes…)" aria-label="Additional information"></textarea>
+              </div>
+            </div>
+          </div>
+
+          <div class="qb-disclaimer">
+            <p>I understand that price is subject to change based on vehicle condition. Our technician will assess the vehicle with you prior to starting your appointment.</p>
+            <p>I understand that I need to plan for an appointment window 2 hours before and/or after the time I have selected. (We'll text you when we're on our way.)</p>
+            <p>By submitting this form, I consent to receive marketing texts, calls, and emails from Glass Mobile Detailing at the contact info provided, including autodialed messages. Consent is not required for purchase. Msg &amp; data rates may apply. Frequency varies. Reply STOP to opt out.</p>
+            <p>A $9.92 convenience fee applies to non-cash payments to cover electronic payment processing and operational costs.</p>
+            <p>By submitting this form, you agree with our <a href="#" onclick="event.preventDefault()">Service Agreement</a>, <a href="#" onclick="event.preventDefault()">Cancellation Policy</a> and <a href="#" onclick="event.preventDefault()">Privacy Policy</a>.</p>
+          </div>
+          <label class="qb-terms">
+            <input type="checkbox" id="qb-agree" name="agree_terms" required />
+            <span>I have read and agree to the terms above <span class="qb-req">*</span></span>
+          </label>
+        </div>
+
         <div class="qb-fineprint" style="text-align:center;max-width:560px;margin:1rem auto 0;">No payment required to book — we'll collect on-site. By submitting, you agree to be contacted to confirm your appointment.</div>
+
+        <input type="hidden" name="vehicle_type" id="qb-hidden-vehicle" />
+        <input type="hidden" name="service_type" id="qb-hidden-service" />
+        <input type="hidden" name="addons" id="qb-hidden-addons" />
+        <input type="hidden" name="time_slot" id="qb-hidden-time" />
+        <input type="hidden" name="estimated_total" id="qb-hidden-total" />
+        <input type="hidden" name="_subject" value="New Booking Request — Glass Mobile Detailing" />
+        <input type="hidden" name="_captcha" value="false" />
       </div>
 
       <!-- Step 3: Add-ons + Time Slot -->
@@ -3334,6 +3356,7 @@
         <iframe class="qb-square-frame" src="https://book.squareup.com/appointments/98ybwsy7gvxfs8/location/LRRWC6Y9ZYDH1/availability" title="Book your appointment with Glass Mobile Detailing"></iframe>
       </div>
 
+    </form>
     </div>
 
     <div class="qb-footer" id="qb-footer">
@@ -3825,11 +3848,11 @@
     }
   }
 
-  // Validate the intro "Your Information" form; highlights the first empty required field
+  // Validate only the intro contact fields; highlights the first empty required field
   function qbValidateInfo() {
-    var form = document.getElementById('qb-form');
-    if (!form) return true;
-    var required = form.querySelectorAll('[required]');
+    var info = document.getElementById('qb-info-section');
+    if (!info) return true;
+    var required = info.querySelectorAll('[required]');
     for (var i = 0; i < required.length; i++) {
       var el = required[i];
       var bad = el.type === 'checkbox' ? !el.checked : !el.value.trim();
@@ -3903,15 +3926,21 @@
   /* ── QB Form Submit ──────────────────────────────────────── */
   function submitQbForm(e) {
     e.preventDefault();
+    // Only actually submit from the final step — ignore stray Enter-key submits on earlier steps
+    if (qbStep !== qbTotalSteps) return;
     var form = document.getElementById('qb-form');
 
-    // Validate required fields
+    // Validate required fields (handles the terms checkbox too)
     var required = form.querySelectorAll('[required]');
     for (var i = 0; i < required.length; i++) {
-      if (!required[i].value.trim()) {
-        required[i].focus();
-        required[i].style.borderColor = '#ff4d4f';
-        setTimeout(function(el) { el.style.borderColor = ''; }, 2000, required[i]);
+      var el = required[i];
+      var bad = el.type === 'checkbox' ? !el.checked : !el.value.trim();
+      if (bad) {
+        if (el.scrollIntoView) el.scrollIntoView({ block: 'center', behavior: 'smooth' });
+        el.focus();
+        el.style.borderColor = '#ff4d4f';
+        el.style.outline = '2px solid #ff4d4f';
+        setTimeout(function(x) { x.style.borderColor = ''; x.style.outline = ''; }, 2000, el);
         return;
       }
     }
