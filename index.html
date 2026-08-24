@@ -1295,6 +1295,13 @@
     .qb-step { display: none; max-width: 680px; margin: 0 auto; }
     .qb-step.active { display: block; }
     #qb-step-2 { max-width: 1160px; }
+    /* Desktop only: widen the price / plans / details step so it fills the screen */
+    @media (min-width: 900px) {
+      #qb-step-3 { max-width: 1160px; }
+      #qb-step-3 .qb-price-wrap { max-width: 900px; }
+      #qb-step-3 #qb-summary { max-width: 900px !important; }
+      #qb-step-3 #qb-details-section { max-width: 900px; }
+    }
     .qb-step-title {
       font-size: clamp(22px, 4vw, 32px);
       font-weight: 800;
