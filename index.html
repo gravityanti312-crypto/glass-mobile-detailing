@@ -2930,6 +2930,9 @@
   .qbsp-ph { width:100%; aspect-ratio:1/1; border-radius:16px; display:flex; align-items:center; justify-content:center; color:#94a3b8; font-size:0.82rem; font-weight:700; text-transform:uppercase; letter-spacing:1.5px; background:repeating-linear-gradient(45deg,#eef2f7,#eef2f7 13px,#e2e8f0 13px,#e2e8f0 26px); }
   .qbsp-title { font-size:1.4rem; font-weight:800; color:#0b1f44; }
   .qbsp-desc { font-size:1rem; color:#64748b; line-height:1.4; }
+  .qbsp-list { list-style:none; margin:0.25rem 0 0; padding:0; text-align:left; width:100%; display:flex; flex-direction:column; gap:0.5rem; }
+  .qbsp-list li { position:relative; padding-left:1.4rem; font-size:0.92rem; color:#374151; line-height:1.35; }
+  .qbsp-list li::before { content:"✓"; position:absolute; left:0; top:0; color:var(--teal); font-weight:900; }
   .qbsp-tag { margin-top:0.55rem; font-size:0.95rem; font-weight:800; color:#0b1f44; }
   @media (max-width:560px){ .qb-service-picker { grid-template-columns:1fr; max-width:460px; } .qbsp-img, .qbsp-ph { aspect-ratio:16/10; } }
   /* Vehicle size picker */
@@ -3082,16 +3085,36 @@
               <img class="qbsp-img" src="interior.jpg" alt="Interior Only" loading="lazy" />
               <span class="qbsp-title">Interior Only</span>
               <span class="qbsp-desc">Deep clean inside your vehicle</span>
+              <ul class="qbsp-list">
+                <li>Full Interior Reset</li>
+                <li>Steam Treatment &amp; Sanitization</li>
+                <li>Deep Cleaning — Seats, Carpets &amp; Surfaces</li>
+                <li>Cup Holders, Door Jambs, Glass &amp; Hard-to-Reach Areas</li>
+              </ul>
             </button>
             <button type="button" class="qbsp-card" onclick="qbPickDetail('exterior')">
               <img class="qbsp-img" src="exterior.jpg" alt="Exterior Only" loading="lazy" />
               <span class="qbsp-title">Exterior Only</span>
               <span class="qbsp-desc">Wash, decon &amp; shine the outside</span>
+              <ul class="qbsp-list">
+                <li>Full Exterior Reset &amp; Deep Wash</li>
+                <li>Wheels, Rims, Tires &amp; Wheel Wells</li>
+                <li>Bug &amp; Road-Grime Removal</li>
+                <li>Exterior Glass, Trim &amp; Final Touches</li>
+              </ul>
             </button>
             <button type="button" class="qbsp-card" onclick="qbPickDetail('both')">
               <img class="qbsp-img" src="both.jpg" alt="Interior &amp; Exterior" loading="lazy" />
               <span class="qbsp-title">Interior &amp; Exterior</span>
               <span class="qbsp-desc">The complete full detail</span>
+              <ul class="qbsp-list">
+                <li>Full Interior Reset</li>
+                <li>Steam Treatment &amp; Sanitization</li>
+                <li>Deep Cleaning — Seats, Carpets &amp; Surfaces</li>
+                <li>Full Exterior Reset &amp; Deep Wash</li>
+                <li>Wheels, Rims, Tires &amp; Wheel Wells</li>
+                <li>Exterior Glass, Trim &amp; Final Touches</li>
+              </ul>
             </button>
           </div>
         </div>
