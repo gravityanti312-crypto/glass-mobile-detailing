@@ -3975,22 +3975,40 @@
     document.getElementById('qb-hidden-total').value = basePrice ? ('$' + total + (pct ? ' (after ' + qbSelections.coupon + ' ' + pct + '% off)' : '')) : 'Custom Quote';
 
     var data = new FormData(form);
+    var payload = {};
+    data.forEach(function(v, k) { payload[k] = v; });
 
-    fetch('https://formsubmit.co/ajax/glassmobiledetailing@gmail.com', {
-      method: 'POST',
-      headers: { 'Accept': 'application/json' },
-      body: data
-    })
-    .then(function(res) { return res.json(); })
-    .then(function() {
-      // Show success
+    function qbShowSuccess() {
       document.querySelectorAll('.qb-step').forEach(function(s) { s.classList.remove('active'); });
       document.getElementById('qb-success').style.display = 'block';
       document.getElementById('qb-footer').style.display = 'none';
       document.getElementById('qb-progress').style.width = '100%';
+    }
+
+    function qbFallbackFormsubmit() {
+      // Original path — used if the Resend function isn't available (e.g. no key yet,
+      // or the GitHub Pages copy which can't run functions). A lead is never lost.
+      return fetch('https://formsubmit.co/ajax/glassmobiledetailing@gmail.com', {
+        method: 'POST',
+        headers: { 'Accept': 'application/json' },
+        body: data
+      }).then(function(res) { return res.json(); });
+    }
+
+    // Try Resend (Vercel /api/quote) first; fall back to formsubmit.co on any failure.
+    fetch('/api/quote', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+      body: JSON.stringify(payload)
     })
+    .then(function(res) { if (!res.ok) throw new Error('api ' + res.status); return res.json(); })
+    .then(function() { qbShowSuccess(); })
     .catch(function() {
-      alert('Something went wrong. Please call us at (626) 650-7713 or email glassmobiledetailing@gmail.com.');
+      qbFallbackFormsubmit()
+        .then(function() { qbShowSuccess(); })
+        .catch(function() {
+          alert('Something went wrong. Please call us at (626) 650-7713 or email glassmobiledetailing@gmail.com.');
+        });
     });
   }
 
