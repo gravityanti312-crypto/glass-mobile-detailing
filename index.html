@@ -3,7 +3,9 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Glass Mobile Detailing — Premium Auto Detailing in Scottsdale, AZ</title>
+  <title>Glass Mobile Detailing</title>
+  <link rel="icon" type="image/png" href="favicon.png" />
+  <link rel="apple-touch-icon" href="favicon.png" />
   <meta name="description" content="Premium mobile auto detailing delivered to your home or office in Scottsdale, AZ. 5-star rated, fully insured. Book online in 60 seconds." />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -1217,8 +1219,32 @@
 
     .rm-success { display: none; text-align: center; padding: 12px 0 4px; }
     .rm-success-icon { font-size: 48px; margin-bottom: 10px; }
-    .rm-success-title { font-size: 1.2rem; font-weight: 800; color: #0b1f44; margin-bottom: 8px; }
+    .rm-success-title { font-size: 1.4rem; font-weight: 900; color: #0b1f44; margin-bottom: 8px; }
     .rm-success p { font-size: 14px; color: #475569; line-height: 1.55; margin: 0; }
+
+    /* Give $25 / Get $50 referral layout */
+    .rm-offer { text-align:center; color:#0b1f44; font-size:clamp(2rem,5vw,2.8rem); font-weight:900; letter-spacing:-1px; line-height:1.05; margin:0 0 12px; }
+    .rm-offer span { color:var(--teal); }
+    .rm-rewards { display:grid; grid-template-columns:1fr 1fr; gap:14px; margin:22px 0 8px; }
+    .rm-reward { background:#f8fafc; border:1px solid #e2e8f0; border-radius:14px; padding:18px 16px; text-align:center; }
+    .rm-reward-icon { font-size:26px; line-height:1; }
+    .rm-reward-label { font-size:11px; font-weight:800; letter-spacing:.1em; text-transform:uppercase; color:#64748b; margin-top:8px; }
+    .rm-reward-amt { font-size:1.7rem; font-weight:900; color:#0b1f44; line-height:1.1; margin-top:4px; }
+    .rm-reward-sub { font-size:12.5px; color:#64748b; line-height:1.4; margin-top:3px; }
+    .rm-section-label { font-size:13px; font-weight:800; text-transform:uppercase; letter-spacing:.06em; color:#0b1f44; margin:22px 0 10px; }
+    .rm-row { display:grid; grid-template-columns:1fr 1fr; gap:12px; }
+    #rm-people { display:flex; flex-direction:column; gap:12px; }
+    .rm-person { border:1px solid #e2e8f0; border-radius:12px; padding:16px; display:flex; flex-direction:column; gap:12px; background:#fff; }
+    .rm-person-head { display:flex; align-items:center; gap:8px; font-size:12px; font-weight:800; text-transform:uppercase; letter-spacing:.05em; color:#64748b; }
+    .rm-person-num { display:inline-flex; align-items:center; justify-content:center; width:20px; height:20px; border-radius:50%; background:var(--teal); color:#fff; font-size:11px; }
+    .rm-person-remove { margin-left:auto; background:none; border:none; color:#ef4444; font-size:12px; font-weight:700; cursor:pointer; text-transform:none; letter-spacing:0; }
+    .rm-add { width:100%; margin-top:12px; background:#fff; border:1.5px dashed #cbd5e1; border-radius:12px; padding:13px; font-size:14px; font-weight:700; color:var(--teal); cursor:pointer; transition:border-color .15s, background .15s; }
+    .rm-add:hover { border-color:var(--teal); background:#f8fafc; }
+    .rm-fineprint { text-align:center; font-size:12.5px; color:#94a3b8; line-height:1.55; margin:12px 0 0; }
+    .rm-reward-note { background:#f8fafc; border:1px solid #e2e8f0; border-radius:12px; padding:14px 16px; font-size:13.5px; color:#334155; line-height:1.55; margin:14px 0; text-align:left; }
+    .rm-reward-note strong { color:var(--teal); }
+    .rm-again { background:none; border:none; color:var(--teal); font-size:14px; font-weight:700; cursor:pointer; text-decoration:underline; }
+    @media (max-width:560px){ .rm-rewards { grid-template-columns:1fr; } .rm-row { grid-template-columns:1fr; } }
 
     @media (max-width: 640px) {
       .rm-wrap { margin: 24px 14px; border-radius: 14px; }
@@ -2007,6 +2033,7 @@
       <a href="#footer">Service Areas</a>
       <a href="#why">About Us</a>
       <a href="#footer">Contact</a>
+      <a href="javascript:void(0)" onclick="openReferralModal()">Refer &amp; Earn $50</a>
     </div>
     <div class="nav-right">
       <a href="tel:6266507713" class="nav-ig-btn">
@@ -2033,6 +2060,7 @@
   <a href="#footer" onclick="closeMobile()">Service Areas</a>
   <a href="#why" onclick="closeMobile()">About Us</a>
   <a href="#footer" onclick="closeMobile()">Contact</a>
+  <a href="javascript:void(0)" onclick="closeMobile(); openReferralModal();">Refer &amp; Earn $50</a>
   <a href="https://maps.app.goo.gl/qWgirLzyZgKjfj3GA" target="_blank" rel="noopener" onclick="closeMobile()">Reviews</a>
   <a href="javascript:void(0)" class="mobile-book" onclick="closeMobile(); openQuoteModal()">Get Your Instant Quote</a>
 </div>
@@ -3038,35 +3066,47 @@
   <div class="rm-wrap" role="dialog" aria-labelledby="rm-title">
     <button class="rm-close" type="button" onclick="closeReferralModal()" aria-label="Close">&times;</button>
     <div class="rm-body">
-      <h2 id="rm-title" class="rm-title">Our Referral Program</h2>
-      <p class="rm-lead">If you've enjoyed your Glass detail, why not share it with someone you care about?</p>
-      <div class="rm-howto">
-        <p class="rm-howto-head">Here's how it works:</p>
-        <ol>
-          <li><strong>Tell a friend or family member</strong> about Glass Mobile Detailing.</li>
-          <li>Once they book their detail, <strong>send us an email or text with their full name.</strong></li>
-          <li>We'll send you a <strong>$50 OFF discount code</strong> to use on your next service and we'll also apply the discount to your referral's booked appointment. <em>(This is our biggest discount yet, so don't miss out!)</em></li>
-        </ol>
-        <p class="rm-tagline">It's that simple — clean cars and savings all around! Together let's keep Arizona's cars CLEAN.</p>
+      <h2 id="rm-title" class="rm-offer">Give $25. <span>Get $50.</span></h2>
+      <p class="rm-lead" style="text-align:center;">Know someone whose car could use it? Send them our way — they get <strong>$25 off</strong> their first detail, and you get rewarded once they book.</p>
+
+      <div class="rm-rewards">
+        <div class="rm-reward">
+          <div class="rm-reward-icon">🎁</div>
+          <div class="rm-reward-label">They get</div>
+          <div class="rm-reward-amt">$25 off</div>
+          <div class="rm-reward-sub">their first detail</div>
+        </div>
+        <div class="rm-reward">
+          <div class="rm-reward-icon">🏷️</div>
+          <div class="rm-reward-label">You get</div>
+          <div class="rm-reward-amt">$50 off</div>
+          <div class="rm-reward-sub">or a $25 gift card — your pick</div>
+        </div>
       </div>
 
-      <div class="rm-form-card">
-        <h3 class="rm-form-title">You can use the submission box to send us your referral!</h3>
-        <form id="referral-form" onsubmit="submitReferralForm(event)">
-          <input type="text" name="your_name" required placeholder="Your Name" />
-          <input type="email" name="your_email" required placeholder="Your Email" />
-          <input type="text" name="friend_name" required placeholder="Friend's Name" />
-          <input type="email" name="friend_email" placeholder="Friend's Email (optional)" />
-          <textarea name="message" rows="4" placeholder="Message (optional — tell us about your friend!)"></textarea>
-          <input type="hidden" name="_subject" value="New Glass Referral" />
-          <input type="hidden" name="_captcha" value="false" />
-          <button type="submit" class="rm-submit">SUBMIT REFERRAL</button>
-        </form>
-        <div id="referral-success" class="rm-success">
-          <div class="rm-success-icon">🎉</div>
-          <div class="rm-success-title">Thanks for the referral!</div>
-          <p>We'll reach out once your friend books their detail and send your $50 OFF discount code.</p>
+      <form id="referral-form" onsubmit="submitReferralForm(event)">
+        <div class="rm-section-label">Your info</div>
+        <div class="rm-row">
+          <input type="text" name="referrer_name" required placeholder="Your name *" />
+          <input type="text" name="referrer_contact" required placeholder="Your phone or email *" />
         </div>
+
+        <div class="rm-section-label">Who should we reach out to?</div>
+        <div id="rm-people"><!-- referral person blocks injected by JS --></div>
+        <button type="button" class="rm-add" onclick="rmAddPerson()">+ Add another person</button>
+
+        <input type="hidden" name="_subject" value="New Glass Referral" />
+        <input type="hidden" name="_captcha" value="false" />
+        <button type="submit" class="rm-submit">SEND REFERRAL</button>
+        <p class="rm-fineprint">We'll take good care of them — and your reward unlocks once their first service is done.</p>
+      </form>
+
+      <div id="referral-success" class="rm-success">
+        <div class="rm-success-icon">🎉</div>
+        <div class="rm-success-title">Thanks, <span id="rm-success-name">friend</span>!</div>
+        <p>We got your referral and we'll reach out to them shortly.</p>
+        <div class="rm-reward-note"><strong>Your reward:</strong> once their first service is complete, your $50 off unlocks — your pick of the credit or a $25 gift card.</div>
+        <button type="button" class="rm-again" onclick="rmReferAgain()">Refer someone else</button>
       </div>
     </div>
   </div>
@@ -3553,16 +3593,55 @@
   }
 
 
+  function rmPersonHtml() {
+    return '<div class="rm-person">' +
+        '<div class="rm-person-head"><span class="rm-person-num">1</span> Referral' +
+          '<button type="button" class="rm-person-remove" onclick="rmRemovePerson(this)" style="display:none;">Remove</button></div>' +
+        '<div class="rm-row">' +
+          '<input type="text" class="rm-ref-first" required placeholder="First name *" />' +
+          '<input type="text" class="rm-ref-last" placeholder="Last name" />' +
+        '</div>' +
+        '<input type="tel" class="rm-ref-phone" required placeholder="Phone number *" />' +
+        '<input type="text" class="rm-ref-address" placeholder="Address (optional)" />' +
+      '</div>';
+  }
+  function rmRenumber() {
+    var people = document.querySelectorAll('#rm-people .rm-person');
+    for (var i = 0; i < people.length; i++) {
+      people[i].querySelector('.rm-person-num').textContent = (i + 1);
+      people[i].querySelector('.rm-person-remove').style.display = (people.length > 1) ? 'inline' : 'none';
+    }
+  }
+  function rmAddPerson() {
+    var wrap = document.getElementById('rm-people');
+    var tmp = document.createElement('div');
+    tmp.innerHTML = rmPersonHtml();
+    wrap.appendChild(tmp.firstChild);
+    rmRenumber();
+  }
+  function rmRemovePerson(btn) {
+    var people = document.querySelectorAll('#rm-people .rm-person');
+    if (people.length > 1) { btn.closest('.rm-person').remove(); rmRenumber(); }
+  }
+  function rmReferAgain() {
+    document.getElementById('referral-success').style.display = 'none';
+    var f = document.getElementById('referral-form');
+    f.style.display = ''; f.reset();
+    document.getElementById('rm-people').innerHTML = '';
+    rmAddPerson();
+  }
+
   function openReferralModal() {
     var m = document.getElementById('referral-modal');
     if (!m) return;
     m.classList.add('open');
     document.body.style.overflow = 'hidden';
-    // reset
     var f = document.getElementById('referral-form');
     if (f) { f.reset(); f.style.display = ''; }
     var s = document.getElementById('referral-success');
     if (s) s.style.display = 'none';
+    document.getElementById('rm-people').innerHTML = '';
+    rmAddPerson();
     m.scrollTop = 0;
   }
 
@@ -3576,19 +3655,56 @@
   function submitReferralForm(e) {
     e.preventDefault();
     var form = document.getElementById('referral-form');
-    var data = new FormData(form);
-    fetch('https://formsubmit.co/ajax/glassmobiledetailing@gmail.com', {
-      method: 'POST',
-      headers: { 'Accept': 'application/json' },
-      body: data
-    })
-    .then(function(res) { return res.json(); })
-    .then(function() {
+    var referrerName = (form.referrer_name.value || '').trim();
+    var referrerContact = (form.referrer_contact.value || '').trim();
+
+    var blocks = document.querySelectorAll('#rm-people .rm-person');
+    var people = [];
+    for (var i = 0; i < blocks.length; i++) {
+      var b = blocks[i];
+      var first = (b.querySelector('.rm-ref-first').value || '').trim();
+      var last = (b.querySelector('.rm-ref-last').value || '').trim();
+      var phone = (b.querySelector('.rm-ref-phone').value || '').trim();
+      var address = (b.querySelector('.rm-ref-address').value || '').trim();
+      if (!first || !phone) continue;
+      people.push({ first: first, last: last, phone: phone, address: address });
+    }
+    if (!people.length) { alert('Please add at least one person to refer (first name + phone).'); return; }
+
+    function showRefSuccess() {
+      document.getElementById('rm-success-name').textContent = (referrerName.split(' ')[0] || 'friend');
       form.style.display = 'none';
       document.getElementById('referral-success').style.display = 'block';
+      document.getElementById('referral-modal').scrollTop = 0;
+    }
+    function referralFallback() {
+      var fd = new FormData();
+      fd.append('_subject', 'New Glass Referral');
+      fd.append('_captcha', 'false');
+      fd.append('referrer_name', referrerName);
+      fd.append('referrer_contact', referrerContact);
+      people.forEach(function(p, idx) {
+        var n = idx + 1;
+        fd.append('referral_' + n + '_name', (p.first + ' ' + p.last).trim());
+        fd.append('referral_' + n + '_phone', p.phone);
+        if (p.address) fd.append('referral_' + n + '_address', p.address);
+      });
+      return fetch('https://formsubmit.co/ajax/glassmobiledetailing@gmail.com', {
+        method: 'POST', headers: { 'Accept': 'application/json' }, body: fd
+      }).then(function(r) { return r.json(); });
+    }
+
+    fetch('/api/referral', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+      body: JSON.stringify({ referrer_name: referrerName, referrer_contact: referrerContact, people: people })
     })
+    .then(function(res) { if (!res.ok) throw new Error('api ' + res.status); return res.json(); })
+    .then(showRefSuccess)
     .catch(function() {
-      alert('Something went wrong. Please email glassmobiledetailing@gmail.com or call (626) 650-7713.');
+      referralFallback().then(showRefSuccess).catch(function() {
+        alert('Something went wrong. Please email glassmobiledetailing@gmail.com or call (626) 650-7713.');
+      });
     });
   }
 
