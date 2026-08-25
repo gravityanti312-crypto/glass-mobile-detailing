@@ -1244,6 +1244,9 @@
     .rm-reward-note { background:#f8fafc; border:1px solid #e2e8f0; border-radius:12px; padding:14px 16px; font-size:13.5px; color:#334155; line-height:1.55; margin:14px 0; text-align:left; }
     .rm-reward-note strong { color:var(--teal); }
     .rm-again { background:none; border:none; color:var(--teal); font-size:14px; font-weight:700; cursor:pointer; text-decoration:underline; }
+    #rm-text-buttons { display:flex; flex-direction:column; gap:10px; margin:16px 0; }
+    .rm-text-btn { display:block; background:var(--teal); color:#fff; text-decoration:none; font-weight:800; font-size:15px; padding:14px 18px; border-radius:12px; text-align:center; transition:background .15s; }
+    .rm-text-btn:hover { background:var(--teal-dark); }
     @media (max-width:560px){ .rm-rewards { grid-template-columns:1fr; } .rm-row { grid-template-columns:1fr; } }
 
     @media (max-width: 640px) {
@@ -3104,7 +3107,8 @@
       <div id="referral-success" class="rm-success">
         <div class="rm-success-icon">🎉</div>
         <div class="rm-success-title">Thanks, <span id="rm-success-name">friend</span>!</div>
-        <p>We got your referral and we'll reach out to them shortly.</p>
+        <p>Give them a heads-up with a one-tap text — it comes from you, so they'll actually open it. 👇</p>
+        <div id="rm-text-buttons"></div>
         <div class="rm-reward-note"><strong>Your reward:</strong> once their first service is complete, your $25 off unlocks — use it on your next detail.</div>
         <button type="button" class="rm-again" onclick="rmReferAgain()">Refer someone else</button>
       </div>
@@ -3673,6 +3677,24 @@
 
     function showRefSuccess() {
       document.getElementById('rm-success-name').textContent = (referrerName.split(' ')[0] || 'friend');
+      // Build one-tap "Text them" buttons — opens the referrer's own Messages app,
+      // pre-addressed to each friend, with the $25-off message pre-written.
+      var btnWrap = document.getElementById('rm-text-buttons');
+      btnWrap.innerHTML = '';
+      people.forEach(function(p) {
+        var digits = (p.phone || '').replace(/[^0-9]/g, '');
+        if (!digits) return;
+        var num = (digits.length === 10) ? ('+1' + digits)
+                : ((digits.length === 11 && digits.charAt(0) === '1') ? ('+' + digits) : digits);
+        var first = p.first || 'there';
+        var body = 'Hey ' + first + '! I use Glass Mobile Detailing and thought of you — '
+                 + "here's $25 off your first detail 👉 https://glassmobiledetailing.com";
+        var a = document.createElement('a');
+        a.className = 'rm-text-btn';
+        a.href = 'sms:' + num + '?&body=' + encodeURIComponent(body);
+        a.textContent = '📱 Text ' + first;
+        btnWrap.appendChild(a);
+      });
       form.style.display = 'none';
       document.getElementById('referral-success').style.display = 'block';
       document.getElementById('referral-modal').scrollTop = 0;
