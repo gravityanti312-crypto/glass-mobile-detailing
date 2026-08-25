@@ -3465,6 +3465,7 @@
   /* ── Quote Modal ─────────────────────────────────────────── */
   var qbStep = 1;
   var qbTotalSteps = 3;
+  var qbInfoGate = false; // true while the "Let's get to know you" screen shows (between add-ons and price)
   var qbSelections = { 1: null, 2: null, '2_price': 0, '3_time': null, '3_addons': [], '3_addons_total': 0, 'coupon': null, 'coupon_pct': 0 };
   var qbCoupons = { 'USA': 15, 'WELCOME10': 10, 'GLASS15': 15, 'NEW15': 15, 'GLASS20': 20 };
 
@@ -3527,23 +3528,23 @@
     return 'vehicle';
   }
 
-  // Show the top Back button on every screen except the very first (info)
+  // Show the top Back button on every screen except the very first (vehicle picker)
   function qbUpdateBack() {
-    var show = !(qbStep === 1 && qbCurrentPanel() === 'info');
+    var show = qbInfoGate || !(qbStep === 1 && qbCurrentPanel() === 'vehicle');
     var b = document.getElementById('qb-back-btn');
     if (b) b.style.display = show ? 'inline-flex' : 'none';
   }
 
   // Smart back: steps go back one; step-1 sub-panels return to the prior choice
   function qbBack() {
+    if (qbInfoGate) { qbInfoGate = false; showQbStep(2); qbScrollTop(); return; }
+    if (qbStep === 3) { qbShowInfoGate(); return; }
     if (qbStep > 1) { showQbStep(qbStep - 1); qbScrollTop(); return; }
     var panel = qbCurrentPanel();
     if (panel === 'detail' || panel === 'paint') {
       if (window.__qbFlow === 'service') qbShowPanel('service'); else qbShowPanel('vehicle');
     } else if (panel === 'service') {
       qbShowPanel('vehicle');
-    } else if (panel === 'vehicle') {
-      qbShowPanel('info');
     }
     qbScrollTop();
   }
@@ -3565,7 +3566,8 @@
       qbSelections.detailType = null;
       qbSelections.paintType = null;
     } catch (e) {}
-    qbShowPanel('info');
+    qbInfoGate = false;
+    qbShowPanel('vehicle');
     document.getElementById('quote-modal').classList.add('open');
     document.body.style.overflow = 'hidden';
     showQbStep(1);
@@ -3755,6 +3757,7 @@
 
   function showQbStep(n) {
     qbStep = n;
+    qbInfoGate = false;
     document.querySelectorAll('.qb-step').forEach(function(s) { s.classList.remove('active'); });
     document.getElementById('qb-success').style.display = 'none';
     document.getElementById('qb-footer').style.display = 'flex';
@@ -3771,7 +3774,7 @@
     document.getElementById('qb-step-indicator').textContent = 'Step ' + n + ' of ' + qbTotalSteps;
 
     var nextBtn = document.getElementById('qb-next-btn');
-    nextBtn.textContent = (n === qbTotalSteps) ? 'Confirm & Pick My Time →' : (n === 2 ? 'See My Price →' : 'Continue →');
+    nextBtn.textContent = (n === qbTotalSteps) ? 'Confirm & Pick My Time →' : 'Continue →';
     updateQbNext();
     qbUpdateBack();
   }
@@ -4042,18 +4045,34 @@
     return true;
   }
 
+  // Show the "Let's get to know you" screen as a gate right before the price reveal.
+  function qbShowInfoGate() {
+    showQbStep(1);           // activate step 1 (also clears qbInfoGate)
+    qbInfoGate = true;       // mark the gate
+    qbShowPanel('info');     // show only the info form (hides hero + pickers)
+    var ind = document.getElementById('qb-step-indicator');
+    if (ind) ind.textContent = 'Almost there';
+    var nb = document.getElementById('qb-next-btn');
+    if (nb) { nb.textContent = 'See My Price →'; nb.disabled = false; }
+    var pr = document.getElementById('qb-progress');
+    if (pr) pr.style.width = '75%';
+    qbUpdateBack();
+    qbScrollTop();
+  }
+
   function qbNext() {
-    // Intro info screen → continue to vehicle size once the form is complete
-    if (qbStep === 1 && qbCurrentPanel() === 'info') {
+    // "Let's get to know you" gate (between add-ons and the price) → validate, then reveal the price
+    if (qbInfoGate) {
       if (!qbValidateInfo()) return;
-      qbShowPanel('vehicle');
+      qbInfoGate = false;
+      showQbStep(3);
       qbScrollTop();
       return;
     }
     if (qbStep === 1 && !qbSelections[1]) return;
     if (qbStep === 2) {
       qbCollectAddons();
-      showQbStep(3);
+      qbShowInfoGate();
       return;
     }
     if (qbStep === 3) {
