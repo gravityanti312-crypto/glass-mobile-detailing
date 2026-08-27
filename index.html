@@ -3878,6 +3878,33 @@
     updateQbNext();
   }
 
+  // Single source of truth for the running total.
+  // When a plan is selected, add-ons get 10% off (the membership perk).
+  function qbComputeTotals() {
+    var base = qbSelections['2_price'] || 0;
+    var addons = qbSelections['3_addons_total'] || 0;
+    var memberOff = qbSelections.plan ? Math.round(addons * 0.10) : 0;
+    var pre = base + addons - memberOff;
+    var pct = qbSelections.coupon_pct || 0;
+    var couponOff = pct ? Math.round(pre * pct / 100) : 0;
+    return { base: base, addons: addons, memberOff: memberOff, couponOff: couponOff, pct: pct, total: pre - couponOff };
+  }
+
+  // Live-update the big price card (called when a plan is chosen / toggled)
+  function qbRefreshPrice() {
+    var t = qbComputeTotals();
+    var body = document.getElementById('qb-price-body');
+    if (body) {
+      var amt = body.querySelector('.qb-price-amount');
+      var eye = body.querySelector('.qb-price-eyebrow');
+      var veh = body.querySelector('.qb-price-vehicle');
+      if (amt && t.base) amt.textContent = '$' + t.total;
+      if (eye) eye.textContent = qbSelections.plan ? 'Your Membership Price' : 'Your Total Price';
+      if (veh) veh.textContent = (qbSelections[2] || '') + (t.addons ? (' + add-ons' + (qbSelections.plan ? ' (10% off)' : '')) : '');
+    }
+    qbBuildSummary();
+  }
+
   // Pick a Glass Club plan instead of the one-time price (toggle back to one-time)
   function qbSelectPlan(el, key, name, price) {
     var card = el.closest('.qb-plan') || el;
@@ -3895,6 +3922,7 @@
       qbSelections.plan = key;
     }
     updateQbNext();
+    qbRefreshPrice();
   }
 
   function qbPopulateServices(vehicle) {
@@ -3997,12 +4025,8 @@
     qbCollectAddons();
     var v = qbSelections[1] || '';
     var s = qbSelections[2] || '';
-    var basePrice = qbSelections['2_price'] || 0;
-    var addonsTotal = qbSelections['3_addons_total'] || 0;
-    var pre = basePrice + addonsTotal;
-    var pct = qbSelections.coupon_pct || 0;
-    var discount = pct ? Math.round(pre * pct / 100) : 0;
-    var total = pre - discount;
+    var t = qbComputeTotals();
+    var basePrice = t.base;
 
     var addonHtml = (qbSelections['3_addons'] || []).map(function(a) { return '<div class="qb-sum-row"><span>' + a.split(' — ')[0] + '</span><span>+$' + a.split('$').pop() + '</span></div>'; }).join('');
     if (!addonHtml) addonHtml = '<div class="qb-sum-row qb-sum-muted"><span>No add-ons selected</span><span>—</span></div>';
@@ -4014,9 +4038,10 @@
       '<div class="qb-sum-divider"></div>' +
       '<div class="qb-sum-section">Add-ons</div>' +
       addonHtml +
-      (discount ? '<div class="qb-sum-divider"></div><div class="qb-sum-row qb-sum-discount"><span>Coupon ' + qbSelections.coupon + ' (' + pct + '% off)</span><span>−$' + discount + '</span></div>' : '') +
+      (t.memberOff ? '<div class="qb-sum-divider"></div><div class="qb-sum-row qb-sum-discount"><span>Membership — 10% off add-ons</span><span>−$' + t.memberOff + '</span></div>' : '') +
+      (t.couponOff ? '<div class="qb-sum-divider"></div><div class="qb-sum-row qb-sum-discount"><span>Coupon ' + qbSelections.coupon + ' (' + t.pct + '% off)</span><span>−$' + t.couponOff + '</span></div>' : '') +
       '<div class="qb-sum-divider"></div>' +
-      '<div class="qb-sum-row qb-sum-total"><span>Estimated Total</span><span>' + (basePrice ? '$' + total : 'Custom Quote') + '</span></div>';
+      '<div class="qb-sum-row qb-sum-total"><span>Estimated Total</span><span>' + (basePrice ? '$' + t.total : 'Custom Quote') + '</span></div>';
     document.getElementById('qb-summary').innerHTML = html;
   }
 
@@ -4146,17 +4171,14 @@
     // Inject hidden fields
     qbCollectAddons();
     var v = qbSelections[1] || '';
-    var basePrice = qbSelections['2_price'] || 0;
-    var addonsTotal = qbSelections['3_addons_total'] || 0;
-    var pre = basePrice + addonsTotal;
-    var pct = qbSelections.coupon_pct || 0;
-    var discount = pct ? Math.round(pre * pct / 100) : 0;
-    var total = pre - discount;
+    var t = qbComputeTotals();
+    var basePrice = t.base;
+    var totalNote = (t.memberOff ? ' (Glass Club — 10% off add-ons)' : '') + (t.pct ? ' (after ' + qbSelections.coupon + ' ' + t.pct + '% off)' : '');
     document.getElementById('qb-hidden-vehicle').value = v;
     document.getElementById('qb-hidden-service').value = qbSelections[2] || '';
     document.getElementById('qb-hidden-addons').value = (qbSelections['3_addons'] || []).join('; ');
     document.getElementById('qb-hidden-time').value = qbSelections['3_time'] || '';
-    document.getElementById('qb-hidden-total').value = basePrice ? ('$' + total + (pct ? ' (after ' + qbSelections.coupon + ' ' + pct + '% off)' : '')) : 'Custom Quote';
+    document.getElementById('qb-hidden-total').value = basePrice ? ('$' + t.total + totalNote) : 'Custom Quote';
 
     var data = new FormData(form);
     var payload = {};
