@@ -2031,6 +2031,7 @@
     .glass-mc.featured { border-color:var(--teal); box-shadow:0 8px 40px rgba(55,65,81,0.2); }
     .glass-mc.featured::before { content:'MOST POPULAR'; position:absolute; top:-14px; left:50%; transform:translateX(-50%); background:linear-gradient(90deg,var(--teal-dark),var(--teal)); color:white; font-size:0.7rem; font-weight:900; letter-spacing:1.5px; padding:4px 16px; border-radius:50px; white-space:nowrap; }
     .glass-mc-tier { font-size:0.75rem; font-weight:900; letter-spacing:2px; text-transform:uppercase; color:var(--teal); margin-bottom:0.75rem; }
+    .glass-mc-save { font-size:0.72rem; font-weight:800; letter-spacing:0.1em; text-transform:uppercase; color:#16a34a; margin-bottom:0.15rem; }
     .glass-mc-discount { font-size:3rem; font-weight:900; color:#16a34a; line-height:1; margin-bottom:0.15rem; }
     .glass-mc-label { font-size:0.8rem; font-weight:700; color:#64748b; letter-spacing:1px; text-transform:uppercase; margin-bottom:1.75rem; }
     .glass-mc-divider { border:none; border-top:1px solid #e2e8f0; margin-bottom:1.5rem; }
@@ -2641,6 +2642,7 @@
     <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:1.5rem;">
       <div class="glass-mc">
         <div class="glass-mc-tier">Bi-Weekly</div>
+        <div class="glass-mc-save">Save</div>
         <div class="glass-mc-discount">$60 OFF</div>
         <div class="glass-mc-label">Every Detail</div>
         <hr class="glass-mc-divider" />
@@ -2653,6 +2655,7 @@
       </div>
       <div class="glass-mc featured">
         <div class="glass-mc-tier">Monthly</div>
+        <div class="glass-mc-save">Save</div>
         <div class="glass-mc-discount">$40 OFF</div>
         <div class="glass-mc-label">Every Detail</div>
         <hr class="glass-mc-divider" />
@@ -2665,6 +2668,7 @@
       </div>
       <div class="glass-mc">
         <div class="glass-mc-tier">Weekly</div>
+        <div class="glass-mc-save">Save</div>
         <div class="glass-mc-discount">$80 OFF</div>
         <div class="glass-mc-label">Every Detail</div>
         <hr class="glass-mc-divider" />
@@ -3853,6 +3857,7 @@
         var pp = base - pl.off;
         ph += '<div class="qb-plan glass-mc' + (pl.featured ? ' featured' : '') + '">' +
           '<div class="glass-mc-tier">' + pl.tier + '</div>' +
+          '<div class="glass-mc-save">Save</div>' +
           '<div class="glass-mc-discount">$' + pl.off + ' OFF</div>' +
           '<div class="glass-mc-label">Every Detail</div>' +
           '<div class="qb-mc-yourprice">$' + pp + '<span>per detail</span></div>' +
