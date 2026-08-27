@@ -4765,9 +4765,19 @@ function closeService() {
   section { padding-top: 56px; padding-bottom: 56px; }
 }
 
+/* Hero: drop the text/buttons low so Jackson is front & center on phones
+   (sub-paragraph hidden on mobile to free the room; it shows on desktop) */
+@media (max-width: 768px) {
+  .hero-sub { display: none; }
+  .hero-eyebrow { margin-bottom: 0.8rem; }
+  .hero-h1 { margin-bottom: 1.2rem; }
+  .hero-buttons { margin-bottom: 1.1rem; }
+  #hero .container { padding-bottom: 34px; }
+}
+
 /* Short phones: keep hero content high enough that the buttons clear the sticky bar */
 @media (max-width: 768px) and (max-height: 740px) {
-  #hero .container { padding-bottom: 72px; }
+  #hero .container { padding-bottom: 66px; }
 }
 
 /* Very small phones */
