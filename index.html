@@ -1247,6 +1247,10 @@
     #rm-text-buttons { display:flex; flex-direction:column; gap:10px; margin:16px 0; }
     .rm-text-btn { display:block; background:var(--teal); color:#fff; text-decoration:none; font-weight:800; font-size:15px; padding:14px 18px; border-radius:12px; text-align:center; transition:background .15s; }
     .rm-text-btn:hover { background:var(--teal-dark); }
+    /* Referral as an inline page section (moved out of the modal) */
+    .referral-section { background:linear-gradient(160deg,#f0f9ff 0%,#eef2ff 100%); padding:5rem 24px; }
+    .referral-section .rm-wrap { margin:0 auto; box-shadow:0 14px 48px rgba(11,31,68,0.12); }
+    @media (max-width:640px){ .referral-section { padding:3.25rem 14px; } }
     @media (max-width:560px){ .rm-rewards { grid-template-columns:1fr; } .rm-row { grid-template-columns:1fr; } }
 
     @media (max-width: 640px) {
@@ -2742,30 +2746,52 @@
   </div>
 </section>
 
-<section class="clean-guarantee-banner" id="clean-guarantee">
-  <div class="cgb-glow"></div>
-  <div class="cgb-inner container">
-    <div class="cgb-text">
-      <div class="cgb-chip">✦ 100% Clean Car Guarantee</div>
-      <h2 class="cgb-title">Book a detail in <span class="cgb-accent">60 seconds.</span></h2>
-      <p class="cgb-sub">Mobile detailing that comes to you. Showroom finish, satisfaction guaranteed.</p>
-      <a href="javascript:void(0)" onclick="openQuoteModal()" class="btn-cyan cgb-btn">Book Now →</a>
-    </div>
-    <div class="cgb-visual" aria-hidden="true">
-      <div class="cgb-shine"></div>
-      <svg viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg">
-        <defs>
-          <linearGradient id="cgbDrop" x1="0" y1="0" x2="1" y2="1">
-            <stop offset="0%" stop-color="#7dd3fc"/>
-            <stop offset="100%" stop-color="#374151"/>
-          </linearGradient>
-        </defs>
-        <circle cx="60" cy="60" r="54" fill="none" stroke="rgba(255,255,255,0.18)" stroke-width="1.5"/>
-        <circle cx="60" cy="60" r="42" fill="none" stroke="rgba(255,255,255,0.12)" stroke-width="1.5"/>
-        <path d="M60 28 C 48 46, 40 58, 40 72 a 20 20 0 0 0 40 0 C 80 58, 72 46, 60 28 Z"
-              fill="url(#cgbDrop)" stroke="#fff" stroke-width="2"/>
-        <ellipse cx="52" cy="64" rx="6" ry="9" fill="rgba(255,255,255,0.6)"/>
-      </svg>
+<section id="referral" class="referral-section">
+  <div class="rm-wrap">
+    <div class="rm-body">
+      <h2 id="rm-title" class="rm-offer">Give $25. <span>Get $25.</span></h2>
+      <p class="rm-lead" style="text-align:center;">Know someone whose car could use it? Send them our way — they get <strong>$25 off</strong> their first detail, and you get rewarded once they book.</p>
+
+      <div class="rm-rewards">
+        <div class="rm-reward">
+          <div class="rm-reward-icon">🎁</div>
+          <div class="rm-reward-label">They get</div>
+          <div class="rm-reward-amt">$25 off</div>
+          <div class="rm-reward-sub">their first detail</div>
+        </div>
+        <div class="rm-reward">
+          <div class="rm-reward-icon">🏷️</div>
+          <div class="rm-reward-label">You get</div>
+          <div class="rm-reward-amt">$25 off</div>
+          <div class="rm-reward-sub">on your next detail</div>
+        </div>
+      </div>
+
+      <form id="referral-form" onsubmit="submitReferralForm(event)">
+        <div class="rm-section-label">Your info</div>
+        <div class="rm-row">
+          <input type="text" name="referrer_name" required placeholder="Your name *" />
+          <input type="text" name="referrer_contact" required placeholder="Your phone or email *" />
+        </div>
+
+        <div class="rm-section-label">Who should we reach out to?</div>
+        <div id="rm-people"><!-- referral person blocks injected by JS --></div>
+        <button type="button" class="rm-add" onclick="rmAddPerson()">+ Add another person</button>
+
+        <input type="hidden" name="_subject" value="New Glass Referral" />
+        <input type="hidden" name="_captcha" value="false" />
+        <button type="submit" class="rm-submit">SEND REFERRAL</button>
+        <p class="rm-fineprint">We'll take good care of them — and your reward unlocks once their first service is done.</p>
+      </form>
+
+      <div id="referral-success" class="rm-success">
+        <div class="rm-success-icon">🎉</div>
+        <div class="rm-success-title">Thanks, <span id="rm-success-name">friend</span>!</div>
+        <p>Give them a heads-up with a one-tap text — it comes from you, so they'll actually open it. 👇</p>
+        <div id="rm-text-buttons"></div>
+        <div class="rm-reward-note"><strong>Your reward:</strong> once their first service is complete, your $25 off unlocks — use it on your next detail.</div>
+        <button type="button" class="rm-again" onclick="rmReferAgain()">Refer someone else</button>
+      </div>
     </div>
   </div>
 </section>
@@ -3091,57 +3117,7 @@
 </style>
 
 <!-- ─── QUOTE MODAL ────────────────────────────────────────────────── -->
-<div id="referral-modal">
-  <div class="rm-overlay" onclick="closeReferralModal()"></div>
-  <div class="rm-wrap" role="dialog" aria-labelledby="rm-title">
-    <button class="rm-close" type="button" onclick="closeReferralModal()" aria-label="Close">&times;</button>
-    <div class="rm-body">
-      <h2 id="rm-title" class="rm-offer">Give $25. <span>Get $25.</span></h2>
-      <p class="rm-lead" style="text-align:center;">Know someone whose car could use it? Send them our way — they get <strong>$25 off</strong> their first detail, and you get rewarded once they book.</p>
-
-      <div class="rm-rewards">
-        <div class="rm-reward">
-          <div class="rm-reward-icon">🎁</div>
-          <div class="rm-reward-label">They get</div>
-          <div class="rm-reward-amt">$25 off</div>
-          <div class="rm-reward-sub">their first detail</div>
-        </div>
-        <div class="rm-reward">
-          <div class="rm-reward-icon">🏷️</div>
-          <div class="rm-reward-label">You get</div>
-          <div class="rm-reward-amt">$25 off</div>
-          <div class="rm-reward-sub">on your next detail</div>
-        </div>
-      </div>
-
-      <form id="referral-form" onsubmit="submitReferralForm(event)">
-        <div class="rm-section-label">Your info</div>
-        <div class="rm-row">
-          <input type="text" name="referrer_name" required placeholder="Your name *" />
-          <input type="text" name="referrer_contact" required placeholder="Your phone or email *" />
-        </div>
-
-        <div class="rm-section-label">Who should we reach out to?</div>
-        <div id="rm-people"><!-- referral person blocks injected by JS --></div>
-        <button type="button" class="rm-add" onclick="rmAddPerson()">+ Add another person</button>
-
-        <input type="hidden" name="_subject" value="New Glass Referral" />
-        <input type="hidden" name="_captcha" value="false" />
-        <button type="submit" class="rm-submit">SEND REFERRAL</button>
-        <p class="rm-fineprint">We'll take good care of them — and your reward unlocks once their first service is done.</p>
-      </form>
-
-      <div id="referral-success" class="rm-success">
-        <div class="rm-success-icon">🎉</div>
-        <div class="rm-success-title">Thanks, <span id="rm-success-name">friend</span>!</div>
-        <p>Give them a heads-up with a one-tap text — it comes from you, so they'll actually open it. 👇</p>
-        <div id="rm-text-buttons"></div>
-        <div class="rm-reward-note"><strong>Your reward:</strong> once their first service is complete, your $25 off unlocks — use it on your next detail.</div>
-        <button type="button" class="rm-again" onclick="rmReferAgain()">Refer someone else</button>
-      </div>
-    </div>
-  </div>
-</div>
+<!-- Referral moved to the inline #referral section above -->
 
 <div id="quote-modal">
   <div class="qb-overlay" onclick="closeQuoteModal()"></div>
@@ -3664,19 +3640,16 @@
     rmAddPerson();
   }
 
+  // Referral is now an inline page section — the "Refer & Earn" links scroll to it.
   function openReferralModal() {
-    var m = document.getElementById('referral-modal');
-    if (!m) return;
-    m.classList.add('open');
-    document.body.style.overflow = 'hidden';
-    var f = document.getElementById('referral-form');
-    if (f) { f.reset(); f.style.display = ''; }
-    var s = document.getElementById('referral-success');
-    if (s) s.style.display = 'none';
-    document.getElementById('rm-people').innerHTML = '';
-    rmAddPerson();
-    m.scrollTop = 0;
+    var el = document.getElementById('referral');
+    if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
   }
+  // Seed the inline referral form with one blank referral row on page load.
+  document.addEventListener('DOMContentLoaded', function () {
+    var people = document.getElementById('rm-people');
+    if (people && !people.children.length && typeof rmAddPerson === 'function') rmAddPerson();
+  });
 
   function closeReferralModal() {
     var m = document.getElementById('referral-modal');
