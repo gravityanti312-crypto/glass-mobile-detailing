@@ -3250,7 +3250,7 @@
               <img class="qbsp-img" src="exterior.jpg" alt="Exterior Only" loading="lazy" />
               <span class="qbsp-title">Exterior Only</span>
               <ul class="qbsp-list">
-                <li>Full Exterior Reset &amp; Deep Wash</li>
+                <li>Full Exterior Reset &amp; Deep Detail</li>
                 <li>Wheels, Rims, Tires &amp; Wheel Wells</li>
                 <li>Bug &amp; Road-Grime Removal</li>
                 <li>Exterior Glass, Trim &amp; Final Touches</li>
@@ -3263,7 +3263,7 @@
                 <li>Full Interior Reset</li>
                 <li>Steam Treatment &amp; Sanitization</li>
                 <li>Deep Cleaning — Seats, Carpets &amp; Surfaces</li>
-                <li>Full Exterior Reset &amp; Deep Wash</li>
+                <li>Full Exterior Reset &amp; Deep Detail</li>
                 <li>Wheels, Rims, Tires &amp; Wheel Wells</li>
                 <li>Exterior Glass, Trim &amp; Final Touches</li>
               </ul>
@@ -3781,8 +3781,8 @@
     if (svc === 'full') {
       var dt = qbSelections.detailType || 'both';
       if (dt === 'interior') opt = { name: 'Interior Detail', price: p.interior, inc: 'Deep interior clean — vacuum, steam, stains, seats, dash, vents, mats, trim, plastic shine & streak-free interior windows.' };
-      else if (dt === 'exterior') opt = { name: 'Exterior Detail', price: p.exterior, inc: 'Hand wash & dry with spot-free water, bug/tar removal, wheels & rims, trim & tire shine, streak-free windows.' };
-      else opt = { name: 'Interior & Exterior', price: p.full, inc: 'The complete detail — full interior + exterior hand wash, wheels, tire shine & streak-free glass, inside and out.' };
+      else if (dt === 'exterior') opt = { name: 'Exterior Detail', price: p.exterior, inc: 'Hand detail & dry with spot-free water, bug/tar removal, wheels & rims, trim & tire shine, streak-free windows.' };
+      else opt = { name: 'Interior & Exterior', price: p.full, inc: 'The complete detail — full interior + exterior hand detail, wheels, tire shine & streak-free glass, inside and out.' };
     } else if (svc === 'paint') {
       var pt = qbSelections.paintType || 'correction';
       if (pt === 'polish-wax') opt = { name: 'Polish & Wax', price: p.pw, inc: 'Light machine polish for shine, plus a protective wax that seals and shields your paint.' };
@@ -3906,16 +3906,16 @@
     var html = '' +
       svcCard('Interior Detail Only — One Time', p.interior, '',
         'Trash removal, air blast, spotless vacuum, light stain removal, seat wipe-down, dashboard, cup holder &amp; vents, steam cleaning, floor mats, door jams &amp; trim, plastic shine, streak-free interior windows, trunk, + 1 FREE child seat cleaning.', '') +
-      svcCard('Interior + Exterior Wash — One Time', p.full, '',
-        'Everything in Interior Detail + hand wash &amp; dry with spot-free water, bug/tar removal, wheels/rims, trim &amp; tire shine, streak-free windows.', '') +
+      svcCard('Interior + Exterior Detail — One Time', p.full, '',
+        'Everything in Interior Detail + hand detail &amp; dry with spot-free water, bug/tar removal, wheels/rims, trim &amp; tire shine, streak-free windows.', '') +
       svcCard('Monthly Glass Club — Interior + FREE Exterior', p.monthly, '/mo',
-        'Spotless interior detail + complimentary exterior wash <strong>every month</strong>. Month-to-month — cancel anytime after 3 services.',
+        'Spotless interior detail + complimentary exterior detail <strong>every month</strong>. Month-to-month — cancel anytime after 3 services.',
         'SAVE $' + savings.monthly + '/detail') +
       svcCard('Bi-Monthly Glass Club — Interior + FREE Exterior', p.bimonthly, '/visit',
-        'Interior detail + complimentary exterior wash <strong>every other month</strong>. Month-to-month — cancel anytime after 3 services.',
+        'Interior detail + complimentary exterior detail <strong>every other month</strong>. Month-to-month — cancel anytime after 3 services.',
         'SAVE $' + savings.bimonthly + '/detail') +
       svcCard('Quarterly Glass Club — Interior + FREE Exterior', p.quarterly, '/visit',
-        'Interior detail + complimentary exterior wash <strong>every 3 months</strong>. Keep your car fresh year-round.',
+        'Interior detail + complimentary exterior detail <strong>every 3 months</strong>. Keep your car fresh year-round.',
         'SAVE $' + savings.quarterly + '/detail') +
       svcCard('Ceramic Coating', 0, '',
         'Long-lasting paint protection &amp; gloss. We&rsquo;ll send a personalized quote based on your vehicle and prep needs.',
