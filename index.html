@@ -4410,7 +4410,10 @@ function closeService() {
      viewports, so the menu is fully off-screen until opened.) */
 
   /* ── HERO ── */
-  #hero { min-height: 100svh; }
+  /* Use svh (small viewport height) on mobile so the hero matches the ACTUAL
+     visible area — fixes Instagram/in-app browsers where vh measures the taller
+     chrome-hidden viewport and pushes the content up onto Jackson's face. */
+  #hero { height: 100svh; min-height: 100svh; }
 
   #hero .container {
     padding-top: 88px;
